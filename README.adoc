@@ -1,2 +1,3 @@
-# 10duke-dotnet-client
-.NET client library for 10Duke Identity and Entitlement
+== .NET client library for 10Duke Identity and Entitlement
+
+development in progress, come back later
