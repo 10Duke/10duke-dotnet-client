@@ -7,7 +7,7 @@ namespace Tenduke.Client.Config
     /// Configuration for accessing the <c>/authz/</c> API.
     /// </summary>
     [Serializable]
-    public class AuthzApiConfig
+    public class AuthzApiConfig : IAuthzApiConfig
     {
         /// <summary>
         /// Uri path for building default Uri for accessing the <c>/authz/</c> API.
@@ -26,15 +26,15 @@ namespace Tenduke.Client.Config
         public RSA SignerKey { get; set; }
 
         /// <summary>
-        /// Initializes an <see cref="AuthzApiConfig"/> instance based on the given <paramref name="browserBasedAuthorizationConfig"/>
+        /// Initializes an <see cref="IAuthzApiConfig"/> instance based on the given <paramref name="browserBasedAuthorizationConfig"/>
         /// object representing OAuth 2.0 configuration used for connecting to the 10Duke Entitlement service.
         /// This method assumes that the <c>/authz/</c> endpoint is on the same host as the OAuth 2.0 authorization
         /// endpoint, that the <c>/authz/</c> endpoint is in the root context.
         /// </summary>
-        /// <param name="browserBasedAuthorizationConfig"><see cref="BrowserBasedAuthorizationConfig"/> representing OAuth 2.0 configuration
+        /// <param name="browserBasedAuthorizationConfig"><see cref="IBrowserBasedAuthorizationConfig"/> representing OAuth 2.0 configuration
         /// for connecting to the 10Duke Entitlement service. If <c>null</c>, this method returns <c>null</c>.</param>
-        /// <returns>The <see cref="AuthzApiConfig"/> object, or <c>null</c> if <paramref name="browserBasedAuthorizationConfig"/> is <c>null</c>.</returns>
-        public static AuthzApiConfig FromOAuthConfig(BrowserBasedAuthorizationConfig browserBasedAuthorizationConfig)
+        /// <returns>The <see cref="IAuthzApiConfig"/> object, or <c>null</c> if <paramref name="browserBasedAuthorizationConfig"/> is <c>null</c>.</returns>
+        public static IAuthzApiConfig FromOAuthConfig(IBrowserBasedAuthorizationConfig browserBasedAuthorizationConfig)
         {
             return browserBasedAuthorizationConfig == null
                 ? null

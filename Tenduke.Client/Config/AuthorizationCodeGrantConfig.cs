@@ -8,7 +8,7 @@ namespace Tenduke.Client.Config
     /// communicating with the 10Duke Entitlement service.
     /// </summary>
     [Serializable]
-    public class AuthorizationCodeGrantConfig : BrowserBasedAuthorizationConfig
+    public class AuthorizationCodeGrantConfig : BrowserBasedAuthorizationConfig, IAuthorizationCodeGrantConfig
     {
         #region Properties
 

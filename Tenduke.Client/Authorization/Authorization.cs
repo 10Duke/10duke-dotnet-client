@@ -47,7 +47,7 @@ namespace Tenduke.Client.Authorization
     [Serializable]
     public abstract class Authorization<T, O, A> : AuthorizationInfo, IDisposable
             where T : Authorization<T, O, A>
-            where O : OAuthConfig
+            where O : IOAuthConfig
             where A : AuthorizationArgs
     {
         #region Event handlers

@@ -7,18 +7,16 @@ using Tenduke.Client.Util;
 namespace Tenduke.Client
 {
     /// <summary>
-    /// Basic client for working directly against the 10Duke Entitlement service.
-    /// This client uses the OAuth 2.0 Authorization Code Grant flow for authorizing
-    /// this client directly against the 10Duke Entitlement service.
+    /// Basic class for clients for working against the 10Duke Entitlement service.
     /// </summary>
-    public class TendukeClient
+    public class BaseClient
     {
         #region Private fields
 
         /// <summary>
         /// Configuration for communicating with the <c>/authz/</c> API of the 10Duke Entitlement service.
         /// </summary>
-        private AuthzApiConfig authzApiConfig;
+        private IAuthzApiConfig authzApiConfig;
 
         #endregion
 
@@ -28,18 +26,18 @@ namespace Tenduke.Client
         /// OAuth 2.0 configuration to use for communicating with the 10Duke Entitlement service
         /// using the Authorization Code Grant flow.
         /// </summary>
-        public AuthorizationCodeGrantConfig OAuthConfig { get; set; }
+        public IAuthorizationCodeGrantConfig OAuthConfig { get; set; }
 
         /// <summary>
         /// Configuration for communicating with the <c>/authz/</c> API of the 10Duke Entitlement service.
         /// If not specified by explicitly setting this property value, default configuration is inferred from
         /// <see cref="OAuthConfig"/>.
         /// </summary>
-        public AuthzApiConfig AuthzApiConfig
+        public IAuthzApiConfig AuthzApiConfig
         {
             get
             {
-                return authzApiConfig ?? AuthzApiConfig.FromOAuthConfig(OAuthConfig);
+                return authzApiConfig ?? Config.AuthzApiConfig.FromOAuthConfig(OAuthConfig);
             }
 
             set

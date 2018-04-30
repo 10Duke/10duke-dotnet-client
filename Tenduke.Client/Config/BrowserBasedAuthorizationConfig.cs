@@ -9,7 +9,7 @@ namespace Tenduke.Client.Config
     /// be implemented using a browser-based authorization flow.
     /// </summary>
     [Serializable]
-    public abstract class BrowserBasedAuthorizationConfig : OAuthConfig
+    public abstract class BrowserBasedAuthorizationConfig : OAuthConfig, IBrowserBasedAuthorizationConfig
     {
         #region Properties
 

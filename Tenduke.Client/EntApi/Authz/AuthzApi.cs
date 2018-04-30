@@ -18,7 +18,7 @@ namespace Tenduke.Client.EntApi.Authz
         /// <summary>
         /// Configuration for accessing the <c>/authz/</c> API.
         /// </summary>
-        public AuthzApiConfig AuthzApiConfig { get; set; }
+        public IAuthzApiConfig AuthzApiConfig { get; set; }
 
         /// <summary>
         /// <see cref="AccessTokenResponse"/> object received from the 10Duke Entitlement service,

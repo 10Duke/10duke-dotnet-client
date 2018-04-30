@@ -6,7 +6,7 @@ using Tenduke.Client.Authorization;
 namespace Tenduke.Client.Util
 {
     /// <summary>
-    /// Object that works with an <see cref="TendukeClient"/> instance for reading and writing <see cref="TendukeClient.Authorization"/>
+    /// Object that works with an <see cref="TendukeClient"/> instance for reading and writing <see cref="BaseClient.Authorization"/>
     /// by binary serialization.
     /// </summary>
     public class AuthorizationSerializer
@@ -16,14 +16,14 @@ namespace Tenduke.Client.Util
         /// <summary>
         /// The <see cref="TendukeClient"/> for which <see cref="AuthorizationInfo"/> is serialized or deserialized.
         /// </summary>
-        public TendukeClient TendukeClient { get; set; }
+        public BaseClient TendukeClient { get; set; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Reads <see cref="TendukeClient.Authorization"/> of the <see cref="TendukeClient"/> property object
+        /// Reads <see cref="BaseClient.Authorization"/> of the <see cref="TendukeClient"/> property object
         /// and serializes the authorization object.
         /// </summary>
         /// <param name="stream">The stream for writing the binary serialized authorization.
@@ -35,7 +35,7 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Reads <see cref="TendukeClient.Authorization"/> of the <see cref="TendukeClient"/> property object
+        /// Reads <see cref="BaseClient.Authorization"/> of the <see cref="TendukeClient"/> property object
         /// and serializes the authorization object into a byte array.
         /// </summary>
         /// <returns>Byte array representing the serialized authorization object.</returns>
@@ -46,7 +46,7 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Reads <see cref="TendukeClient.Authorization"/> of the <see cref="TendukeClient"/> property object
+        /// Reads <see cref="BaseClient.Authorization"/> of the <see cref="TendukeClient"/> property object
         /// and serializes the authorization object into a Base 64 encoded string.
         /// </summary>
         /// <returns>Base 64 encoded string representing the serialized authorization object.</returns>
@@ -57,7 +57,7 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Deserializes an authorization object and sets <see cref="TendukeClient.Authorization"/> of the
+        /// Deserializes an authorization object and sets <see cref="BaseClient.Authorization"/> of the
         /// <see cref="TendukeClient"/> property object.
         /// </summary>
         /// <param name="stream">Stream for reading the serialized <see cref="AuthorizationInfo"/> object.
@@ -70,7 +70,7 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Deserializes an authorization object and sets <see cref="TendukeClient.Authorization"/> of the
+        /// Deserializes an authorization object and sets <see cref="BaseClient.Authorization"/> of the
         /// <see cref="TendukeClient"/> property object.
         /// </summary>
         /// <param name="serialized">Byte array representing the serialized <see cref="AuthorizationInfo"/> object.</param>
@@ -82,7 +82,7 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Deserializes an authorization object and sets <see cref="TendukeClient.Authorization"/> of the
+        /// Deserializes an authorization object and sets <see cref="BaseClient.Authorization"/> of the
         /// <see cref="TendukeClient"/> property object.
         /// </summary>
         /// <param name="serialized">Base64 encoded string representing the serialized <see cref="AuthorizationInfo"/> object.</param>
@@ -177,7 +177,7 @@ namespace Tenduke.Client.Util
         #region Private methods
 
         /// <summary>
-        /// Throws <see cref="InvalidOperationException"/> if <see cref="TendukeClient.Authorization"/> is not set.
+        /// Throws <see cref="InvalidOperationException"/> if <see cref="BaseClient.Authorization"/> is not set.
         /// </summary>
         /// <returns>Returns the <see cref="AuthorizationInfo"/> object describing authorization that the
         /// <see cref="TendukeClient"/> has, verified to be not <c>null</c>.</returns>
@@ -196,7 +196,7 @@ namespace Tenduke.Client.Util
         /// Throws <see cref="InvalidOperationException"/> if <see cref="TendukeClient"/> is not set.
         /// </summary>
         /// <returns>Returns the <see cref="TendukeClient"/> property value that is verified to be not <c>null</c>.</returns>
-        private TendukeClient AssertTendukeClient()
+        private BaseClient AssertTendukeClient()
         {
             if (TendukeClient == null)
             {
