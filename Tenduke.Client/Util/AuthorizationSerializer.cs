@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Tenduke.Client.Authorization;
+using Tenduke.Client.Config;
 
 namespace Tenduke.Client.Util
 {
@@ -9,14 +10,14 @@ namespace Tenduke.Client.Util
     /// Object that works with an <see cref="TendukeClient"/> instance for reading and writing <see cref="BaseClient.Authorization"/>
     /// by binary serialization.
     /// </summary>
-    public class AuthorizationSerializer
+    public class AuthorizationSerializer<C, A> where A: IOAuthConfig where C : BaseClient<C, A>
     {
         #region Properties
 
         /// <summary>
         /// The <see cref="TendukeClient"/> for which <see cref="AuthorizationInfo"/> is serialized or deserialized.
         /// </summary>
-        public BaseClient TendukeClient { get; set; }
+        public C TendukeClient { get; set; }
 
         #endregion
 
@@ -196,7 +197,7 @@ namespace Tenduke.Client.Util
         /// Throws <see cref="InvalidOperationException"/> if <see cref="TendukeClient"/> is not set.
         /// </summary>
         /// <returns>Returns the <see cref="TendukeClient"/> property value that is verified to be not <c>null</c>.</returns>
-        private BaseClient AssertTendukeClient()
+        private C AssertTendukeClient()
         {
             if (TendukeClient == null)
             {

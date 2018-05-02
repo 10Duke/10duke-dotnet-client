@@ -9,7 +9,7 @@ namespace Tenduke.Client
     /// <summary>
     /// Basic class for clients for working against the 10Duke Entitlement service.
     /// </summary>
-    public class BaseClient<A> where A : IOAuthConfig
+    public class BaseClient<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
     {
         #region Private fields
 
@@ -77,11 +77,11 @@ namespace Tenduke.Client
         /// Gets an <see cref="Util.AuthorizationSerializer"/> for reading and writing <see cref="Authorization"/>
         /// of this object by binary serialization.
         /// </summary>
-        public AuthorizationSerializer AuthorizationSerializer
+        public AuthorizationSerializer<C, A> AuthorizationSerializer
         {
             get
             {
-                return new AuthorizationSerializer() { TendukeClient = this };
+                return new AuthorizationSerializer<C, A>() { TendukeClient = (C) this };
             }
         }
 

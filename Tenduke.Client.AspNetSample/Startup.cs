@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tenduke.Client.AspNetCore.Config;
 
 namespace Tenduke.Client.AspNetSample
 {
@@ -27,16 +29,14 @@ namespace Tenduke.Client.AspNetSample
             services.AddMvc();
 
             // Add authentication against 10Duke Identity Service using OpenID Connect
+            var tendukeConfig = DefaultConfiguration.LoadOAuthConfiguration();
             services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
                 .AddCookie()
-                .AddOpenIdConnect(configureOptions =>
-                {
-                    configureOptions.AuthenticationMethod
-                })
+                .AddOpenIdConnect(configureOptions => DefaultConfiguration.LoadOpenIdConnectOptions(configureOptions));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +66,14 @@ namespace Tenduke.Client.AspNetSample
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
+            });
+
+            app.UseAuthentication();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                RequireHeaderSymmetry = false,
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
         }
     }

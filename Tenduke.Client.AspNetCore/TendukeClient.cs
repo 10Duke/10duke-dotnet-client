@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using Tenduke.Client;
+using Tenduke.Client.AspNetCore.Config;
 using Tenduke.Client.Config;
 
 namespace Tenduke.Client.AspNet
@@ -11,7 +12,7 @@ namespace Tenduke.Client.AspNet
     /// Client for working with the 10Duke Identity and Entitlement Service. Uses OAuth 2.0 Authorization Code
     /// Grant flow for authorization.
     /// </summary>
-    public class TendukeAspNetClient : BaseClient<IAuthorizationCodeGrantConfig>
+    public class TendukeClient : BaseClient<TendukeClient, IAuthorizationCodeGrantConfig>
     {
         #region Properties
 
@@ -42,9 +43,9 @@ namespace Tenduke.Client.AspNet
         /// </summary>
         /// <param name="request">The <see cref="HttpRequest"/> representing the HTTP request from the user agent.</param>
         /// <returns></returns>
-        public static TendukeAspNetClient Build(HttpRequest request)
+        public static TendukeClient Build(HttpRequest request)
         {
-            var retValue = new TendukeAspNetClient()
+            var retValue = new TendukeClient()
             {
                 Request = request
             };
@@ -56,14 +57,9 @@ namespace Tenduke.Client.AspNet
         /// Loads JSON configuration from <c>appsettings.json</c> configuration file, and sets the <see cref="OAuthConfig"/>
         /// property of this instance.
         /// </summary>
-        protected void LoadJsonConfiguration()
+        protected void LoadOAuthConfiguration()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json").Build();
-
-            var oauthConfig = ConfigurationReader.AuthorizationCodeGrantConfigFromConfiguration(config);
-            OAuthConfig = oauthConfig;
+            OAuthConfig = DefaultConfiguration.LoadOAuthConfiguration();
         }
 
         #endregion

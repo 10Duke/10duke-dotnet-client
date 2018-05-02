@@ -12,7 +12,6 @@ namespace Tenduke.Client.AspNetSample.Controllers
         [HttpGet("[action]")]
         public RedirectResult Login()
         {
-            var r = Res;
             return Redirect("https://vslidp.10duke.com");
         }
     }
