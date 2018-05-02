@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <ProjectReference Include="..\Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

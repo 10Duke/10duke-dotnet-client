@@ -8,7 +8,7 @@ namespace Tenduke.Client.Config
     /// <summary>
     /// Reading and accessing configurations required by the 10Duke client, based on an <see cref="IConfiguration" /> object.
     /// </summary>
-    public class ConfigurationProvider
+    public class ConfigurationReader
     {
         #region Configuration interface implementations
 
