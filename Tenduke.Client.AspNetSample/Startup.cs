@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -23,6 +25,18 @@ namespace Tenduke.Client.AspNetSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // Add authentication against 10Duke Identity Service using OpenID Connect
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie()
+                .AddOpenIdConnect(configureOptions =>
+                {
+                    configureOptions.AuthenticationMethod
+                })
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
