@@ -23,6 +23,11 @@ namespace Tenduke.Client.Config
         string AuthzUri { get; }
 
         /// <summary>
+        /// OpenID Connect ID token issuer.
+        /// </summary>
+        string Issuer { get; }
+
+        /// <summary>
         /// RSA public key for verifying signatures of OpenID Connect ID Tokens received from
         /// the 10Duke Entitlement Service.
         /// </summary>

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Tenduke.Client.Config;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.AspNetCore.Config
 {
@@ -34,6 +37,11 @@ namespace Tenduke.Client.AspNetCore.Config
         /// Name of configuration key for OpenID Connect user info endpoint URI (subkey of <see cref="CONFIGURATION_KEY_TENDUKE_CONFIG"/>).
         /// </summary>
         public static readonly string CONFIGURATION_KEY_USER_INFO_URI = "UserInfoUri";
+
+        /// <summary>
+        /// Name of configuration key for OpenID Connect ID token issuer, used for verifying ID tokens (subkey of <see cref="CONFIGURATION_KEY_TENDUKE_CONFIG"/>).
+        /// </summary>
+        public static readonly string CONFIGURATION_KEY_ISSUER = "Issuer";
 
         /// <summary>
         /// Name of configuration key for OAuth client id (subkey of <see cref="CONFIGURATION_KEY_TENDUKE_CONFIG"/>).
@@ -83,11 +91,19 @@ namespace Tenduke.Client.AspNetCore.Config
             var config = BuildConfiguration();
             var tendukeConfig = config.GetSection(CONFIGURATION_KEY_TENDUKE_CONFIG);
 
-            options.Authority = "http://localhost";
-            options.CallbackPath = tendukeConfig[CONFIGURATION_KEY_REDIRECT_URI];
             options.ClientId = tendukeConfig[CONFIGURATION_KEY_CLIENT_ID];
             options.ClientSecret = tendukeConfig[CONFIGURATION_KEY_CLIENT_SECRET];
-            options.ResponseType = "code id_token";
+            options.Configuration = new OpenIdConnectConfiguration()
+            {
+                AuthorizationEndpoint = tendukeConfig[CONFIGURATION_KEY_AUTHZ_URI],
+                Issuer = tendukeConfig[CONFIGURATION_KEY_ISSUER],
+                TokenEndpoint = tendukeConfig[CONFIGURATION_KEY_TOKEN_URI],
+                UserInfoEndpoint = tendukeConfig[CONFIGURATION_KEY_USER_INFO_URI]
+            };
+            options.Configuration.SigningKeys.Add(new RsaSecurityKey(CryptoUtil.ReadRsaPublicKey(tendukeConfig[CONFIGURATION_KEY_SIGNER_KEY])));
+            options.RequireHttpsMetadata = false;
+            options.ResponseMode = OpenIdConnectResponseMode.Query;
+            options.ResponseType = OpenIdConnectResponseType.CodeIdToken;
             options.SaveTokens = true;
 
             if (tendukeConfig[CONFIGURATION_KEY_SCOPE] != null)

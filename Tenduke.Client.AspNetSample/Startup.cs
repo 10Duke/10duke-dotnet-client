@@ -26,8 +26,6 @@ namespace Tenduke.Client.AspNetSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
             // Add authentication against 10Duke Identity Service using OpenID Connect
             var tendukeConfig = DefaultConfiguration.LoadOAuthConfiguration();
             services.AddAuthentication(options =>
@@ -37,11 +35,21 @@ namespace Tenduke.Client.AspNetSample
                 })
                 .AddCookie()
                 .AddOpenIdConnect(configureOptions => DefaultConfiguration.LoadOpenIdConnectOptions(configureOptions));
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Use authentication and enable working behind a reverse proxy
+            app.UseAuthentication();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                RequireHeaderSymmetry = false,
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,14 +74,6 @@ namespace Tenduke.Client.AspNetSample
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
-            });
-
-            app.UseAuthentication();
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                RequireHeaderSymmetry = false,
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
         }
     }

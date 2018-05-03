@@ -47,6 +47,8 @@ namespace Tenduke.Client.Config
 
             public string AuthzUri => Config["AuthzUri"];
 
+            public string Issuer => Config["Issuer"];
+
             public RSA SignerKey => CryptoUtil.ReadRsaPublicKey(Config["SignerKey"]);
         }
 

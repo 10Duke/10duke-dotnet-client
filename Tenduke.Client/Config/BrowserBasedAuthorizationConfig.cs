@@ -24,6 +24,11 @@ namespace Tenduke.Client.Config
         public string AuthzUri { get; set; }
 
         /// <summary>
+        /// OpenID Connect ID token issuer.
+        /// </summary>
+        public string Issuer { get; set; }
+
+        /// <summary>
         /// RSA public key for verifying signatures of OpenID Connect ID Tokens received from
         /// the 10Duke Entitlement Service.
         /// </summary>
@@ -49,6 +54,7 @@ namespace Tenduke.Client.Config
         {
             RedirectUri = info.GetString("RedirectUri");
             AuthzUri = info.GetString("AuthzUri");
+            Issuer = info.GetString("Issuer");
             RSAParameters? rsaParameters = info.GetValue("SignerKey", typeof(RSAParameters?)) as RSAParameters?;
             if (rsaParameters != null)
             {
@@ -72,6 +78,7 @@ namespace Tenduke.Client.Config
             base.GetObjectData(info, context);
             info.AddValue("RedirectUri", RedirectUri);
             info.AddValue("AuthzUri", AuthzUri);
+            info.AddValue("Issuer", Issuer);
             RSAParameters? rsaParameters = SignerKey == null ? (RSAParameters?)null : SignerKey.ExportParameters(false);
             info.AddValue("SignerKey", rsaParameters);
         }

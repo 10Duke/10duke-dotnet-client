@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tenduke.Client.AspNetSample.Controllers
 {
-    [Route("api/[controller]")]
     public class SessionController : Controller
     {
-        [HttpGet("[action]")]
-        public RedirectResult Login()
+        [HttpGet("~/signin")]
+        public ActionResult SignIn()
         {
-            return Redirect("https://vslidp.10duke.com");
+            return Challenge(new AuthenticationProperties() { RedirectUri = "/home" });
         }
     }
 }
