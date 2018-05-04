@@ -79,7 +79,8 @@ namespace Tenduke.Client.AspNetCore.Config
         public static IAuthorizationCodeGrantConfig LoadOAuthConfiguration()
         {
             var config = BuildConfiguration();
-            return ConfigurationReader.AuthorizationCodeGrantConfigFromConfiguration(config);
+            var tendukeConfig = config.GetSection(CONFIGURATION_KEY_TENDUKE_CONFIG);
+            return ConfigurationReader.AuthorizationCodeGrantConfigFromConfiguration(tendukeConfig);
         }
 
         /// <summary>

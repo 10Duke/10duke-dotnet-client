@@ -1,44 +1,82 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Tenduke.Client.AspNetCore.Config;
 
 namespace Tenduke.Client.AspNetSample.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public async Task<UserInfoData> UserInfo()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            UserInfoData retValue = null;
+
+            var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            var tendukeOAuthConfig = DefaultConfiguration.LoadOAuthConfiguration();
+            using (var client = new HttpClient())
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                var response = await client.GetAsync(tendukeOAuthConfig.UserInfoUri);
+                retValue = await response.Content.ReadAsAsync<UserInfoData>();
+            }
+
+            return retValue;
         }
 
-        public class WeatherForecast
+        public class UserInfoData
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            // OpenID Connect scope "profile"
+#pragma warning disable IDE1006 // Naming Styles
+            public string sub { get; set; }
+            public string name { get; set; }
+            public string nickname { get; set; }
+            public string given_name { get; set; }
+            public string family_name { get; set; }
+            public string gender { get; set; }
+            public string birthdate { get; set; }
+            public string website { get; set; }
 
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+            // OpenID Connect scope "email"
+            public string email { get; set; }
+
+            // OpenID Connect scope "address"
+            public Address address { get; set; }
+
+            // OpenID Connect scope "phone"
+            public string phone_number { get; set; }
+
+            // OpenID Connect scope "organization"
+            public Organization organization { get; set; }
+#pragma warning restore IDE1006 // Naming Styles
+        }
+
+        public class Address
+        {
+#pragma warning disable IDE1006 // Naming Styles
+            public string street_address { get; set; }
+            public string locality { get; set; }
+            public string region { get; set; }
+            public string postal_code { get; set; }
+            public string country { get; set; }
+#pragma warning restore IDE1006 // Naming Styles
+        }
+
+        public class Organization
+        {
+#pragma warning disable IDE1006 // Naming Styles
+            public string id { get; set; }
+            public string name { get; set; }
+#pragma warning restore IDE1006 // Naming Styles
         }
     }
 }

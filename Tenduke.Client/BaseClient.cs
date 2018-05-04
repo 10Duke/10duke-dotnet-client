@@ -11,15 +11,6 @@ namespace Tenduke.Client
     /// </summary>
     public class BaseClient<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
     {
-        #region Private fields
-
-        /// <summary>
-        /// Configuration for communicating with the <c>/authz/</c> API of the 10Duke Entitlement service.
-        /// </summary>
-        private IAuthzApiConfig authzApiConfig;
-
-        #endregion
-
         #region Properties
 
         /// <summary>

@@ -146,12 +146,13 @@ namespace Tenduke.Client.Util
                 byte[] exponent = binr.ReadBytes(expbytes);
 
                 // ------- create RSACryptoServiceProvider instance and initialize with public key -----
-                RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-                RSAParameters RSAKeyInfo = new RSAParameters();
-                RSAKeyInfo.Modulus = modulus;
-                RSAKeyInfo.Exponent = exponent;
-                RSA.ImportParameters(RSAKeyInfo);
-                return RSA;
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                rsa.ImportParameters(parameters: new RSAParameters
+                {
+                    Modulus = modulus,
+                    Exponent = exponent
+                });
+                return rsa;
             }
             catch (Exception)
             {

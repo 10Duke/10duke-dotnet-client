@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -34,7 +35,10 @@ namespace Tenduke.Client.AspNetSample
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
                 .AddCookie()
-                .AddOpenIdConnect(configureOptions => DefaultConfiguration.LoadOpenIdConnectOptions(configureOptions));
+                .AddOpenIdConnect(configureOptions =>
+                {
+                    DefaultConfiguration.LoadOpenIdConnectOptions(configureOptions);
+                });
 
             services.AddMvc();
         }
