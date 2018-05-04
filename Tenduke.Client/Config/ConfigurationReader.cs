@@ -76,6 +76,5 @@ namespace Tenduke.Client.Config
         public static IAuthorizationCodeGrantConfig AuthorizationCodeGrantConfigFromConfiguration(IConfiguration config) => new AuthorizationCodeGrantConfig(config);
 
         #endregion
-
     }
 }

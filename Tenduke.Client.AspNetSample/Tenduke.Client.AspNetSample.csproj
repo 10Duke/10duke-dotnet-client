@@ -22,15 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\header\header.component.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\header\header.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

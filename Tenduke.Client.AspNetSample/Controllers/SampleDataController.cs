@@ -12,10 +12,17 @@ using Tenduke.Client.AspNetCore.Config;
 
 namespace Tenduke.Client.AspNetSample.Controllers
 {
+    /// <summary>
+    /// Controller for requesting sample data from the 10Duke Identity and Entitlement service.
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
+        /// <summary>
+        /// Gets user info from the <c>userinfo</c> endpoint.
+        /// </summary>
+        /// <returns><see cref="UserInfoData"/> object representing the user info.</returns>
         [HttpGet("[action]")]
         public async Task<UserInfoData> UserInfo()
         {
@@ -33,6 +40,10 @@ namespace Tenduke.Client.AspNetSample.Controllers
             return retValue;
         }
 
+        /// <summary>
+        /// Object describing the OpenID Connect user info fields supported by the
+        /// 10Duke Identity and Entitlement service.
+        /// </summary>
         public class UserInfoData
         {
             // OpenID Connect scope "profile"
@@ -60,6 +71,10 @@ namespace Tenduke.Client.AspNetSample.Controllers
 #pragma warning restore IDE1006 // Naming Styles
         }
 
+        /// <summary>
+        /// Object describing the OpenID Connect user info address fields supported by the
+        /// 10Duke Identity and Entitlement service.
+        /// </summary>
         public class Address
         {
 #pragma warning disable IDE1006 // Naming Styles
@@ -71,6 +86,10 @@ namespace Tenduke.Client.AspNetSample.Controllers
 #pragma warning restore IDE1006 // Naming Styles
         }
 
+        /// <summary>
+        /// Object describing the OpenID Connect user info organization fields supported by the
+        /// 10Duke Identity and Entitlement service (10Duke extension).
+        /// </summary>
         public class Organization
         {
 #pragma warning disable IDE1006 // Naming Styles

@@ -14,7 +14,7 @@ namespace Tenduke.Client.AspNetCore.Config
     /// <summary>
     /// Utility for working with configuration loaded from <c>appsettings.json</c> JSON configuration file.
     /// </summary>
-    public sealed class DefaultConfiguration
+    public static class DefaultConfiguration
     {
         #region Public constants
 

@@ -10,6 +10,8 @@ namespace Tenduke.Client.Util
     /// </summary>
     public static class CryptoUtil
     {
+        #region Methods
+
         /// <summary>
         /// Generates a random nonce string that can be used e.g. as the OpenID connect nonce.
         /// </summary>
@@ -161,5 +163,7 @@ namespace Tenduke.Client.Util
 
             finally { binr.Close(); }
         }
+
+        #endregion
     }
 }
