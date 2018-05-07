@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { HeaderComponent } from './components/header/header.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
@@ -13,7 +12,6 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
         NavMenuComponent,
         FetchDataComponent,
         HomeComponent

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Net.Http;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
 using Tenduke.Client.EntApi.Authz;
+using Tenduke.Client.UserInfo;
 using Tenduke.Client.Util;
 
 namespace Tenduke.Client
@@ -11,6 +13,15 @@ namespace Tenduke.Client
     /// </summary>
     public class BaseClient<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
     {
+        #region Private fields
+
+        /// <summary>
+        /// The <see cref="HttpClient"/> for 10Duke API calls.
+        /// </summary>
+        private static readonly HttpClient HttpClient = new HttpClient();
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -24,14 +35,14 @@ namespace Tenduke.Client
         public IAuthzApiConfig AuthzApiConfig { get; set; }
 
         /// <summary>
-        /// Authorization process result information received from the 10Duke Entitlement service.
+        /// OAuth 2.0 access token for accessing APIs that require authorization.
         /// </summary>
-        public AuthorizationInfo Authorization { get; set; }
+        public string AccessToken { get; set; }
 
         /// <summary>
-        /// Gets an <see cref="AuthzApi"/> object for accessing the <c>/authz/</c> API of the 10Duke Entitlement service.
+        /// Gets an <see cref="AuthzApi"/> object for accessing the <c>/authz/</c> API of the 10Duke Identity and Entitlement service.
         /// Please note that the OAuth authentication / authorization process must be successfully completed before
-        /// getting the <see cref="AuthzApi"/> object.
+        /// getting the <see cref="AuthzApi"/> object, and the <see cref="AccessToken"/> must be available.
         /// </summary>
         public AuthzApi AuthzApi
         {
@@ -43,36 +54,36 @@ namespace Tenduke.Client
                     throw new InvalidOperationException("Configuration for AuthzApi missing, please specify either AuthzApiConfig or OAuthConfig");
                 }
 
-                if (Authorization == null)
-                {
-                    throw new InvalidOperationException("OAuth authorization must be negotiated with the server before accessing the AuthzApi");
-                }
-
-                if (Authorization.Error != null)
-                {
-                    throw new InvalidOperationException(
-                        string.Format("OAuth authorization has not been completed successfully (error code {0}, error message \"{1}\")",
-                        Authorization.Error,
-                        Authorization.ErrorDescription ?? ""));
-                }
-
                 return new AuthzApi()
                 {
+                    HttpClient = HttpClient,
                     AuthzApiConfig = authzApiConfig,
-                    AccessToken = Authorization.AccessTokenResponse
+                    AccessToken = AccessToken
                 };
             }
         }
 
         /// <summary>
-        /// Gets an <see cref="Util.AuthorizationSerializer"/> for reading and writing <see cref="Authorization"/>
-        /// of this object by binary serialization.
+        /// Gets an <see cref="UserInfoApi"/> object for accessing the <c>/userinfo</c> API of the 10Duke Identity and Entitlement service.
+        /// Please note that the OAuth authentication / authorization process must be successfully completed before
+        /// getting the <see cref="UserInfoApi"/> object, and the <see cref="AccessToken"/> must be available.
         /// </summary>
-        public AuthorizationSerializer<C, A> AuthorizationSerializer
+        public UserInfoApi UserInfoApi
         {
             get
             {
-                return new AuthorizationSerializer<C, A>() { TendukeClient = (C) this };
+                var oauthConfig = OAuthConfig;
+                if (oauthConfig == null)
+                {
+                    throw new InvalidOperationException("OAuthConfig must be specified");
+                }
+
+                return new UserInfoApi()
+                {
+                    HttpClient = HttpClient,
+                    OAuthConfig = oauthConfig,
+                    AccessToken = AccessToken
+                };
             }
         }
 
@@ -81,21 +92,21 @@ namespace Tenduke.Client
         #region Methods
 
         /// <summary>
-        /// Checks if this client object currently contains a valid access token in <see cref="Authorization"/>.
+        /// Checks if this client object currently contains a valid access token in <see cref="AccessToken"/>.
         /// Access token is used for 10Duke Entitlement Service API requests.
         /// </summary>
         /// <returns><c>true</c> if authorized, <c>false</c> otherwise.</returns>
         public bool IsAuthorized()
         {
-            return Authorization != null && Authorization.AccessTokenResponse != null;
+            return AccessToken != null;
         }
 
         /// <summary>
-        /// Discards authorization information received from the server by setting <see cref="Authorization"/> to <c>null</c>.
+        /// Discards authorization information received from the server by setting <see cref="AccessToken"/> to <c>null</c>.
         /// </summary>
         public void ClearAuthorization()
         {
-            Authorization = null;
+            AccessToken = null;
         }
 
         #endregion

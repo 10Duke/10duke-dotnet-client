@@ -5,13 +5,14 @@ using System.Net;
 using System.Web;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.EntApi.Authz
 {
     /// <summary>
     /// The <c>/authz/</c> authorization API of the 10Duke Entitlement service.
     /// </summary>
-    public class AuthzApi
+    public class AuthzApi : AuthorizedApi
     {
         #region Properties
 
@@ -19,12 +20,6 @@ namespace Tenduke.Client.EntApi.Authz
         /// Configuration for accessing the <c>/authz/</c> API.
         /// </summary>
         public IAuthzApiConfig AuthzApiConfig { get; set; }
-
-        /// <summary>
-        /// <see cref="AccessTokenResponse"/> object received from the 10Duke Entitlement service,
-        /// for authorizing requests to the <c>/authz/</c> API.
-        /// </summary>
-        public AccessTokenResponse AccessToken { get; set; }
 
         /// <summary>
         /// Gets the identifier of this system.
@@ -202,7 +197,7 @@ namespace Tenduke.Client.EntApi.Authz
         /// <returns><see cref="KeyValuePair{TKey, TValue}"/> object where key is the response body, value is the response content type.</returns>
         private KeyValuePair<string, string> SendAuthorizationRequest(Uri uri, string method)
         {
-            if (AccessToken == null || AccessToken.AccessToken == null)
+            if (AccessToken == null)
             {
                 throw new InvalidOperationException("AccessToken must be specified");
             }
@@ -210,7 +205,7 @@ namespace Tenduke.Client.EntApi.Authz
             var tokenRequest = WebRequest.CreateHttp(uri);
             tokenRequest.Method = method;
             tokenRequest.AllowAutoRedirect = false;
-            tokenRequest.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + AccessToken.AccessToken);
+            tokenRequest.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + AccessToken);
 
             string responseBody;
             string responseContentType;
