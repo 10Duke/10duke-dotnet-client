@@ -1,3 +1,61 @@
-== .NET client library for 10Duke Identity and Entitlement
+== ASP.NET client library for 10Duke Identity and Entitlement
 
-development in progress, come back later
+Client library for ASP.NET Core applications, for using services of the 10Duke Identity and Entitlement. Main features are:
+
+* Querying user info
+* Checking and consuming licenses
+* Releasing consumed licenses
+* Checking end-user permissions
+
+=== Basic usage
+
+Class +Tenduke.Client.AspNetCore.TendukeClient+ is the main implementation class with support for working with ASP.NET Core applications. This chapter introduces configuration and features of +Tenduke.Client.AspNetCore.TendukeClient+.
+
+==== Authentication and authorization
+
+When using 10Duke Identity, an ASP.NET application delegates authentication to 10Duke. For using 10Duke APIs, including Entitlement, the ASP.NET application must authorize the API calls by representing an OAuth 2.0 access token. The simplest way to achieve both authentication (and Single Sign-On) and authorization is to use OpenID Connect (OIDC). OpenID Connect is based on OAuth 2.0, and as a result of the sign-on flow both identity and authorization are established.
+
+ASP.NET Core supports OpenID Connect (see https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.openidconnect). This documentation and the related sample application are based on this mechanism, although +Tenduke.Client.AspNetCore.TendukeClient+ can be used with any authentication and authorization mechanism as it only needs a valid access token.
+
+==== Using the client to make 10Duke API calls
+
+When handling a request in an ASP.NET Core application, the easiest way to initialize the client is to build a client instance based on the +HttpContext+ (https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpcontext) of the request, like this:
+
+.Client initialization based on HttpContext
+[source,csharp]
+----
+var tendukeClient = await TendukeClient.BuildAsync(HttpContext);
+----
+
+This initialization method will get the access token acquired by the ASP.NET Core OpenID Connect authentication process described above. Alternatively, the access token can also be specified directly:
+
+.Client initialization with access token
+[source,csharp]
+----
+vas accessToken = ... OAuth 2.0 access token from 10Duke ...;
+var tendukeClient = await TendukeClient.Build(accessToken);
+----
+
+These initialization methods read configuration specified in the +appsettings.json+ file.
+
+==== Configuration
+
+.Configuration in appsettings.json
+[source,json]
+----
+{
+  "Tenduke": {
+    "AuthzUri": "https://my-tenduke-account.example.com/oauth2/authz/",
+    "TokenUri": "https://my-tenduke-account.example.com/oauth2/access/",
+    "UserInfoUri": "https://my-tenduke-account.example.com/userinfo/",
+    "Issuer": "https://my-tenduke-account.example.com:443",
+    "ClientID": "myclientid",
+    "ClientSecret": "mypasswd",
+    "RedirectUri": "https://my-asp-net-app.example.com/signin-oidc",
+    "Scope": "openid profile email organization",
+    "SignerKey": "[Base64 encoded public key enclosed between -----BEGIN PUBLIC KEY----- and -----END PUBLIC KEY-----]"
+  },
+
+  ...
+}
+----

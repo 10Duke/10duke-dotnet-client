@@ -41,13 +41,25 @@ namespace Tenduke.Client.AspNetCore
         /// <returns>The <see cref="TendukeClient"/> instance.</returns>
         public static async Task<TendukeClient> BuildAsync(HttpContext context)
         {
+            var accessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            return Build(accessToken);
+        }
+
+        /// <summary>
+        /// Builds a <see cref="TendukeClient"/> object for working with the 10Duke Identity and Entitlement
+        /// service is the given <see cref="HttpContext"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="HttpContext"/> for the executing action.</param>
+        /// <returns>The <see cref="TendukeClient"/> instance.</returns>
+        public static TendukeClient Build(string accessToken)
+        {
             var tendukeOAuthConfig = DefaultConfiguration.LoadOAuthConfiguration();
 
             var retValue = new TendukeClient()
             {
-                OAuthConfig = tendukeOAuthConfig
+                OAuthConfig = tendukeOAuthConfig,
+                AccessToken = accessToken
             };
-            retValue.AccessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
             return retValue;
         }
