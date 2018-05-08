@@ -28,7 +28,7 @@ namespace Tenduke.Client.AspNetSample.Controllers
         [HttpGet("[action]")]
         public async Task<UserInfoData> UserInfo()
         {
-            var tendukeClient = await TendukeClient.Build(HttpContext);
+            var tendukeClient = await TendukeClient.BuildAsync(HttpContext);
             return await tendukeClient.UserInfoApi.GetUserInfoAsync();
         }
     }

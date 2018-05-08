@@ -39,7 +39,7 @@ namespace Tenduke.Client.AspNetCore
         /// </summary>
         /// <param name="context">The <see cref="HttpContext"/> for the executing action.</param>
         /// <returns>The <see cref="TendukeClient"/> instance.</returns>
-        public static async Task<TendukeClient> Build(HttpContext context)
+        public static async Task<TendukeClient> BuildAsync(HttpContext context)
         {
             var tendukeOAuthConfig = DefaultConfiguration.LoadOAuthConfiguration();
 
