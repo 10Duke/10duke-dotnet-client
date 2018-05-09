@@ -21,7 +21,7 @@ ASP.NET Core supports OpenID Connect (see https://docs.microsoft.com/en-us/dotne
 
 When handling a request in an ASP.NET Core application, the easiest way to initialize the client is to build a client instance based on the +HttpContext+ (https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpcontext) of the request, like this:
 
-.Client initialization based on HttpContext
+._Client initialization based on HttpContext_
 [source,csharp]
 ----
 var tendukeClient = await TendukeClient.BuildAsync(HttpContext);
@@ -29,18 +29,27 @@ var tendukeClient = await TendukeClient.BuildAsync(HttpContext);
 
 This initialization method will get the access token acquired by the ASP.NET Core OpenID Connect authentication process described above. Alternatively, the access token can also be specified directly:
 
-.Client initialization with access token
+._Client initialization with access token_
 [source,csharp]
 ----
-vas accessToken = ... OAuth 2.0 access token from 10Duke ...;
+var accessToken = ... OAuth 2.0 access token from 10Duke Identity and Entitlement ...;
 var tendukeClient = await TendukeClient.Build(accessToken);
 ----
 
-These initialization methods read configuration specified in the +appsettings.json+ file.
+These initialization methods read configuration specified in the +appsettings.json+ file. The client can also be initialized by directly creating a new instance, and setting configuration parameters and access token on the created instance.
+
+When the client has been initialized, it can be used for calling APIs of the 10Duke Identity and Entitlement service. The currently supported APIs can be accessed via +TendukeClient.AuthzApi+ and +TendukeClient.UserInfoApi+. An example of user info request:
+
+._User info request_
+[source,csharp]
+----
+... tendukeClient initialized earlier ...
+var userInfo = await tendukeClient.UserInfoApi.GetUserInfoAsync();
+----
 
 ==== Configuration
 
-.Configuration in appsettings.json
+._Configuration in appsettings.json_
 [source,json]
 ----
 {
@@ -56,6 +65,7 @@ These initialization methods read configuration specified in the +appsettings.js
     "SignerKey": "[Base64 encoded public key enclosed between -----BEGIN PUBLIC KEY----- and -----END PUBLIC KEY-----]"
   },
 
-  ...
+  . . .
 }
 ----
+
