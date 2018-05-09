@@ -7,6 +7,16 @@ Client library for ASP.NET Core applications, for using services of the 10Duke I
 * Releasing consumed licenses
 * Checking end-user permissions
 
+=== Installation
+
+The client library is available as a https://www.nuget.org/packages/Tenduke.Client.AspNetCore/[NuGet package]. An example for installing the client library using NuGet Package Manager:
+
+._Installation with NuGet PackageManager_
+----
+Install-Package Tenduke.Client.AspNetCore
+----
+
+
 === Basic usage
 
 Class +Tenduke.Client.AspNetCore.TendukeClient+ is the main implementation class with support for working with ASP.NET Core applications. Configuration and features of +Tenduke.Client.AspNetCore.TendukeClient+ are introduced below.

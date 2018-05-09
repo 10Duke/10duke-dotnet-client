@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>10Duke Software</Authors>
+    <Description>Base classes and utilities for 10Duke Identity and Entitlement client libraries</Description>
+    <Copyright>Copyright © 2018- 10Duke Software</Copyright>
+    <PackageLicenseUrl>https://github.com/10Duke/10duke-dotnet-client/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
+    <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
+    <PackageReleaseNotes>First Nuget release</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
