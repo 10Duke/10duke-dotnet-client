@@ -49,23 +49,43 @@ var userInfo = await tendukeClient.UserInfoApi.GetUserInfoAsync();
 
 ==== Configuration
 
-._Configuration in appsettings.json_
+The client supports using basic ASP.NET Core configuration stored in the +appsettings.json+ file (see https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/). +TendukeClient.Build+ and +TendukeClient.BuildAsync+ methods load this configuration. If the ASP.NET application uses other configuration mechanisms, +TendukeClient+ can be initialized directly and +TendukeClient.OAuthConfig+ can be set explicitly instead of the default configuration loading.
+
+A full example of configuration in +appsettings.json+ is given below:
+
+._Example configuration in appsettings.json_
 [source,json]
 ----
 {
-  "Tenduke": {
+  "TendukeClient": {
     "AuthzUri": "https://my-tenduke-account.example.com/oauth2/authz/",
     "TokenUri": "https://my-tenduke-account.example.com/oauth2/access/",
     "UserInfoUri": "https://my-tenduke-account.example.com/userinfo/",
-    "Issuer": "https://my-tenduke-account.example.com:443",
     "ClientID": "myclientid",
     "ClientSecret": "mypasswd",
     "RedirectUri": "https://my-asp-net-app.example.com/signin-oidc",
     "Scope": "openid profile email organization",
+    "Issuer": "https://my-tenduke-account.example.com:443",
     "SignerKey": "[Base64 encoded public key enclosed between -----BEGIN PUBLIC KEY----- and -----END PUBLIC KEY-----]"
   },
 
-  . . .
+
 }
 ----
 
+Name of configuration section for the client configuration is +TendukeClient+. Configuration parameters within this section are described below:
+
+._Configuration parameters_
+[options="header"]
+|==========
+|Name|Description
+|AuthzUri|URL of the 10Duke endpoint for OAuth 2.0 authorization requests
+|TokenUrl|URL of the 10Duke endpoint for OAuth 2.0 access token requests
+|UserInfoUri|URL of the 10Duke endpoint for OpenID Connect userinfo requests
+|ClientID|OAuth 2.0 +client_id+ used by this application for authenticating to 10Duke
+|ClientSecret|OAuth 2.0 +client_secret+ used by this application for authenticating to 10Duke
+|RedirectUri|URL of this application used by 10Duke for redirecting OAuth 2.0 flow (sign-in) back to this application
+|Scope|OAuth 2.0 / OpenID Connect scope, may contain multiple values separated by space. "openid" is always required, other supported values are "profile", "email" and "organization".
+|Issuer|Issuer name used by 10Duke for issuing OpenID Connect ID tokens
+|SignerKey|Public key to use for verifying signatures of OpenID Connect ID tokens issued by 10Duke
+|==========

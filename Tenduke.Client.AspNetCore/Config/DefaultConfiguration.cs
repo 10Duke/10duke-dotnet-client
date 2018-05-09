@@ -21,7 +21,7 @@ namespace Tenduke.Client.AspNetCore.Config
         /// <summary>
         /// Name of configuration key for the 10Duke Identity and Entitlement service configuration.
         /// </summary>
-        public static readonly string CONFIGURATION_KEY_TENDUKE_CONFIG = "Tenduke";
+        public static readonly string CONFIGURATION_KEY_TENDUKE_CONFIG = "TendukeClient";
 
         /// <summary>
         /// Name of configuration key for OAuth / OpenID Connect authorization endpoint URI (subkey of <see cref="CONFIGURATION_KEY_TENDUKE_CONFIG"/>).
