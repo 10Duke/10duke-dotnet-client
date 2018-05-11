@@ -13,7 +13,8 @@
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageReleaseNotes>First Nuget release</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+	<IncludeSource>true</IncludeSource>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
-    <PackageReference Include="Tenduke.Client" Version="1.0.1" />
+    <PackageReference Include="Tenduke.Client" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

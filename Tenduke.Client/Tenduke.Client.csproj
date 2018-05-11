@@ -12,7 +12,8 @@
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
     <PackageReleaseNotes>First Nuget release</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+	<IncludeSource>true</IncludeSource>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

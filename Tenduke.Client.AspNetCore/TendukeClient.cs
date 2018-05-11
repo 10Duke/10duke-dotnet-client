@@ -21,11 +21,16 @@ namespace Tenduke.Client.AspNetCore
         /// If not specified by explicitly setting this property value, default configuration is inferred from
         /// <see cref="OAuthConfig"/>.
         /// </summary>
-        public new IAuthzApiConfig AuthzApiConfig
+        public override IAuthzApiConfig AuthzApiConfig
         {
             get
             {
                 return base.AuthzApiConfig ?? Client.Config.AuthzApiConfig.FromOAuthConfig(OAuthConfig);
+            }
+
+            set
+            {
+                base.AuthzApiConfig = value;
             }
         }
 

@@ -32,12 +32,12 @@ namespace Tenduke.Client
         /// <summary>
         /// Configuration for communicating with the <c>/authz/</c> API of the 10Duke Entitlement service.
         /// </summary>
-        public IAuthzApiConfig AuthzApiConfig { get; set; }
+        public virtual IAuthzApiConfig AuthzApiConfig { get; set; }
 
         /// <summary>
         /// OAuth 2.0 access token for accessing APIs that require authorization.
         /// </summary>
-        public string AccessToken { get; set; }
+        public virtual string AccessToken { get; set; }
 
         /// <summary>
         /// Gets an <see cref="AuthzApi"/> object for accessing the <c>/authz/</c> API of the 10Duke Identity and Entitlement service.
