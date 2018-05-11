@@ -54,11 +54,17 @@ namespace Tenduke.Client
                     throw new InvalidOperationException("Configuration for AuthzApi missing, please specify either AuthzApiConfig or OAuthConfig");
                 }
 
+                var accessToken = AccessToken;
+                if (accessToken == null)
+                {
+                    throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi");
+                }
+
                 return new AuthzApi()
                 {
                     HttpClient = HttpClient,
                     AuthzApiConfig = authzApiConfig,
-                    AccessToken = AccessToken
+                    AccessToken = accessToken
                 };
             }
         }
@@ -78,11 +84,17 @@ namespace Tenduke.Client
                     throw new InvalidOperationException("OAuthConfig must be specified");
                 }
 
+                var accessToken = AccessToken;
+                if (accessToken == null)
+                {
+                    throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi");
+                }
+
                 return new UserInfoApi()
                 {
                     HttpClient = HttpClient,
                     OAuthConfig = oauthConfig,
-                    AccessToken = AccessToken
+                    AccessToken = accessToken
                 };
             }
         }
