@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetSample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetCore", "Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj", "{DB56E46D-DD3C-4D1F-B5EF-5F4A89DD9D22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.AspNetSampleOwin", "Tenduke.Client.AspNetSampleOwin\Tenduke.Client.AspNetSampleOwin.csproj", "{9131D4AB-7AF0-4176-88F2-80F04441FCD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DB56E46D-DD3C-4D1F-B5EF-5F4A89DD9D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB56E46D-DD3C-4D1F-B5EF-5F4A89DD9D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB56E46D-DD3C-4D1F-B5EF-5F4A89DD9D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
