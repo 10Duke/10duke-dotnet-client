@@ -15,7 +15,9 @@ namespace Tenduke.Client.AspNetSampleOwin
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseNowin()
+                .UseNowin(builder => builder
+                        .SetBufferSize(65536)
+                        .Build())
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
