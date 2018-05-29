@@ -1,26 +1,51 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Tenduke.Client.AspNetCore;
 
 namespace Tenduke.Client.AspNetSampleOwin
 {
     public class OwinUserInfoMiddleware
     {
         private readonly Func<IDictionary<string, object>, Task> nextFunc;
-        private readonly IAuthenticationService authenticationService;
 
-        public OwinUserInfoMiddleware(Func<IDictionary<string, object>, Task> nextFunc, IAuthenticationService authenticationService)
+        public OwinUserInfoMiddleware(Func<IDictionary<string, object>, Task> nextFunc)
         {
             this.nextFunc = nextFunc;
-            this.authenticationService = authenticationService;
         }
 
-        public Task Invoke(IDictionary<string, object> environment)
+        public async Task Invoke(IDictionary<string, object> environment)
         {
-            return nextFunc(environment);
+            var requestPath = (string) environment["owin.RequestPath"];
+            if ("/api/SampleData/UserInfo" == requestPath)
+            {
+                var httpContext = (HttpContext)environment["Microsoft.AspNetCore.Http.HttpContext"];
+                var accessToken = await httpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+                var tendukeClient = TendukeClient.Build(accessToken);
+
+                var userInfo = await tendukeClient.UserInfoApi.GetUserInfoAsync();
+                var jsonResponse = JsonConvert.SerializeObject(userInfo);
+                var responseBytes = Encoding.UTF8.GetBytes(jsonResponse);
+
+                var responseStream = (Stream)environment["owin.ResponseBody"];
+                var responseHeaders = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
+                responseHeaders["Content-Length"] = new string[] { responseBytes.Length.ToString(CultureInfo.InvariantCulture) };
+                responseHeaders["Content-Type"] = new string[] { "application/json" };
+                await responseStream.WriteAsync(responseBytes, 0, responseBytes.Length);
+            }
+            else
+            {
+                await nextFunc(environment);
+            }
         }
     }
 
@@ -30,7 +55,7 @@ namespace Tenduke.Client.AspNetSampleOwin
         {
             return builder.UseOwin(setup => setup(next =>
             {
-                return new OwinUserInfoMiddleware(next, (IAuthenticationService) builder.ApplicationServices.GetService(typeof(IAuthenticationService))).Invoke;
+                return new OwinUserInfoMiddleware(next).Invoke;
             }));
         }
     }
