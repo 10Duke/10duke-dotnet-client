@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Tenduke.Client.AspNetSampleOwin
 {
+    /// <summary>
+    /// Middleware for requiring authenticated user.
+    /// </summary>
     public class RequireAuthentication
     {
         public const string REQUIRE_AUTHENTICATION_POLICY_NAME = "RequireAuthentication";

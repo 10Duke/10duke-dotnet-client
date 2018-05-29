@@ -14,8 +14,14 @@ using Tenduke.Client.AspNetCore;
 
 namespace Tenduke.Client.AspNetSampleOwin
 {
+    /// <summary>
+    /// OWIN middleware that handles requests to <c>/api/SampleData/UserInfo</c>,
+    /// and calls 10Duke Identity and Entitlement Service for requesting user info.
+    /// </summary>
     public class OwinUserInfoMiddleware
     {
+        public const string REQUEST_PATH_USER_INFO = "/api/SampleData/UserInfo";
+
         private readonly Func<IDictionary<string, object>, Task> nextFunc;
 
         public OwinUserInfoMiddleware(Func<IDictionary<string, object>, Task> nextFunc)
@@ -26,7 +32,7 @@ namespace Tenduke.Client.AspNetSampleOwin
         public async Task Invoke(IDictionary<string, object> environment)
         {
             var requestPath = (string) environment["owin.RequestPath"];
-            if ("/api/SampleData/UserInfo" == requestPath)
+            if (REQUEST_PATH_USER_INFO == requestPath)
             {
                 var httpContext = (HttpContext)environment["Microsoft.AspNetCore.Http.HttpContext"];
                 var accessToken = await httpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);

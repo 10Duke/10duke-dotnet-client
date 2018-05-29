@@ -2,21 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Owin;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Tenduke.Client.AspNetCore.Config;
 
 namespace Tenduke.Client.AspNetSampleOwin
@@ -46,6 +40,7 @@ namespace Tenduke.Client.AspNetSampleOwin
                 DefaultConfiguration.LoadOpenIdConnectOptions(configureOptions);
             });
 
+            // Add authorization policy for requiring authenticated user
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(RequireAuthentication.REQUIRE_AUTHENTICATION_POLICY_NAME, policy =>
@@ -56,31 +51,19 @@ namespace Tenduke.Client.AspNetSampleOwin
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Use authentication and enable working behind a reverse proxy
-            app.UseAuthentication();
-            app.UseRequireAuthentication();
+            // Enable working behind a reverse proxy
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 RequireHeaderSymmetry = false,
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            // Use OWIN for handling data requests
-            app.Use(async (context, next) =>
-            {
-                var accessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
-                if (accessToken != null)
-                {
-                    var owinEnvironment = new OwinEnvironment(context);
-                    owinEnvironment.Append(new KeyValuePair<string, object>(OpenIdConnectParameterNames.AccessToken, accessToken));
-                }
+            // Use authentication
+            app.UseAuthentication();
+            app.UseRequireAuthentication();
 
-                await next.Invoke();
-            });
+            // Use an OWIN middleware for handling user info requests
             app.UseOwinUserInfo();
-            //app.UseOwin(pipeline =>
-            //{
-            //});
 
             // Serve static files for the client-size Angular application
             app.UseDefaultFiles();
