@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tenduke.Client.AspNetCore.Config;
 using Tenduke.Client.Config;
@@ -40,7 +41,7 @@ namespace Tenduke.Client.AspNetCore
 
         /// <summary>
         /// Builds a <see cref="TendukeClient"/> object for working with the 10Duke Identity and Entitlement
-        /// service is the given <see cref="HttpContext"/>.
+        /// service, using the given <see cref="HttpContext"/>.
         /// </summary>
         /// <param name="context">The <see cref="HttpContext"/> for the executing action.</param>
         /// <returns>The <see cref="TendukeClient"/> instance.</returns>
