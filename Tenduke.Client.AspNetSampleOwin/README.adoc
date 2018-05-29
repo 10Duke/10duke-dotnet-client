@@ -1,0 +1,3 @@
+== ASP.NET Core sample application with Nowin
+
+This is an ASP.NET Core sample application with an Angular frontend. The sample application demonstrates authenticating against the 10Duke Identity Service and querying for user info. The backend is a basic ASP.NET Core application without MVC. It uses https://github.com/Bobris/Nowin[Nowin] as an OWIN web server. Data requests from the browser frontend are handled by a simple OWIN middleware that calls the 10Duke Identity Service for querying user info.
