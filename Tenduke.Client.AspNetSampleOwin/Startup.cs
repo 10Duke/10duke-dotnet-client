@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Owin;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Tenduke.Client.AspNetCore.Config;
 
 namespace Tenduke.Client.AspNetSampleOwin
@@ -64,7 +66,18 @@ namespace Tenduke.Client.AspNetSampleOwin
             });
 
             // Use OWIN for handling data requests
-            //app.UseOwinAuthentication();
+            app.Use(async (context, next) =>
+            {
+                var accessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+                if (accessToken != null)
+                {
+                    var owinEnvironment = new OwinEnvironment(context);
+                    owinEnvironment.Append(new KeyValuePair<string, object>(OpenIdConnectParameterNames.AccessToken, accessToken));
+                }
+
+                await next.Invoke();
+            });
+            app.UseOwinUserInfo();
             //app.UseOwin(pipeline =>
             //{
             //});
