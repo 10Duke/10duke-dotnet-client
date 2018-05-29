@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tenduke.Client.AspNetSampleOwin
 {
-    public class OwinAuthenticationMiddleware
+    public class OwinUserInfoMiddleware
     {
         private readonly Func<IDictionary<string, object>, Task> nextFunc;
 
-        public OwinAuthenticationMiddleware(Func<IDictionary<string, object>, Task> nextFunc)
+        public OwinUserInfoMiddleware(Func<IDictionary<string, object>, Task> nextFunc)
         {
             this.nextFunc = nextFunc;
         }
@@ -23,11 +23,11 @@ namespace Tenduke.Client.AspNetSampleOwin
 
     public static class OwinAuthenticationMiddlewareExtensions
     {
-        public static IApplicationBuilder UseOwinAuthentication(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseOwinUserInfo(this IApplicationBuilder builder)
         {
             return builder.UseOwin(setup => setup(next =>
             {
-                return new OwinAuthenticationMiddleware(next).Invoke;
+                return new OwinUserInfoMiddleware(next).Invoke;
             }));
         }
     }
