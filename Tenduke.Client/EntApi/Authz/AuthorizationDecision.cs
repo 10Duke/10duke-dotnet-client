@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -48,14 +49,14 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="verifyWithKey">RSA public key to use for verifying the token signature. If <c>null</c>, no verification is done.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response.</returns>
         /// <exception cref="Jose.IntegrityException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
-        public static AuthorizationDecision FromServerResponse(string authorizedItem, string responseBody, string contentType, RSA verifyWithKey)
+        public static AuthorizationDecision FromServerResponse(string authorizedItem, string responseBody, MediaTypeHeaderValue contentType, RSA verifyWithKey)
         {
             if (string.IsNullOrEmpty(responseBody))
             {
                 throw new InvalidServerResponseException("The server returned an empty response");
             }
 
-            switch (contentType)
+            switch (contentType.MediaType)
             {
                 case "application/jwt":
                     return FromJwt(responseBody, verifyWithKey);
@@ -76,7 +77,7 @@ namespace Tenduke.Client.EntApi.Authz
         /// <returns>List of <see cref="AuthorizationDecision"/> objects representing the authorization decision responses for the given
         /// <paramref name="authorizedItems"/>.</returns>
         /// <exception cref="Jose.IntegrityException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
-        public static IList<AuthorizationDecision> FromServerResponse(IList<string> authorizedItems, string responseBody, string contentType, RSA verifyWithKey)
+        public static IList<AuthorizationDecision> FromServerResponse(IList<string> authorizedItems, string responseBody, MediaTypeHeaderValue contentType, RSA verifyWithKey)
         {
             if (string.IsNullOrEmpty(responseBody))
             {
@@ -93,7 +94,7 @@ namespace Tenduke.Client.EntApi.Authz
                 return new List<AuthorizationDecision>(0);
             }
 
-            var isJsonResponse = "application/json" == contentType;
+            var isJsonResponse = "application/json" == contentType.MediaType;
             if (isJsonResponse && authorizedItems.Count != 1)
             {
                 throw new InvalidServerResponseException("JSON responses can only used for returning authorization decision for a single item");
@@ -110,7 +111,7 @@ namespace Tenduke.Client.EntApi.Authz
                     + " response tokens");
             }
 
-            switch (contentType)
+            switch (contentType.MediaType)
             {
                 case "application/jwt":
                     return responseAuthzDecisionTokens.Select(token => FromJwt(token, verifyWithKey)).ToList();

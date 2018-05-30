@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
-using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
 using Tenduke.Client.Util;
 
@@ -38,14 +38,14 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <param name="consume"><c>true</c> to consume a license, <c>false</c> otherwise.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response from the server.</returns>
-        public AuthorizationDecision CheckOrConsume(string authorizedItem, bool consume = false, ResponseType responseType = null)
+        public async Task<AuthorizationDecision> CheckOrConsumeAsync(string authorizedItem, bool consume = false, ResponseType responseType = null)
         {
             var authzDecisionRequestUri = BuildCheckOrConsumeUri(
                 new string[] { authorizedItem },
                 responseType,
                 consume);
-            var method = consume ? "POST" : "GET";
-            var responseData = SendAuthorizationRequest(authzDecisionRequestUri, method);
+            var method = consume ? HttpMethod.Post : HttpMethod.Get;
+            var responseData = await SendAuthorizationRequestAsync(authzDecisionRequestUri, method);
             var responseBody = responseData.Key;
             var responseContentType = responseData.Value;
 
@@ -60,14 +60,14 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <param name="consume"><c>true</c> to consume a license, <c>false</c> otherwise.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response from the server.</returns>
-        public IList<AuthorizationDecision> CheckOrConsume(IList<string> authorizedItems, bool consume = false, ResponseType responseType = null)
+        public async Task<IList<AuthorizationDecision>> CheckOrConsumeAsync(IList<string> authorizedItems, bool consume = false, ResponseType responseType = null)
         {
             var authzDecisionRequestUri = BuildCheckOrConsumeUri(
                 authorizedItems,
                 responseType,
                 consume);
-            var method = consume ? "POST" : "GET";
-            var responseData = SendAuthorizationRequest(authzDecisionRequestUri, method);
+            var method = consume ? HttpMethod.Post : HttpMethod.Get;
+            var responseData = await SendAuthorizationRequestAsync(authzDecisionRequestUri, method);
             var responseBody = responseData.Key;
             var responseContentType = responseData.Value;
 
@@ -80,10 +80,10 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="consumptionId">The consumption id, as returned in the value of the <c>jti</c> authorization decision field.</param>
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response from the server.</returns>
-        public AuthorizationDecision ReleaseLicense(string consumptionId, ResponseType responseType = null)
+        public async Task<AuthorizationDecision> ReleaseLicenseAsync(string consumptionId, ResponseType responseType = null)
         {
             var releaseLicenseUri = BuildReleaseLicenseUri(new string[] { consumptionId }, responseType);
-            var responseData = SendAuthorizationRequest(releaseLicenseUri, "POST");
+            var responseData = await SendAuthorizationRequestAsync(releaseLicenseUri, HttpMethod.Post);
             var responseBody = responseData.Key;
             var responseContentType = responseData.Value;
 
@@ -96,10 +96,10 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="consumptionIds">The consumption ids, as returned in the value of the <c>jti</c> authorization decision field.</param>
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <returns>List of <see cref="AuthorizationDecision"/> objects representing the authorization decision response from the server.</returns>
-        public IList<AuthorizationDecision> ReleaseLicenses(IList<string> consumptionIds, ResponseType responseType = null)
+        public async Task<IList<AuthorizationDecision>> ReleaseLicensesAsync(IList<string> consumptionIds, ResponseType responseType = null)
         {
             var releaseLicenseUri = BuildReleaseLicenseUri(consumptionIds, responseType);
-            var responseData = SendAuthorizationRequest(releaseLicenseUri, "POST");
+            var responseData = await SendAuthorizationRequestAsync(releaseLicenseUri, HttpMethod.Post);
             var responseBody = responseData.Key;
             var responseContentType = responseData.Value;
 
@@ -195,30 +195,32 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="uri">The request Uri.</param>
         /// <param name="method">The request HTTP method.</param>
         /// <returns><see cref="KeyValuePair{TKey, TValue}"/> object where key is the response body, value is the response content type.</returns>
-        private KeyValuePair<string, string> SendAuthorizationRequest(Uri uri, string method)
+        private async Task<KeyValuePair<string, MediaTypeHeaderValue>> SendAuthorizationRequestAsync(Uri uri, HttpMethod method)
         {
             if (AccessToken == null)
             {
                 throw new InvalidOperationException("AccessToken must be specified");
             }
 
-            var tokenRequest = WebRequest.CreateHttp(uri);
-            tokenRequest.Method = method;
-            tokenRequest.AllowAutoRedirect = false;
-            tokenRequest.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + AccessToken);
-
-            string responseBody;
-            string responseContentType;
-            using (var response = tokenRequest.GetResponse())
+            var request = new HttpRequestMessage()
             {
-                responseContentType = new System.Net.Mime.ContentType(response.ContentType).MediaType;
-                using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    responseBody = responseStreamReader.ReadToEnd();
-                }
-            }
+                RequestUri = uri,
+                Method = method
+            };
 
-            return new KeyValuePair<string, string>(responseBody, responseContentType);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            request.Headers.CacheControl = new CacheControlHeaderValue()
+            {
+                NoCache = true,
+                NoStore = true
+            };
+            var response = await HttpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var responseContentType = response.Content.Headers.ContentType;
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            return new KeyValuePair<string, MediaTypeHeaderValue>(responseBody, responseContentType);
         }
 
         #endregion
