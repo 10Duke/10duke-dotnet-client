@@ -9,7 +9,7 @@ using Tenduke.Client.Util;
 namespace Tenduke.Client
 {
     /// <summary>
-    /// Basic class for clients for working against the 10Duke Entitlement service.
+    /// Base class for clients for working against the 10Duke Entitlement service.
     /// </summary>
     public class BaseClient<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
     {

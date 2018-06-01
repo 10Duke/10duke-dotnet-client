@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetSample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetCore", "Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj", "{DB56E46D-DD3C-4D1F-B5EF-5F4A89DD9D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.AspNetSampleOwin", "Tenduke.Client.AspNetSampleOwin\Tenduke.Client.AspNetSampleOwin.csproj", "{9131D4AB-7AF0-4176-88F2-80F04441FCD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetSampleOwin", "Tenduke.Client.AspNetSampleOwin\Tenduke.Client.AspNetSampleOwin.csproj", "{9131D4AB-7AF0-4176-88F2-80F04441FCD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPF", "Tenduke.Client.WPF\Tenduke.Client.WPF.csproj", "{C7354410-7BB2-4AD5-880A-68B8CBAF908D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.Desktop", "Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj", "{6E473B8D-D30F-46F7-96B7-B7E3591065A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9131D4AB-7AF0-4176-88F2-80F04441FCD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7354410-7BB2-4AD5-880A-68B8CBAF908D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7354410-7BB2-4AD5-880A-68B8CBAF908D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7354410-7BB2-4AD5-880A-68B8CBAF908D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7354410-7BB2-4AD5-880A-68B8CBAF908D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E473B8D-D30F-46F7-96B7-B7E3591065A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E473B8D-D30F-46F7-96B7-B7E3591065A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E473B8D-D30F-46F7-96B7-B7E3591065A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E473B8D-D30F-46F7-96B7-B7E3591065A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
