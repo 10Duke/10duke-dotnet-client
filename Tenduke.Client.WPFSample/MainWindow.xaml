@@ -5,16 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tenduke.Client.WPFSample"
         mc:Ignorable="d"
-        Title="10Duke Client Sample" Height="577" Width="713" Icon="10duke.ico">
+        Title="10Duke Client Sample" Height="577" Width="713" Icon="10duke.ico" Loaded="Window_Loaded">
     <Grid>
         <Label x:Name="labelWelcome" Content="Welcome anonymous" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.528,-0.123" FontWeight="Bold"/>
         <Label x:Name="labelComputerIdentifier" Content="Computer identifier" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="129,45,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxComputerId" Height="23" Margin="129,45,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <GroupBox x:Name="groupBoxAuthorizationDecisions" Header="Authorization decisions" Margin="10,73,10,10">
             <Grid Margin="0,0,0,0">
                 <Label x:Name="labelAuthorizedItemName" Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.968,-2.105"/>
-                <TextBox x:Name="textBoxAuthorizedItemName" Height="23" Margin="57,14,344,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <ComboBox x:Name="comboBoxConsumeMode" HorizontalAlignment="Left" Margin="352,14,0,0" VerticalAlignment="Top" Width="71"/>
+                <TextBox x:Name="textBoxAuthorizedItemName" Height="23" Margin="57,14,175,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <ComboBox x:Name="comboBoxConsumeMode" HorizontalAlignment="Right" Margin="0,14,90,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.25,0.591"/>
+                <Button x:Name="buttonRequestAuthorizationDecision" Content="Authorize" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Width="75"/>
+                <ListView x:Name="listViewAuthorizationDecisions" Margin="10,42,10,35">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="200"/>
+                            <GridViewColumn Header="Granted" Width="50"/>
+                            <GridViewColumn Header="Data"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button x:Name="buttonShowData" Content="Show data" HorizontalAlignment="Right" Margin="0,0,105,10" VerticalAlignment="Bottom" Width="74"/>
+                <Button x:Name="buttonReleaseLicense" Content="Release license" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Margin="0,0,10,10"/>
             </Grid>
         </GroupBox>
 
