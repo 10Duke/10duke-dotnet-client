@@ -10,7 +10,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Using HttpClient for async requests to the authorization endpoint</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
     <Version>2.0.0</Version>
