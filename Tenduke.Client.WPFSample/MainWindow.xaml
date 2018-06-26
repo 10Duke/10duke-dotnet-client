@@ -14,19 +14,22 @@
             <Grid Margin="0,0,0,0">
                 <Label x:Name="labelAuthorizedItemName" Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.968,-2.105"/>
                 <TextBox x:Name="textBoxAuthorizedItemName" Height="23" Margin="57,14,175,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <ComboBox x:Name="comboBoxConsumeMode" HorizontalAlignment="Right" Margin="0,14,90,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.25,0.591"/>
-                <Button x:Name="buttonRequestAuthorizationDecision" Content="Authorize" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Width="75"/>
-                <ListView x:Name="listViewAuthorizationDecisions" Margin="10,42,10,35">
+                <ComboBox x:Name="comboBoxConsumeMode" HorizontalAlignment="Right" Margin="0,14,90,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.25,0.591" SelectedIndex="0">
+                    <ComboBoxItem Content="check"/>
+                    <ComboBoxItem Content="consume"/>
+                </ComboBox>
+                <Button x:Name="buttonRequestAuthorizationDecision" Content="Authorize" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Width="75" Click="buttonRequestAuthorizationDecision_Click"/>
+                <ListView x:Name="listViewAuthorizationDecisions" Margin="10,42,10,35" ItemsSource="{Binding AuthorizationDecisionItems}" SelectionMode="Single" SelectionChanged="listViewAuthorizationDecisions_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" Width="200"/>
-                            <GridViewColumn Header="Granted" Width="50"/>
-                            <GridViewColumn Header="Data"/>
+                            <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding AuthorizedItem}"/>
+                            <GridViewColumn Header="Granted" Width="50" DisplayMemberBinding="{Binding Granted}"/>
+                            <GridViewColumn Header="Data" DisplayMemberBinding="{Binding AuthorizationDecision}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="buttonShowData" Content="Show data" HorizontalAlignment="Right" Margin="0,0,105,10" VerticalAlignment="Bottom" Width="74"/>
-                <Button x:Name="buttonReleaseLicense" Content="Release license" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Margin="0,0,10,10"/>
+                <Button x:Name="buttonShowData" Content="Show data" HorizontalAlignment="Right" Margin="0,0,105,10" VerticalAlignment="Bottom" Width="74" Click="buttonShowData_Click" IsEnabled="False"/>
+                <Button x:Name="buttonReleaseLicense" Content="Release license" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Margin="0,0,10,10" Click="buttonReleaseLicense_Click" IsEnabled="False"/>
             </Grid>
         </GroupBox>
 

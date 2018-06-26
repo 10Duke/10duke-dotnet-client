@@ -88,15 +88,13 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1wRc5dsWBbIJfxay3SYP
-MYp/BaLEt0b26/QtwQbrKq6hgVH+euMWsSk6gf0GZiwHMFF+t8/WcsNOfcYMBEHV
-mGWSFeYb63IcFN+v3h2580kANzuKuqYnBeBOCN56lJf8q5FOUYQKFVuX/bvEKp+L
-1KkMErmIm9e5fkw70zCngxoXGK6qyWX01SPTVfd3UZdPv1H+VOoEpbDsI2yhg5xR
-jFAAsqyTYvHQaixiJqqw/T8+2/ond8AlxpzCa1UK9x2l1lMezlwHTHXyPh2ZMpwe
-lDBIosKLPHbaZyNwpU0iGOvrDJo8xlw4qGm/fClbaEWM8BCdbn/aKjWMN/t7FEaQ
-TQIDAQAB
------END PUBLIC KEY-----")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3oMwV7MpnuEpdDSsW8Fy
+NXQescT48dgcORAU1LFcZr2XpkpS7oCtlzOmFstC0DVtKjJKxUurufGQ4/0XFNA2
+InbGk66WL1ir6fAFC04XisiMVgYqrP4AypqE0jIcfcwrJRzKHPkrtrOib4Da7do1
+nQrsK8p9iXpWMqRDnPpn1fJ9mwxP74jtb7A/4FlrbMZKtud8dK5P6GPxyDUTMDal
+n/dqQ46uuc4FVVn+Kt+/dZpN2uicy3v9SOhS3oVQDlPyrecYuQ8kblwijFVvIC8A
+RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
++QIDAQAB-----END PUBLIC KEY-----")]
         public string SignerKey {
             get {
                 return ((string)(this["SignerKey"]));
