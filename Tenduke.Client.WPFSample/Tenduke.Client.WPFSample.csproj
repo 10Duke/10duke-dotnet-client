@@ -43,6 +43,9 @@
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="jose-jwt, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jose-jwt.2.4.0\lib\net461\jose-jwt.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
       <Private>True</Private>
@@ -115,17 +118,14 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Tenduke.Client">
+    <Reference Include="Tenduke.Client, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tenduke.Client.2.0.1\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Tenduke.Client.Desktop">
+    <Reference Include="Tenduke.Client.Desktop, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tenduke.Client.Desktop.2.0.1\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Tenduke.Client.WPF">
+    <Reference Include="Tenduke.Client.WPF, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tenduke.Client.WPF.2.0.1.1\lib\net461\Tenduke.Client.WPF.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
