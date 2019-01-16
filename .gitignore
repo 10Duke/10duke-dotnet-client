@@ -4,3 +4,4 @@ test-tmp/
 .vs/
 .DS_Store
 *.nupkg
+packages/
