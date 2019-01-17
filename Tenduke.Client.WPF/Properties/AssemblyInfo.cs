@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("10Duke Software")]
 [assembly: AssemblyProduct("Tenduke.Client.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2018 -")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
