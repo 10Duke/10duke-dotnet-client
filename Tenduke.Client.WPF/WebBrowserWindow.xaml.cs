@@ -115,6 +115,16 @@ namespace Tenduke.Client.WPF
                 this.parent = parent;
             }
 
+            public bool CanGetCookies(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
+            {
+                return true;
+            }
+
+            public bool CanSetCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
+            {
+                return true;
+            }
+
             public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
             {
                 return false;
@@ -125,7 +135,7 @@ namespace Tenduke.Client.WPF
                 return null;
             }
 
-            public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
+            public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
             {
                 return false;
             }

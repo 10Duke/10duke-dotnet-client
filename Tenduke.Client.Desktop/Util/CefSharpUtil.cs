@@ -19,10 +19,12 @@ namespace Tenduke.Client.Desktop.Util
         /// <see cref="AppDomain.CurrentDomain.SetupInformation.ApplicationBase"/> as the base directory
         /// under which the architecture dependent CefSharp resource subdirectories must be found.</para>
         /// </summary>
+        /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
+        /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void InitializeCefSharp()
+        public static void InitializeCefSharp(AbstractCefSettings cefSettings)
         {
-            InitializeCefSharp(new CefSharpResolverArgs { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) });
+            InitializeCefSharp(cefSettings, new CefSharpResolverArgs { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) });
         }
 
         /// <summary>
@@ -30,17 +32,20 @@ namespace Tenduke.Client.Desktop.Util
         /// correct architecture. This method (any overload of the method) must be called before
         /// using the embedded browser component.
         /// </summary>
+        /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
+        /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched. Must not be <c>null</c>.</param>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void InitializeCefSharp(CefSharpResolverArgs resolverArgs)
+        public static void InitializeCefSharp(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs)
         {
-            var settings = new CefSettings()
+            if (string.IsNullOrEmpty(cefSettings.BrowserSubprocessPath))
             {
-                BrowserSubprocessPath = Path.Combine(resolverArgs.BaseDir,
+                var browserSubprocessPath = Path.Combine(resolverArgs.BaseDir,
                                                    Environment.Is64BitProcess ? "x64" : "x86",
-                                                   "CefSharp.BrowserSubprocess.exe")
-            };
-            Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
+                                                   "CefSharp.BrowserSubprocess.exe");
+                cefSettings.BrowserSubprocessPath = browserSubprocessPath;
+            }
+            Cef.Initialize(cefSettings, performDependencyCheck: false, browserProcessHandler: null);
         }
 
         /// <summary>

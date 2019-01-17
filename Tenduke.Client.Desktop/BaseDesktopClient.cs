@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.IO;
 using System.Reflection;
 using Tenduke.Client.Authorization;
@@ -156,9 +157,11 @@ namespace Tenduke.Client.Desktop
         /// <see cref="AppDomain.CurrentDomain.SetupInformation.ApplicationBase"/> as the base directory
         /// under which the architecture dependent CefSharp resource subdirectories must be found.</para>
         /// </summary>
-        public static void Initialize()
+        /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
+        /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
+        public static void Initialize(AbstractCefSettings cefSettings)
         {
-            Initialize(new CefSharpResolverArgs() { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) });
+            Initialize(cefSettings, new CefSharpResolverArgs() { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) });
         }
 
         /// <summary>
@@ -172,9 +175,11 @@ namespace Tenduke.Client.Desktop
         /// method assumes that the required CefSharp dependencies can be found under <c>x84</c> or <c>x64</c>
         /// subdirectories.</para>
         /// </summary>
+        /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
+        /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for not initializing CefSharp.</param>
-        public static void Initialize(CefSharpResolverArgs resolverArgs)
+        public static void Initialize(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs)
         {
             if (resolverArgs != null)
             {
@@ -184,7 +189,7 @@ namespace Tenduke.Client.Desktop
                 // if CefSharp is provided by other means.
                 AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) => CefSharpResolver.ResolveCefSharp(sender, eventArgs, resolverArgs);
 
-                CefSharpUtil.InitializeCefSharp(resolverArgs);
+                CefSharpUtil.InitializeCefSharp(cefSettings, resolverArgs);
 
                 cefSharpInitialized = true;
             }
