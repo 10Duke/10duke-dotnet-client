@@ -38,7 +38,7 @@ namespace Tenduke.Client.Desktop.Util
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void InitializeCefSharp(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs)
         {
-            if (string.IsNullOrEmpty(cefSettings.BrowserSubprocessPath))
+            if (string.IsNullOrEmpty(cefSettings.BrowserSubprocessPath) || cefSettings.BrowserSubprocessPath == "CefSharp.BrowserSubprocess.exe")
             {
                 var browserSubprocessPath = Path.Combine(resolverArgs.BaseDir,
                                                    Environment.Is64BitProcess ? "x64" : "x86",

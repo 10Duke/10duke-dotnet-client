@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Tenduke.Client.WinFormsSample.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AuthzUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8080/oauth2/authz/</Value>
+    </Setting>
+    <Setting Name="TokenUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8080/oauth2/access/</Value>
+    </Setting>
+    <Setting Name="UserInfoUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8080/userinfo/</Value>
+    </Setting>
+    <Setting Name="ClientID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SampleAppWinForms</Value>
+    </Setting>
+    <Setting Name="ClientSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">YohSi-u3</Value>
+    </Setting>
+    <Setting Name="RedirectUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">oob:SampleApp</Value>
+    </Setting>
+    <Setting Name="Scope" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">openid profile email</Value>
+    </Setting>
+    <Setting Name="StoreAuthorization" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SignerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3oMwV7MpnuEpdDSsW8Fy
+NXQescT48dgcORAU1LFcZr2XpkpS7oCtlzOmFstC0DVtKjJKxUurufGQ4/0XFNA2
+InbGk66WL1ir6fAFC04XisiMVgYqrP4AypqE0jIcfcwrJRzKHPkrtrOib4Da7do1
+nQrsK8p9iXpWMqRDnPpn1fJ9mwxP74jtb7A/4FlrbMZKtud8dK5P6GPxyDUTMDal
+n/dqQ46uuc4FVVn+Kt+/dZpN2uicy3v9SOhS3oVQDlPyrecYuQ8kblwijFVvIC8A
+RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
++QIDAQAB-----END PUBLIC KEY-----</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

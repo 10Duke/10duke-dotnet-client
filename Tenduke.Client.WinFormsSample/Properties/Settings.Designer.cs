@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tenduke.Client.WPFSample.Properties {
+namespace Tenduke.Client.WinFormsSample.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,7 +25,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://tenduke-test.10duke.com/oauth2/authz/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/oauth2/authz/")]
         public string AuthzUri {
             get {
                 return ((string)(this["AuthzUri"]));
@@ -34,7 +34,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://tenduke-test.10duke.com/oauth2/access/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/oauth2/access/")]
         public string TokenUri {
             get {
                 return ((string)(this["TokenUri"]));
@@ -43,7 +43,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://tenduke-test.10duke.com/userinfo/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/userinfo/")]
         public string UserInfoUri {
             get {
                 return ((string)(this["UserInfoUri"]));
@@ -52,7 +52,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SampleAppWPF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SampleAppWinForms")]
         public string ClientID {
             get {
                 return ((string)(this["ClientID"]));
@@ -88,6 +88,15 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StoreAuthorization {
+            get {
+                return ((bool)(this["StoreAuthorization"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3oMwV7MpnuEpdDSsW8Fy
 NXQescT48dgcORAU1LFcZr2XpkpS7oCtlzOmFstC0DVtKjJKxUurufGQ4/0XFNA2
 InbGk66WL1ir6fAFC04XisiMVgYqrP4AypqE0jIcfcwrJRzKHPkrtrOib4Da7do1
@@ -98,15 +107,6 @@ RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
         public string SignerKey {
             get {
                 return ((string)(this["SignerKey"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool StoreAuthorization {
-            get {
-                return ((bool)(this["StoreAuthorization"]));
             }
         }
     }

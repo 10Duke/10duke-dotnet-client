@@ -132,11 +132,6 @@ namespace Tenduke.Client.WinForms
                 return null;
             }
 
-            public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
-            {
-                return false;
-            }
-
             public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
             {
                 return false;

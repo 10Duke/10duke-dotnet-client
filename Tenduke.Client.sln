@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPFSample", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinForms", "Tenduke.Client.WinForms\Tenduke.Client.WinForms.csproj", "{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinFormsSample", "Tenduke.Client.WinFormsSample\Tenduke.Client.WinFormsSample.csproj", "{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -187,7 +187,7 @@ namespace Tenduke.Client.Desktop
                 // when running using AnyCPU. This default resolver attempts to load CefSharp assemblies
                 // from x86 or x64 subdirectories. Add your own resolver before calling this method
                 // if CefSharp is provided by other means.
-                AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) => CefSharpResolver.ResolveCefSharp(sender, eventArgs, resolverArgs);
+                //AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) => CefSharpResolver.ResolveCefSharp(sender, eventArgs, resolverArgs);
 
                 CefSharpUtil.InitializeCefSharp(cefSettings, resolverArgs);
 

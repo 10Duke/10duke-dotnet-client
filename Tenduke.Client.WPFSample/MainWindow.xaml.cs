@@ -55,8 +55,7 @@ namespace Tenduke.Client.WPFSample
         };
 
         /// <summary>
-        /// <para>The <see cref="Tenduke.EntitlementClient.EntClient"/> instance used by this sample application.</para>
-        /// <para>Please note that </para>
+        /// The <see cref="Tenduke.EntitlementClient.EntClient"/> instance used by this sample application.
         /// </summary>
         protected EntClient EntClient { get; set; }
 
@@ -252,10 +251,7 @@ namespace Tenduke.Client.WPFSample
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
