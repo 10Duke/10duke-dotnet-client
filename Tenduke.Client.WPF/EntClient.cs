@@ -13,7 +13,8 @@ namespace Tenduke.Client.WPF
     /// <summary>
     /// Basic client for working directly against the 10Duke Entitlement service.
     /// This client uses the OAuth 2.0 Authorization Code Grant flow for authorizing
-    /// this client directly against the 10Duke Entitlement service.
+    /// this client directly against the 10Duke Entitlement service. If user interaction
+    /// is required, a WPM embedded browser windows is displayed.
     /// </summary>
     public class EntClient : BaseDesktopClient<EntClient>
     {

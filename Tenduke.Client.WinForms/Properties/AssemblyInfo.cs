@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("10Duke Software")]
 [assembly: AssemblyProduct("Tenduke.Client.WinForms")]
-[assembly: AssemblyCopyright("Copyright ©  2019 -")]
+[assembly: AssemblyCopyright("Copyright © 2019- 10Duke Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
