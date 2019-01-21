@@ -2,6 +2,7 @@ obj/
 bin/
 test-tmp/
 .vs/
+.idea/
 .DS_Store
 *.nupkg
 packages/
