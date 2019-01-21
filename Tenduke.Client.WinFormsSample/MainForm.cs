@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tenduke.Client.Config;
+using Tenduke.Client.EntApi;
 using Tenduke.Client.EntApi.Authz;
 using Tenduke.Client.Util;
 using Tenduke.Client.WinForms;
@@ -49,16 +50,23 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         protected EntClient EntClient { get; set; }
 
-        public ObservableCollection<AuthorizationDecisionItem> AuthorizationDecisionItems { get; protected set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainForm"/> class.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            comboBoxConsumeMode.SelectedIndex = 0;
+            listViewAuthorizationDecisions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             EntClient = new EntClient() { OAuthConfig = OAuthConfig };
-            AuthorizationDecisionItems = new ObservableCollection<AuthorizationDecisionItem>();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Called when the main form is shown.
+        /// </summary>
+        /// <param name="sender">Sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void MainForm_Shown(object sender, EventArgs e)
         {
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();
@@ -75,7 +83,6 @@ namespace Tenduke.Client.WinFormsSample
                 Close();
             }
         }
-
 
         /// <summary>
         /// Checks that either a previously stored valid authorization against the 10Duke Entitlement Service exists,
@@ -203,33 +210,124 @@ namespace Tenduke.Client.WinFormsSample
         /// response received for the authorized item.</param>
         private void ShowAuthorizationDecision(string authorizedItem, AuthorizationDecision authorizationDecision)
         {
-            var authorizationDecisionItem = BuildAuthorizationDecisionItem(authorizedItem, authorizationDecision);
-            AuthorizationDecisionItems.Add(authorizationDecisionItem);
-            RaisePropertyChanged("AuthorizationDecisionItems");
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var authorizationDecisionItem = BuildListViewItemForAuthorizationDecision(authorizedItem, authorizationDecision);
+            listViewAuthorizationDecisions.Items.Add(authorizationDecisionItem);
         }
 
         /// <summary>
-        /// Builds a <see cref="AuthorizationDecisionItem"/> for displaying an <see cref="AuthorizationDecision"/> in the list view.
+        /// Called when button for requesting an authorization decision is clicked.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private async void buttonRequestAuthorizationDecision_Click(object sender, EventArgs e)
+        {
+            var authorizedItems = textBoxAuthorizedItemName.Text.Split(',').Select(item => item.Trim()).ToArray();
+            var consumeMode = comboBoxConsumeMode.Text;
+            var consume = consumeMode == "consume";
+            var authorizationDecisions = await GetAuthzApi().CheckOrConsumeAsync(authorizedItems, consume, ResponseType.Json);
+            for (int i = 0; i < authorizedItems.Length; i++)
+            {
+                ShowAuthorizationDecision(authorizedItems[i], authorizationDecisions[i]);
+            }
+        }
+
+        /// <summary>
+        /// Called when selection is changed in the list view.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void listViewAuthorizationDecisions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EnableButtons();
+        }
+
+        /// <summary>
+        /// Enables / disables buttons on the form.
+        /// </summary>
+        private void EnableButtons()
+        {
+            var selectedItem = (AuthorizationDecisionListViewItem)
+                (listViewAuthorizationDecisions.SelectedItems.Count == 1
+                ? listViewAuthorizationDecisions.SelectedItems[0]
+                : null);
+
+            bool releaseLicenseButtonEnabled = false;
+            bool showDataButtonEnabled = false;
+
+            if (selectedItem != null)
+            {
+                showDataButtonEnabled = true;
+                if (selectedItem.Granted && selectedItem.AuthorizationDecision["jti"] != null)
+                {
+                    releaseLicenseButtonEnabled = true;
+                }
+            }
+
+            buttonReleaseLicense.Enabled = releaseLicenseButtonEnabled;
+            buttonShowData.Enabled = showDataButtonEnabled;
+        }
+
+        /// <summary>
+        /// Called when the show authorization decision details button is clicked.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void buttonShowData_Click(object sender, EventArgs e)
+        {
+            var selectedItem = (AuthorizationDecisionListViewItem)listViewAuthorizationDecisions.SelectedItems[0];
+            var dataForm = new AuthorizationDecisionDetailsForm() { AuthorizationDecision = selectedItem.AuthorizationDecision };
+            dataForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Called when the release license button is clicked.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private async void buttonReleaseLicense_Click(object sender, EventArgs e)
+        {
+            var selectedItem = (AuthorizationDecisionListViewItem)listViewAuthorizationDecisions.SelectedItems[0];
+            var tokenId = (string)selectedItem.AuthorizationDecision["jti"];
+            var response = await GetAuthzApi().ReleaseLicenseAsync(tokenId, ResponseType.JWT);
+            bool successfullyReleased = response[tokenId] != null && (bool)response[tokenId] == true;
+            bool noConsumptionFound = "noConsumptionFoundById" == (string)response[tokenId + "_errorCode"];
+            if (successfullyReleased || noConsumptionFound)
+            {
+                listViewAuthorizationDecisions.Items.Remove(selectedItem);
+            }
+            else
+            {
+                MessageBox.Show(response.ToString(), "Error");
+            }
+        }
+
+        /// <summary>
+        /// Gets <see cref="AuthzApi"/> for accessing the authorization api.
+        /// </summary>
+        /// <returns>The <see cref="AuthzApi"/>.</returns>
+        private AuthzApi GetAuthzApi()
+        {
+            var retValue = EntClient.AuthzApi;
+            retValue.ComputerId = textBoxComputerId.Text;
+            return retValue;
+        }
+
+        /// <summary>
+        /// Builds a <see cref="ListViewItem"/> for displaying an <see cref="AuthorizationDecision"/> in the list view.
         /// </summary>
         /// <param name="authorizedItem">Name of the authorized item.</param>
         /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
         /// response received for the authorized item.</param>
         /// <returns>The <see cref="ListViewItem"/>.</returns>
-        private AuthorizationDecisionItem BuildAuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
+        private ListViewItem BuildListViewItemForAuthorizationDecision(string authorizedItem, AuthorizationDecision authorizationDecision)
         {
-            return new AuthorizationDecisionItem(authorizedItem, authorizationDecision);
+            return new AuthorizationDecisionListViewItem(authorizedItem, authorizationDecision);
         }
 
         /// <summary>
         /// Item for displaying an <see cref="AuthorizationDecision"/> in the list view and for storing data of the authorization decision.
         /// </summary>
-        public class AuthorizationDecisionItem
+        private class AuthorizationDecisionListViewItem : ListViewItem
         {
             /// <summary>
             /// Name of the authorized item.
@@ -247,12 +345,13 @@ namespace Tenduke.Client.WinFormsSample
             public AuthorizationDecision AuthorizationDecision { get; set; }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="AuthorizationDecisionItem"/> class.
+            /// Initializes a new instance of the <see cref="AuthorizationDecisionListViewItem"/> class.
             /// </summary>
             /// <param name="authorizedItem">Name of the authorized item.</param>
             /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
             /// response received for the authorized item.</param>
-            public AuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
+            public AuthorizationDecisionListViewItem(string authorizedItem, AuthorizationDecision authorizationDecision)
+                : base(new string[] { authorizedItem, authorizationDecision[authorizedItem]?.ToString(), authorizationDecision.ToString() })
             {
                 AuthorizedItem = authorizedItem;
                 Granted = authorizationDecision[authorizedItem] != null && (bool)authorizationDecision[authorizedItem];

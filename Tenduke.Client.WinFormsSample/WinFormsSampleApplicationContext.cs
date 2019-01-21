@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tenduke.Client.Desktop.Util;
 using Tenduke.Client.WinForms;
 
 namespace Tenduke.Client.WinFormsSample
@@ -25,12 +26,14 @@ namespace Tenduke.Client.WinFormsSample
         /// <para><see cref="EntClient.Initialize"/> is called here for initializing <see cref="EntClient"/>.
         /// This method must be called once before using <see cref="EntClient"/> in the application.</para>
         /// </summary>
-        internal WinFormsSampleApplicationContext()
+        /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
+        /// or <c>null</c> for default behavior.</param>
+        internal WinFormsSampleApplicationContext(CefSharpResolverArgs resolverArgs)
         {
             Application.ApplicationExit += Application_ApplicationExit;
 
             // Application-wide static initialization of EntClient
-            EntClient.Initialize(new CefSettings());
+            EntClient.Initialize(resolverArgs);
 
             mainForm = new MainForm();
             mainForm.FormClosed += MainForm_FormClosed;
@@ -44,6 +47,8 @@ namespace Tenduke.Client.WinFormsSample
         /// <param name="e">The event arguments.</param>
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            mainForm.Dispose();
+            mainForm = null;
             Application.Exit();
         }
 

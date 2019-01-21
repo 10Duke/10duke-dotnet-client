@@ -7,6 +7,7 @@
     {
         /// <summary>
         /// Base directory under which architecture dependent resource directories are located.
+        /// If <c>null</c>, CefSharp will try to initialize with defaults.
         /// </summary>
         public string BaseDir { get; set; }
     }

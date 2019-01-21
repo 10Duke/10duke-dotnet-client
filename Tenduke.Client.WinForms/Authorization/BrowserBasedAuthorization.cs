@@ -68,28 +68,34 @@ namespace Tenduke.Client.WinForms.Authorization
             OnStarted();
 
             var authzUri = BuildAuthorizationUri(args);
-            WebBrowserForm = new WebBrowserForm()
-            {
-                Address = authzUri.ToString(),
-                RedirectUri = OAuthConfig.RedirectUri
-            };
-            OnBeforeAuthorization(args, authzUri);
-
-            var result = WebBrowserForm.ShowDialog();
-            var cancelled = result != DialogResult.OK;
-
             string retValue;
-            if (cancelled)
+            using (var webBrowserForm = new WebBrowserForm()
+                        {
+                            Address = authzUri.ToString(),
+                            RedirectUri = OAuthConfig.RedirectUri
+                        })
             {
-                OnCancelled(args, authzUri);
-                retValue = null;
-            }
-            else
-            {
-                var responseParams = ParseResponseParameters(WebBrowserForm.ResponseUri);
-                OnAfterAuthorization(args, authzUri, responseParams);
+                WebBrowserForm = webBrowserForm;
 
-                retValue = ReadAuthorizationResponse(args, responseParams);
+                OnBeforeAuthorization(args, authzUri);
+
+                var result = webBrowserForm.ShowDialog();
+                var cancelled = result != DialogResult.OK;
+
+                if (cancelled)
+                {
+                    OnCancelled(args, authzUri);
+                    retValue = null;
+                }
+                else
+                {
+                    var responseParams = ParseResponseParameters(webBrowserForm.ResponseUri);
+                    OnAfterAuthorization(args, authzUri, responseParams);
+
+                    retValue = ReadAuthorizationResponse(args, responseParams);
+                }
+
+                WebBrowserForm = null;
             }
 
             return retValue;

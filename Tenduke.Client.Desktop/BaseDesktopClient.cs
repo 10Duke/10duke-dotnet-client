@@ -144,7 +144,7 @@ namespace Tenduke.Client.Desktop
         #region Application-wide initialization and clean-up
 
         /// <summary>
-        /// <para>Executes initialization necessary for using <see cref="EntClient"/> in an application.
+        /// <para>Executes initialization necessary for using <see cref="BaseDesktopClient{C}"/> in an application.
         /// This method (any overload of this method) must be called once during application lifecycle,
         /// before using <see cref="EntClient"/> for the first time.</para>
         /// <para><see cref="EntClient"/> uses <see cref="https://github.com/cefsharp/CefSharp"/> for displaying
@@ -165,7 +165,7 @@ namespace Tenduke.Client.Desktop
         }
 
         /// <summary>
-        /// <para>Executes initialization necessary for using <see cref="EntClient"/> in an application.
+        /// <para>Executes initialization necessary for using <see cref="BaseDesktopClient{C}"/> in an application.
         /// This method (any overload of this method) must be called once during application lifecycle,
         /// before using <see cref="EntClient"/> for the first time.</para>
         /// <para><see cref="EntClient"/> uses <see cref="https://github.com/cefsharp/CefSharp"/> for displaying
@@ -178,26 +178,16 @@ namespace Tenduke.Client.Desktop
         /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
         /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
-        /// or <c>null</c> for not initializing CefSharp.</param>
-        public static void Initialize(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs)
+        /// or <c>null</c> for default behavior.</param>
+        public static void Initialize(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs = null)
         {
-            if (resolverArgs != null)
-            {
-                // Add default custom assembly resolver for loading unmanaged CefSharp dependencies
-                // when running using AnyCPU. This default resolver attempts to load CefSharp assemblies
-                // from x86 or x64 subdirectories. Add your own resolver before calling this method
-                // if CefSharp is provided by other means.
-                //AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) => CefSharpResolver.ResolveCefSharp(sender, eventArgs, resolverArgs);
-
-                CefSharpUtil.InitializeCefSharp(cefSettings, resolverArgs);
-
-                cefSharpInitialized = true;
-            }
+            CefSharpUtil.InitializeCefSharp(cefSettings, resolverArgs);
+            cefSharpInitialized = true;
         }
 
         /// <summary>
-        /// Cleans up resources required for using <see cref="EntClient"/> in an application.
-        /// This method must be called once when <see cref="EntClient"/> is no more used by the application.
+        /// Cleans up resources required for using <see cref="BaseDesktopClient{C}"/> in an application.
+        /// This method must be called once when <see cref="BaseDesktopClient{C}"/> is no more used by the application.
         /// </summary>
         public static void Shutdown()
         {

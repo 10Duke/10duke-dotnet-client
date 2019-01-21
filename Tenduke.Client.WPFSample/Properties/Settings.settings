@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="AuthzUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://tenduke-test.10duke.com/oauth2/authz/</Value>
+      <Value Profile="(Default)">http://localhost:8080/oauth2/authz/</Value>
     </Setting>
     <Setting Name="TokenUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://tenduke-test.10duke.com/oauth2/access/</Value>
+      <Value Profile="(Default)">http://localhost:8080/oauth2/access/</Value>
     </Setting>
     <Setting Name="UserInfoUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://tenduke-test.10duke.com/userinfo/</Value>
+      <Value Profile="(Default)">http://localhost:8080/userinfo/</Value>
     </Setting>
     <Setting Name="ClientID" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SampleAppWPF</Value>

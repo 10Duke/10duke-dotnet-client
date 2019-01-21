@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Tenduke.Client.Desktop.Util;
 using Tenduke.Client.WPF;
 
 namespace Tenduke.Client.WPFSample
@@ -16,7 +17,8 @@ namespace Tenduke.Client.WPFSample
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            EntClient.Initialize();
+            var resolverArgs = CefSharpUtil.AddAssemblyResolverForCefSharp();
+            EntClient.Initialize(resolverArgs);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

@@ -40,6 +40,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WebBrowserForm";
             this.Text = "Sign on";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebBrowserForm_FormClosing);
             this.Shown += new System.EventHandler(this.WebBrowserForm_Shown);
             this.ResumeLayout(false);
 

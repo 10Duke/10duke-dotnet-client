@@ -71,6 +71,13 @@ namespace Tenduke.Client.WinForms
             ChromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
         }
 
+        private void WebBrowserForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Controls.Remove(ChromiumWebBrowser);
+            ChromiumWebBrowser.Dispose();
+            ChromiumWebBrowser = null;
+        }
+
         /// <summary>
         /// Called from <see cref="IRequestHandler.OnProtocolExecution(IWebBrowser, IBrowser, string)"/> of the browser request handler.
         /// Allows this component to intercept OAuth response callbacks.

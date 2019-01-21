@@ -99,6 +99,7 @@
             this.buttonReleaseLicense.TabIndex = 6;
             this.buttonReleaseLicense.Text = "Release license";
             this.buttonReleaseLicense.UseVisualStyleBackColor = true;
+            this.buttonReleaseLicense.Click += new System.EventHandler(this.buttonReleaseLicense_Click);
             // 
             // buttonShowData
             // 
@@ -109,6 +110,7 @@
             this.buttonShowData.TabIndex = 5;
             this.buttonShowData.Text = "Show data";
             this.buttonShowData.UseVisualStyleBackColor = true;
+            this.buttonShowData.Click += new System.EventHandler(this.buttonShowData_Click);
             // 
             // listViewAuthorizationDecisions
             // 
@@ -119,11 +121,17 @@
             this.columnHeaderName,
             this.columnHeaderGranted,
             this.columnHeaderData});
+            this.listViewAuthorizationDecisions.FullRowSelect = true;
+            this.listViewAuthorizationDecisions.GridLines = true;
+            this.listViewAuthorizationDecisions.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewAuthorizationDecisions.Location = new System.Drawing.Point(6, 45);
+            this.listViewAuthorizationDecisions.MultiSelect = false;
             this.listViewAuthorizationDecisions.Name = "listViewAuthorizationDecisions";
             this.listViewAuthorizationDecisions.Size = new System.Drawing.Size(661, 383);
             this.listViewAuthorizationDecisions.TabIndex = 4;
             this.listViewAuthorizationDecisions.UseCompatibleStateImageBehavior = false;
+            this.listViewAuthorizationDecisions.View = System.Windows.Forms.View.Details;
+            this.listViewAuthorizationDecisions.SelectedIndexChanged += new System.EventHandler(this.listViewAuthorizationDecisions_SelectedIndexChanged);
             // 
             // columnHeaderName
             // 
@@ -149,10 +157,12 @@
             this.buttonRequestAuthorizationDecision.TabIndex = 3;
             this.buttonRequestAuthorizationDecision.Text = "Authorize";
             this.buttonRequestAuthorizationDecision.UseVisualStyleBackColor = true;
+            this.buttonRequestAuthorizationDecision.Click += new System.EventHandler(this.buttonRequestAuthorizationDecision_Click);
             // 
             // comboBoxConsumeMode
             // 
             this.comboBoxConsumeMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxConsumeMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxConsumeMode.FormattingEnabled = true;
             this.comboBoxConsumeMode.Items.AddRange(new object[] {
             "check",
@@ -192,7 +202,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "10Duke Client Sample";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.groupBoxAuthorizationDecisions.ResumeLayout(false);
             this.groupBoxAuthorizationDecisions.PerformLayout();
             this.ResumeLayout(false);

@@ -19,12 +19,12 @@ namespace Tenduke.Client.WinFormsSample
         [STAThread]
         static void Main()
         {
-            var resolverArgs = new CefSharpResolverArgs() { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) };
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) => CefSharpResolver.ResolveCefSharp(sender, eventArgs, resolverArgs);
+            var resolverArgs = CefSharpUtil.AddAssemblyResolverForCefSharp();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WinFormsSampleApplicationContext());
+            var appContext = new WinFormsSampleApplicationContext(resolverArgs);
+            Application.Run(appContext);
         }
     }
 }

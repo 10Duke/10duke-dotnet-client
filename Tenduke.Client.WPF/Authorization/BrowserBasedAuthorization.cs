@@ -90,6 +90,8 @@ namespace Tenduke.Client.WPF.Authorization
                 retValue = ReadAuthorizationResponse(args, responseParams);
             }
 
+            WebBrowserWindow = null;
+
             return retValue;
         }
 
