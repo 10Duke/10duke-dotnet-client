@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="Tenduke.Client" Version="2.0.2" />
+    <PackageReference Include="Tenduke.Client" Version="2.0.3" />
   </ItemGroup>
 
 </Project>
