@@ -1,15 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.WinForms.Authorization
 {
@@ -21,20 +15,6 @@ namespace Tenduke.Client.WinForms.Authorization
     public class AuthorizationCodeGrant
         : BrowserBasedAuthorization<AuthorizationCodeGrant, IAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
-        #region Public constants
-
-        /// <summary>
-        /// OAuth 2.0 <c>response_type</c> value <c>code</c>, as used with the Authorization Code Grant flow.
-        /// </summary>
-        public static readonly string RESPONSE_TYPE_CODE = "code";
-
-        /// <summary>
-        /// OAuth 2.0 <c>grant_type</c> value <c>authorization_code</c>.
-        /// </summary>
-        public static readonly string GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -103,7 +83,7 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <returns>The response type value.</returns>
         protected override string GetResponseType()
         {
-            return RESPONSE_TYPE_CODE;
+            return OAuthUtil.RESPONSE_TYPE_CODE;
         }
 
         /// <summary>
@@ -117,68 +97,45 @@ namespace Tenduke.Client.WinForms.Authorization
         }
 
         /// <summary>
+        /// Sends a request for exchanging refresh token received earlier with an access token response
+        /// to a new access token, and handles the response.
+        /// </summary>
+        public void RefreshAuthorization()
+        {
+            if (AccessTokenResponse == null)
+            {
+                throw new InvalidOperationException("There is no current authorization based on an OAuth access token response, can not refresh authorization");
+            }
+
+            if (AccessTokenResponse.RefreshToken == null)
+            {
+                throw new InvalidOperationException("There server has not issued a refresh token, can not refresh authorization");
+            }
+
+            string jsonResponse = OAuthUtil.RefreshAccessToken(AccessTokenResponse.RefreshToken, OAuthConfig);
+            ReadAccessTokenResponse(jsonResponse);
+        }
+
+        /// <summary>
         /// Sends a request for exchanging authorization code to an access token.
         /// </summary>
         /// <param name="args">Authorization operation arguments.</param>
         protected string RequestAccessToken(AuthorizationCodeGrantArgs args)
         {
-            if (OAuthConfig.TokenUri == null)
-            {
-                throw new InvalidOperationException("OAuthConfig.TokenUri must be specified");
-            }
-
-            var tokenRequest = WebRequest.CreateHttp(OAuthConfig.TokenUri);
-            tokenRequest.Method = "POST";
-            tokenRequest.AllowAutoRedirect = false;
-            tokenRequest.ContentType = "application/x-www-form-urlencoded";
-            using (var requestStreamWriter = new StreamWriter(tokenRequest.GetRequestStream()))
-            {
-                requestStreamWriter.Write("grant_type=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(GRANT_TYPE_AUTHORIZATION_CODE));
-                requestStreamWriter.Write("&code=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(AuthorizationCode));
-                requestStreamWriter.Write("&client_id=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(OAuthConfig.ClientID));
-
-                if (OAuthConfig.RedirectUri != null)
-                {
-                    requestStreamWriter.Write("&redirect_uri=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(OAuthConfig.RedirectUri));
-                }
-
-                if (OAuthConfig.ClientSecret != null)
-                {
-                    requestStreamWriter.Write("&client_secret=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(OAuthConfig.ClientSecret));
-                }
-            }
-
-            string jsonResponse;
-            using (var response = tokenRequest.GetResponse())
-            {
-                using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    jsonResponse = responseStreamReader.ReadToEnd();
-                }
-            }
-
-            return jsonResponse;
+            return OAuthUtil.RequestAccessToken(AuthorizationCode, OAuthConfig);
         }
 
         /// <summary>
         /// Parses response from the server to an access token request, and populates fields of this object.
         /// </summary>
-        /// <param name="accessTokenResponse">JSON string response received from the server.</param>
-        protected void ReadAccessTokenResponse(string accessTokenResponse)
+        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
+        protected override void ReadAccessTokenResponse(dynamic accessTokenResponse)
         {
-            dynamic json = JsonConvert.DeserializeObject(accessTokenResponse);
-            Error = json["error"];
-            ErrorDescription = json["error_description"];
-            ErrorUri = json["error_uri"];
+            ReadAccessTokenResponseCommon(accessTokenResponse);
             AccessTokenResponse =
-                json["access_token"] == null
+                accessTokenResponse["access_token"] == null
                 ? null
-                : Client.Authorization.AccessTokenResponse.FromResponseObject(json, OAuthConfig.SignerKey);
+                : Client.Authorization.AccessTokenResponse.FromResponseObject(accessTokenResponse, OAuthConfig.SignerKey);
         }
 
         #endregion

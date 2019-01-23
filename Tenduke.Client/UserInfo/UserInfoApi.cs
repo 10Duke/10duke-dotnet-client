@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Tenduke.Client.Config;
 using Tenduke.Client.Util;
@@ -60,10 +58,11 @@ namespace Tenduke.Client.UserInfo
                 NoCache = true,
                 NoStore = true
             };
-            var response = await HttpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadAsAsync<UserInfoData>();
+            using (var response = await HttpClient.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<UserInfoData>();
+            }
         }
 
         #endregion

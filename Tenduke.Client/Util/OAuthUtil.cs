@@ -90,6 +90,8 @@ namespace Tenduke.Client.Util
         /// </summary>
         /// <param name="refreshToken">The refresh token.</param>
         /// <param name="oauthConfig">OAuth configuration.</param>
+        /// <param name="scope">OAuth scope, optional. If <c>null</c>, requesting the same scope that had been granted
+        /// with the original access token.</param>
         /// <returns>The access token response as a string.</returns>
         public static string RefreshAccessToken(string refreshToken, IAuthorizationCodeGrantConfig oauthConfig, string scope = null)
         {

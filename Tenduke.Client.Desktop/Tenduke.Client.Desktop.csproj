@@ -13,16 +13,16 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
-    <AssemblyVersion>2.0.3.0</AssemblyVersion>
-    <FileVersion>2.0.3.0</FileVersion>
-    <Version>2.0.3</Version>
+    <AssemblyVersion>2.0.4.0</AssemblyVersion>
+    <FileVersion>2.0.4.0</FileVersion>
+    <Version>2.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common" Version="69.0.0" />
+    <PackageReference Include="CefSharp.Common" Version="71.0.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
     <PackageReference Include="System.Management" Version="4.5.0" />
-    <PackageReference Include="Tenduke.Client" Version="2.0.3" />
+    <PackageReference Include="Tenduke.Client" Version="2.0.4" />
   </ItemGroup>
 
 </Project>

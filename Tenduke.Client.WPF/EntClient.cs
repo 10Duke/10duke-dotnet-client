@@ -67,7 +67,7 @@ namespace Tenduke.Client.WPF
         /// and the access token in <see cref="AuthorizationInfo.AccessTokenResponse"/> is used for the
         /// subsequent API requests.
         /// </summary>
-        public void AuthorizeSync()
+        public virtual void AuthorizeSync()
         {
             if (OAuthConfig == null)
             {

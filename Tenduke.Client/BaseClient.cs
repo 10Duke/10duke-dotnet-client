@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
 using Tenduke.Client.EntApi.Authz;
 using Tenduke.Client.UserInfo;
-using Tenduke.Client.Util;
 
 namespace Tenduke.Client
 {
@@ -18,7 +16,7 @@ namespace Tenduke.Client
         /// <summary>
         /// The <see cref="HttpClient"/> for 10Duke API calls.
         /// </summary>
-        private static readonly HttpClient HttpClient = new HttpClient();
+        protected static readonly HttpClient HttpClient = new HttpClient();
 
         #endregion
 

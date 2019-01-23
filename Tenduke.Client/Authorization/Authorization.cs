@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Specialized;
 using Tenduke.Client.Config;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
 {
@@ -13,27 +15,32 @@ namespace Tenduke.Client.Authorization
         #region Properties
 
         /// <summary>
-        /// OAuth 2.0 Access Token response received from the 10Duke Entitlement service,
+        /// OAuth 2.0 Access Token response received from the 10Duke Identity and Entitlement service,
         /// or <c>null</c> if no access token currently obtained.
         /// </summary>
         public AccessTokenResponse AccessTokenResponse { get; set; }
 
         /// <summary>
-        /// Error code received from the 10Duke Entitlement service, or <c>null</c> if there is no error.
+        /// Error code received from the 10Duke Identity and Entitlement service, or <c>null</c> if there is no error.
         /// </summary>
         public string Error { get; set; }
 
         /// <summary>
-        /// Error description received from the 10Duke Entitlement service.
+        /// Error description received from the 10Duke Identity and Entitlement service.
         /// The error description may be given in the case that <see cref="Error"/> is not <c>null</c>.
         /// </summary>
         public string ErrorDescription { get; set; }
 
         /// <summary>
-        /// Error Uri for additional error information, received from the 10Duke Entitlement service.
+        /// Error Uri for additional error information, received from the 10Duke Identity and Entitlement service.
         /// The error Uri may be given in the case that <see cref="Error"/> is not <c>null</c>.
         /// </summary>
         public string ErrorUri { get; set; }
+
+        /// <summary>
+        /// Timestamp when this authorization info has been received from the 10Duke Identity and Entitlement service.
+        /// </summary>
+        public DateTime? Received { get; set; }
 
         #endregion
     }
@@ -112,7 +119,6 @@ namespace Tenduke.Client.Authorization
         /// is not used with the authorization flow, or if no OAuth state specified in the <paramref name="args"/>.</returns>
         public abstract string AuthorizeSync(A args);
 
-
         /// <summary>
         /// Reads response and populates this object from the response parameters received
         /// from the server as a response to an authorization request.
@@ -127,6 +133,34 @@ namespace Tenduke.Client.Authorization
             ErrorDescription = responseParameters["error_description"];
             ErrorUri = responseParameters["error_uri"];
             return responseParameters["state"];
+        }
+
+        /// <summary>
+        /// Parses response from the server to an access token request, and populates fields of this object.
+        /// </summary>
+        /// <param name="accessTokenResponse">JSON string response received from the server.</param>
+        protected void ReadAccessTokenResponse(string accessTokenResponse)
+        {
+            dynamic json = JsonConvert.DeserializeObject(accessTokenResponse);
+            ReadAccessTokenResponse(json);
+        }
+
+        /// <summary>
+        /// Parses response from the server to an access token request, and populates fields of this object.
+        /// </summary>
+        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
+        protected abstract void ReadAccessTokenResponse(dynamic accessTokenResponse);
+
+        /// <summary>
+        /// Parses response from the server to an access token request, and populates fields of this object.
+        /// </summary>
+        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
+        protected void ReadAccessTokenResponseCommon(dynamic accessTokenResponse)
+        {
+            Error = accessTokenResponse["error"];
+            ErrorDescription = accessTokenResponse["error_description"];
+            ErrorUri = accessTokenResponse["error_uri"];
+            Received = DateTime.UtcNow;
         }
 
         /// <summary>
