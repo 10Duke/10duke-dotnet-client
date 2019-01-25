@@ -1,15 +1,10 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tenduke.Client.Desktop.Util;
 
 namespace Tenduke.Client.WinForms
 {
@@ -18,6 +13,20 @@ namespace Tenduke.Client.WinForms
     /// </summary>
     public partial class WebBrowserForm : Form
     {
+        #region Private fields
+
+        /// <summary>
+        /// Path to file used as loader / in-progress indicator before the initial page is loaded in the browser.
+        /// </summary>
+        private string loaderPath;
+
+        /// <summary>
+        /// Indicates if loading the initial browser page has been started.
+        /// </summary>
+        private bool initialPageLoadStarted;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -65,10 +74,25 @@ namespace Tenduke.Client.WinForms
         /// <param name="e">The event arguments.</param>
         private void WebBrowserForm_Shown(object sender, EventArgs e)
         {
-            ChromiumWebBrowser = new ChromiumWebBrowser(Address);
+            if (loaderPath == null)
+            {
+                loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
+            }
+            ChromiumWebBrowser = new ChromiumWebBrowser(loaderPath);
+            initialPageLoadStarted = false;
+            ChromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
             this.Controls.Add(ChromiumWebBrowser);
             ChromiumWebBrowser.Dock = DockStyle.Fill;
             ChromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
+        }
+
+        private void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (!initialPageLoadStarted && !e.IsLoading)
+            {
+                initialPageLoadStarted = true;
+                ChromiumWebBrowser.Load(Address);
+            }
         }
 
         private void WebBrowserForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -76,6 +100,11 @@ namespace Tenduke.Client.WinForms
             this.Controls.Remove(ChromiumWebBrowser);
             ChromiumWebBrowser.Dispose();
             ChromiumWebBrowser = null;
+            if (loaderPath != null)
+            {
+                File.Delete(loaderPath);
+                loaderPath = null;
+            }
         }
 
         /// <summary>
