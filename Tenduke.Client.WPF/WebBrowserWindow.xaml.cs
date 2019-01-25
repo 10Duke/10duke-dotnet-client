@@ -1,19 +1,10 @@
 ﻿using CefSharp;
 using CefSharp.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Tenduke.Client.Desktop.Util;
 
 namespace Tenduke.Client.WPF
 {
@@ -22,6 +13,20 @@ namespace Tenduke.Client.WPF
     /// </summary>
     public partial class WebBrowserWindow : Window
     {
+        #region Private fields
+
+        /// <summary>
+        /// Path to file used as loader / in-progress indicator before the initial page is loaded in the browser.
+        /// </summary>
+        private string loaderPath;
+
+        /// <summary>
+        /// Indicates if loading the initial browser page has been started.
+        /// </summary>
+        private bool initialPageLoadStarted;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -66,12 +71,39 @@ namespace Tenduke.Client.WPF
         /// <param name="e">The event arguments.</param>
         private void windowWebBrowser_Loaded(object sender, RoutedEventArgs e)
         {
+            if (loaderPath == null)
+            {
+                loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
+            }
             ChromiumWebBrowser = new ChromiumWebBrowser
             {
-                Address = Address,
+                Address = loaderPath,
                 RequestHandler = new AuthzRequestHandler(this)
             };
+            initialPageLoadStarted = false;
+            ChromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
             gridForWebBrowser.Children.Add(ChromiumWebBrowser);
+        }
+
+        private void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (!initialPageLoadStarted && !e.IsLoading)
+            {
+                initialPageLoadStarted = true;
+                ChromiumWebBrowser.Load(Address);
+            }
+        }
+
+        private void windowWebBrowser_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            gridForWebBrowser.Children.Remove(ChromiumWebBrowser);
+            ChromiumWebBrowser.Dispose();
+            ChromiumWebBrowser = null;
+            if (loaderPath != null)
+            {
+                File.Delete(loaderPath);
+                loaderPath = null;
+            }
         }
 
         /// <summary>
