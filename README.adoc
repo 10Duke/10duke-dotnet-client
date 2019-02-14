@@ -24,7 +24,7 @@ Client libraries for .NET applications, for using services of the 10Duke Identit
 |.NET Framework 4.6.1
 |===
 
-All the client libraries are based on the generic https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client[Tenduke.Client] base library, which can be used as a starting point for developing custom client libraries.
+All the client libraries are based on the generic https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client[Tenduke.Client] base library, which can be used as a starting point for developing custom client libraries. https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client[Tenduke.Client] itself is based on .NET Standard 2.0.
 
 === Installation
 
