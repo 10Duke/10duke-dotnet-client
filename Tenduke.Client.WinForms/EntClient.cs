@@ -70,15 +70,25 @@ namespace Tenduke.Client.WinForms
         /// </summary>
         public virtual void AuthorizeSync()
         {
+            var authorization = InitializeAuthorizationCodeGrant();
+            var args = new AuthorizationCodeGrantArgs();
+            authorization.AuthorizeSync(args);
+            Authorization = authorization;
+        }
+
+        /// <summary>
+        /// Creates and initializes the <see cref="AuthorizationCodeGrant"/> object that is used
+        /// for executing the OAuth 2.0 authorization code grant flow using an embedded browser.
+        /// </summary>
+        /// <returns>The <see cref="AuthorizationCodeGrant"/> object.</returns>
+        protected virtual AuthorizationCodeGrant InitializeAuthorizationCodeGrant()
+        {
             if (OAuthConfig == null)
             {
                 throw new InvalidOperationException("OAuthConfig must be specified");
             }
 
-            var authorization = new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
-            var args = new AuthorizationCodeGrantArgs();
-            authorization.AuthorizeSync(args);
-            Authorization = authorization;
+            return new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
         }
 
         #endregion

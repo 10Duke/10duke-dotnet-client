@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>Add embedded browser window customization by setting initial form properties</releaseNotes>
     <copyright>Copyright © 2019- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WinForms</tags>
   </metadata>

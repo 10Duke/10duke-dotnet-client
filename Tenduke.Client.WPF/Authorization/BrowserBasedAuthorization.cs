@@ -62,11 +62,7 @@ namespace Tenduke.Client.WPF.Authorization
             OnStarted();
 
             var authzUri = BuildAuthorizationUri(args);
-            WebBrowserWindow = new WebBrowserWindow()
-            {
-                Address = authzUri.ToString(),
-                RedirectUri = OAuthConfig.RedirectUri
-            };
+            WebBrowserWindow = InitializeWebBrowserWindow(authzUri);
             OnBeforeAuthorization(args, authzUri);
 
             var result = WebBrowserWindow.ShowDialog();
@@ -89,6 +85,21 @@ namespace Tenduke.Client.WPF.Authorization
             WebBrowserWindow = null;
 
             return retValue;
+        }
+
+        /// <summary>
+        /// Creates and initializes a <see cref="WebBrowserWindow"/> to use for user interaction
+        /// in the authorization process.
+        /// </summary>
+        /// <param name="initialAddress">The initial address.</param>
+        /// <returns>The <see cref="WebBrowserWindow"/>.</returns>
+        protected virtual WebBrowserWindow InitializeWebBrowserWindow(Uri initialAddress)
+        {
+            return new WebBrowserWindow()
+            {
+                Address = initialAddress.ToString(),
+                RedirectUri = OAuthConfig.RedirectUri
+            };
         }
 
         /// <summary>

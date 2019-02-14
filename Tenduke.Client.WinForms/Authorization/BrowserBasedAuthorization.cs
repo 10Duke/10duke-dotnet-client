@@ -64,11 +64,7 @@ namespace Tenduke.Client.WinForms.Authorization
 
             var authzUri = BuildAuthorizationUri(args);
             string retValue;
-            using (var webBrowserForm = new WebBrowserForm()
-                        {
-                            Address = authzUri.ToString(),
-                            RedirectUri = OAuthConfig.RedirectUri
-                        })
+            using (var webBrowserForm = InitializeWebBrowserForm(authzUri))
             {
                 WebBrowserForm = webBrowserForm;
 
@@ -94,6 +90,21 @@ namespace Tenduke.Client.WinForms.Authorization
             }
 
             return retValue;
+        }
+
+        /// <summary>
+        /// Creates and initializes a <see cref="WebBrowserForm"/> to use for user interaction
+        /// in the authorization process.
+        /// </summary>
+        /// <param name="initialAddress">The initial address.</param>
+        /// <returns>The <see cref="WebBrowserForm"/>.</returns>
+        protected virtual WebBrowserForm InitializeWebBrowserForm(Uri initialAddress)
+        {
+            return new WebBrowserForm()
+            {
+                Address = initialAddress.ToString(),
+                RedirectUri = OAuthConfig.RedirectUri
+            };
         }
 
         /// <summary>
