@@ -6,6 +6,7 @@ Client libraries for .NET applications, for using services of the 10Duke Identit
 * Checking and consuming licenses
 * Releasing consumed licenses
 * Checking end-user permissions
+* Authentication and authorization with OAuth 2.0 and OpenID Connect
 
 .Client libraries
 |===
