@@ -33,7 +33,7 @@ namespace Tenduke.Client.WinFormsSample
             Application.ApplicationExit += Application_ApplicationExit;
 
             // Application-wide static initialization of EntClient
-            EntClient.Initialize(resolverArgs);
+            WinForms.EntClient.Initialize(resolverArgs);
 
             mainForm = new MainForm();
             mainForm.FormClosed += MainForm_FormClosed;
@@ -62,7 +62,7 @@ namespace Tenduke.Client.WinFormsSample
         private void Application_ApplicationExit(object sender, EventArgs e)
         {
             // Application-wide static clean-up of EntClient
-            EntClient.Shutdown();
+            WinForms.EntClient.Shutdown();
         }
     }
 }

@@ -1,21 +1,11 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tenduke.Client.Config;
 using Tenduke.Client.EntApi;
 using Tenduke.Client.EntApi.Authz;
@@ -57,14 +47,14 @@ namespace Tenduke.Client.WPFSample
         /// <summary>
         /// The <see cref="Tenduke.EntitlementClient.EntClient"/> instance used by this sample application.
         /// </summary>
-        protected EntClient EntClient { get; set; }
+        protected WPF.EntClient EntClient { get; set; }
 
         public ObservableCollection<AuthorizationDecisionItem> AuthorizationDecisionItems { get; protected set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
+            EntClient = new WPF.EntClient() { OAuthConfig = OAuthConfig };
             AuthorizationDecisionItems = new ObservableCollection<AuthorizationDecisionItem>();
             DataContext = this;
         }

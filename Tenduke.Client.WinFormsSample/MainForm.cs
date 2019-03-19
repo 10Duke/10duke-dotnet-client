@@ -1,14 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tenduke.Client.Config;
 using Tenduke.Client.EntApi;
@@ -46,9 +41,9 @@ namespace Tenduke.Client.WinFormsSample
         };
 
         /// <summary>
-        /// The <see cref="Tenduke.EntitlementClient.EntClient"/> instance used by this sample application.
+        /// The <see cref="Tenduke.Client.WinForms.EntClient"/> instance used by this sample application.
         /// </summary>
-        protected EntClient EntClient { get; set; }
+        protected WinForms.EntClient EntClient { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
@@ -58,7 +53,7 @@ namespace Tenduke.Client.WinFormsSample
             InitializeComponent();
             comboBoxConsumeMode.SelectedIndex = 0;
             listViewAuthorizationDecisions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
+            EntClient = new WinForms.EntClient() { OAuthConfig = OAuthConfig };
         }
 
         /// <summary>
