@@ -346,7 +346,9 @@ namespace Tenduke.Client.WPFSample
             bool noConsumptionFound = "noConsumptionFoundById" == (string)response[tokenId + "_errorCode"];
             if (successfullyReleased || noConsumptionFound)
             {
-                listViewAuthorizationDecisions.Items.Remove(selectedItem);
+                ObservableCollection<AuthorizationDecisionItem> source = listViewAuthorizationDecisions.ItemsSource as ObservableCollection<AuthorizationDecisionItem>;
+                if (source != null)
+                    source.Remove(selectedItem);
             }
             else
             {
