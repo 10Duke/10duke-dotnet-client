@@ -6,7 +6,7 @@ using Tenduke.Client.Util;
 
 namespace Tenduke.Client
 {
-    public class EntClientTest
+    public class EntApiClientTest
     {
         private readonly string accessToken = "insert-valid-oauth-access-token-value-here";
         private readonly string userInfoUri = "https://my-ent.10duke.net/userinfo";
@@ -22,9 +22,11 @@ namespace Tenduke.Client
                 UserInfoUri = userInfoUri
             };
 
-            var client = new EntClient();
-            client.OAuthConfig = oauthConfig;
-            client.AccessToken = accessToken;
+            var client = new EntApiClient()
+            {
+                OAuthConfig = oauthConfig,
+                AccessToken = accessToken
+            };
 
             var userInfoData = await client.UserInfoApi.GetUserInfoAsync();
 
@@ -42,9 +44,11 @@ namespace Tenduke.Client
                 SignerKey = signerKey
             };
 
-            var client = new EntClient();
-            client.AuthzApiConfig = authzApiConfig;
-            client.AccessToken = accessToken;
+            var client = new EntApiClient()
+            {
+                AuthzApiConfig = authzApiConfig,
+                AccessToken = accessToken
+            };
 
             var authorizationDecision = await client.AuthzApi.CheckOrConsumeAsync("MyTestItem", false, ResponseType.JWT);
 
