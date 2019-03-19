@@ -7,7 +7,7 @@ namespace Tenduke.Client.Config
     /// Base class OAuth configuration objects.
     /// </summary>
     [Serializable]
-    public abstract class OAuthConfig : IOAuthConfig, ISerializable
+    public class OAuthConfig : IOAuthConfig, ISerializable
     {
         #region Properties
 
