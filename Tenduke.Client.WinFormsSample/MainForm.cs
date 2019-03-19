@@ -128,7 +128,7 @@ namespace Tenduke.Client.WinFormsSample
 
         /// <summary>
         /// Checks value of the <c>StoreAuthorization</c> setting to determine if authorization from the 10Duke Entitlement
-        /// Service should be stored in the registry. If value of the setting is <c>true</c>, stored current <see cref="EntClient.Authorization"/>
+        /// Service should be stored in the registry. If value of the setting is <c>true</c>, stored current <see cref="EntApiClient.Authorization"/>
         /// to the registry.
         /// </summary>
         /// <returns><c>true</c> if authorization was stored, <c>false</c> otherwise.</returns>

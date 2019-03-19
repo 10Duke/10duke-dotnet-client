@@ -23,8 +23,8 @@ namespace Tenduke.Client.WinFormsSample
 
         /// <summary>
         /// <para>Initializes a new instance of the <see cref="WinFormsSampleApplicationContext"/> class.</para>
-        /// <para><see cref="EntClient.Initialize"/> is called here for initializing <see cref="EntClient"/>.
-        /// This method must be called once before using <see cref="EntClient"/> in the application.</para>
+        /// <para><see cref="EntApiClient.Initialize"/> is called here for initializing <see cref="EntApiClient"/>.
+        /// This method must be called once before using <see cref="EntApiClient"/> in the application.</para>
         /// </summary>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
@@ -54,8 +54,8 @@ namespace Tenduke.Client.WinFormsSample
 
         /// <summary>
         /// <para>Called when the application is about to shut down.</para>
-        /// <para><see cref="EntClient.Shutdown"/> is called here for cleaning up resources used by <see cref="EntClient"/>.
-        /// This method must be called once when <see cref="EntClient"/> is not anymore used by the application.</para>
+        /// <para><see cref="EntApiClient.Shutdown"/> is called here for cleaning up resources used by <see cref="EntApiClient"/>.
+        /// This method must be called once when <see cref="EntApiClient"/> is not anymore used by the application.</para>
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
