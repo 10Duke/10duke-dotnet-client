@@ -29,13 +29,27 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WebBrowserForm));
+            this.panelWebBrowserContainer = new System.Windows.Forms.Panel();
             this.SuspendLayout();
+            // 
+            // panelWebBrowserContainer
+            // 
+            this.panelWebBrowserContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelWebBrowserContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelWebBrowserContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelWebBrowserContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.panelWebBrowserContainer.Name = "panelWebBrowserContainer";
+            this.panelWebBrowserContainer.Size = new System.Drawing.Size(784, 582);
+            this.panelWebBrowserContainer.TabIndex = 0;
             // 
             // WebBrowserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 581);
+            this.Controls.Add(this.panelWebBrowserContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WebBrowserForm";
@@ -48,5 +62,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel panelWebBrowserContainer;
     }
 }

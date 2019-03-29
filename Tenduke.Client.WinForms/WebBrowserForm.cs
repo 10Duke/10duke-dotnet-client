@@ -81,7 +81,7 @@ namespace Tenduke.Client.WinForms
             ChromiumWebBrowser = new ChromiumWebBrowser(loaderPath);
             initialPageLoadStarted = false;
             ChromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
-            this.Controls.Add(ChromiumWebBrowser);
+            panelWebBrowserContainer.Controls.Add(ChromiumWebBrowser);
             ChromiumWebBrowser.Dock = DockStyle.Fill;
             ChromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
         }
