@@ -5,7 +5,7 @@ using System.Management;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tenduke.Client.Desktop.Util
+namespace Tenduke.Client.Util
 {
     /// <summary>
     /// <para>Utilities for getting different pieces of information that may be used for identifying
