@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.3" />
     <PackageReference Include="Nowin" Version="0.26.0" />
-    <PackageReference Include="Tenduke.Client.AspNetCore" Version="2.2.2" />
+    <PackageReference Include="Tenduke.Client.AspNetCore" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>

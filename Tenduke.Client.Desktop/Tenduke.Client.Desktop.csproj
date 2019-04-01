@@ -30,10 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="CefSharp.Common" Version="71.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="2.3.0" />
   </ItemGroup>
 
 </Project>
