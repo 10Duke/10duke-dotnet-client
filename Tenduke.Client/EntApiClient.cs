@@ -1,4 +1,5 @@
 ﻿using Tenduke.Client.Config;
+using Tenduke.Client.EntApi.Authz;
 
 namespace Tenduke.Client
 {
@@ -13,5 +14,28 @@ namespace Tenduke.Client
     /// </summary>
     public class EntApiClient : BaseClient<EntApiClient, OAuthConfig>
     {
+        /// <summary>
+        /// Gets or sets the identifier of this system, used when communicating with the authorization
+        /// endpoint of the 10Duke Entitlement service.
+        /// </summary>
+        public string ComputerId
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets an <see cref="AuthzApi"/> object for accessing the <c>/authz/</c> API of the 10Duke Identity and Entitlement service.
+        /// Please note that the OAuth authentication / authorization process must be successfully completed before
+        /// getting the <see cref="AuthzApi"/> object, and the <see cref="BaseClient.AccessToken"/> must be available.
+        /// </summary>
+        public new AuthzApi AuthzApi
+        {
+            get
+            {
+                var retValue = base.AuthzApi;
+                retValue.ComputerId = ComputerId;
+                return retValue;
+            }
+        }
     }
 }

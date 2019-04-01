@@ -10,7 +10,9 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Rename Tenduke.Client.EntClient to Tenduke.Client.EntApiClient</PackageReleaseNotes>
+    <PackageReleaseNotes>- Move ComputedIdentity util from Tenduke.Client.Desktop
+- Move generic parts of Tenduke.Client.Desktop.Util.EntClientAuthorizationSerializer to the AuthorizationSerializer util
+- In EntApiClient, add ComputerId property and use it for initializing AuthzApi</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
     <Version>2.3.0</Version>
