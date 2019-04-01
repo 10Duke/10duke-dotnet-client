@@ -16,7 +16,8 @@
     <AssemblyVersion>2.3.0.0</AssemblyVersion>
     <FileVersion>2.3.0.0</FileVersion>
     <Version>2.3.0</Version>
-    <PackageReleaseNotes>Dependency updates</PackageReleaseNotes>
+    <PackageReleaseNotes>- Move ComputedIdentity util to Tenduke.Client.Util.ComputedIdentity in the base Tenduke.Client assembly
+- Move generic parts of EntClientAuthorizationSerializer to AuthorizationSerializer util in the base Tenduke.Client assembly</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
