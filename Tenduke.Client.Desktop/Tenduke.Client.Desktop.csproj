@@ -29,8 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common" Version="71.0.2" />
-    <PackageReference Include="Tenduke.Client" Version="2.3.0" />
+    <PackageReference Include="CefSharp.Common" Version="75.1.143" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 
 </Project>
