@@ -27,6 +27,11 @@ namespace Tenduke.Client.Config
         /// </summary>
         public string UserInfoUri { get; set; }
 
+        /// <summary>
+        /// Indicates if user should be allowed to select OAuth session lifetime preference.
+        /// </summary>
+        public bool ShowRememberMe { get; set; }
+
         #endregion
 
         #region Constructors
