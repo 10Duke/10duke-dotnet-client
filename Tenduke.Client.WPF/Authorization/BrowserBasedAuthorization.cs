@@ -143,9 +143,7 @@ namespace Tenduke.Client.WPF.Authorization
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["response_type"] = GetResponseType();
             query["client_id"] = OAuthConfig.ClientID;
-            // Always ask the server to hide "Remember me" checkbox, authorization persistence shall be
-            // controlled by the application.
-            query["showRememberMe"] = "false";
+            query["showRememberMe"] = OAuthConfig.ShowRememberMe ? "true" : "false";
 
             if (OAuthConfig.RedirectUri != null)
             {
