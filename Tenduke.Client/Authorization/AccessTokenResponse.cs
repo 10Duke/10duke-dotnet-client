@@ -60,6 +60,12 @@ namespace Tenduke.Client.Authorization
         public string IDTokenRaw => (string)this["id_token"]?.Value;
 
         /// <summary>
+        /// Indicates whether user would prefer this client application to store the access token response
+        /// and use the same access token in subsequent client sessions.
+        /// </summary>
+        public bool? Remember => (bool?)this["remember"]?.Value;
+
+        /// <summary>
         /// RSA public key to use for verifying ID token signature.
         /// </summary>
         public RSA SignerKey { get; set; }
