@@ -136,6 +136,9 @@ namespace Tenduke.Client.WinForms
 
         #region Private CefSharp request handler implementation
 
+        /// <summary>
+        /// Implementation of CefSharp resource request handler, used for capturing the OAuth response.
+        /// </summary>
         private class AuthzResourceRequestHandler : IResourceRequestHandler
         {
             private readonly WebBrowserForm parent;
