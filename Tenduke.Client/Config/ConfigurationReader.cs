@@ -34,6 +34,8 @@ namespace Tenduke.Client.Config
             public string Scope => Config["Scope"];
 
             public string UserInfoUri => Config["UserInfoUri"];
+
+            public bool ShowRememberMe => string.IsNullOrEmpty(Config["ShowRememberMe"]) ? false : bool.Parse(Config["ShowRememberMe"]);
         }
 
         protected class BrowserBasedAuthorizationConfig : OAuthConfig, IBrowserBasedAuthorizationConfig

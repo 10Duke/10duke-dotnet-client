@@ -13,11 +13,12 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
-    <AssemblyVersion>2.3.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-    <Version>2.3.0</Version>
-    <PackageReleaseNotes>- Move ComputedIdentity util to Tenduke.Client.Util.ComputedIdentity in the base Tenduke.Client assembly
-- Move generic parts of EntClientAuthorizationSerializer to AuthorizationSerializer util in the base Tenduke.Client assembly</PackageReleaseNotes>
+    <AssemblyVersion>2.3.1.0</AssemblyVersion>
+    <FileVersion>2.3.1.0</FileVersion>
+    <Version>2.3.1</Version>
+    <PackageReleaseNotes>- Add ShowRememberMe configuration argument
+- Update dependency versions
+- Add "remember" access token response field for communicating user preference of storing OAuth access token</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common" Version="71.0.2" />
-    <PackageReference Include="Tenduke.Client" Version="2.3.0" />
+    <PackageReference Include="CefSharp.Common" Version="75.1.143" />
+    <PackageReference Include="Tenduke.Client" Version="2.3.1" />
   </ItemGroup>
 
 </Project>

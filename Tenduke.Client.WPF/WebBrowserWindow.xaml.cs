@@ -136,6 +136,57 @@ namespace Tenduke.Client.WPF
         #region Private CefSharp request handler implementation
 
         /// <summary>
+        /// Implementation of CefSharp resource request handler, used for capturing the OAuth response.
+        /// </summary>
+        private class AuthzResourceRequestHandler : IResourceRequestHandler
+        {
+            private readonly WebBrowserWindow parent;
+
+            public AuthzResourceRequestHandler(WebBrowserWindow parent)
+            {
+                this.parent = parent;
+            }
+
+            public ICookieAccessFilter GetCookieAccessFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
+            {
+                return null;
+            }
+
+            public IResourceHandler GetResourceHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
+            {
+                return null;
+            }
+
+            public IResponseFilter GetResourceResponseFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response)
+            {
+                return null;
+            }
+
+            public CefReturnValue OnBeforeResourceLoad(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
+            {
+                return CefReturnValue.Continue;
+            }
+
+            public bool OnProtocolExecution(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
+            {
+                return parent.HandleBrowserProtocolExecution(chromiumWebBrowser, browser, request.Url);
+            }
+
+            public void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
+            {
+            }
+
+            public void OnResourceRedirect(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, ref string newUrl)
+            {
+            }
+
+            public bool OnResourceResponse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Implementation of CefSharp request handler, used for capturing the OAuth response.
         /// </summary>
         private class AuthzRequestHandler : IRequestHandler
@@ -147,34 +198,19 @@ namespace Tenduke.Client.WPF
                 this.parent = parent;
             }
 
-            public bool CanGetCookies(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
+            public bool GetAuthCredentials(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
             {
                 return true;
             }
 
-            public bool CanSetCookie(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, Cookie cookie)
+            public IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
             {
-                return true;
-            }
-
-            public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
-            {
-                return false;
-            }
-
-            public IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
-            {
-                return null;
+                return new AuthzResourceRequestHandler(parent);
             }
 
             public bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
             {
                 return false;
-            }
-
-            public CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
-            {
-                return CefReturnValue.Continue;
             }
 
             public bool OnCertificateError(IWebBrowser browserControl, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)
@@ -191,11 +227,6 @@ namespace Tenduke.Client.WPF
             {
             }
 
-            public bool OnProtocolExecution(IWebBrowser browserControl, IBrowser browser, string url)
-            {
-                return parent.HandleBrowserProtocolExecution(browserControl, browser, url);
-            }
-
             public bool OnQuotaRequest(IWebBrowser browserControl, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
             {
                 return false;
@@ -207,19 +238,6 @@ namespace Tenduke.Client.WPF
 
             public void OnRenderViewReady(IWebBrowser browserControl, IBrowser browser)
             {
-            }
-
-            public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
-            {
-            }
-
-            public void OnResourceRedirect(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, ref string newUrl)
-            {
-            }
-
-            public bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
-            {
-                return false;
             }
 
             public bool OnSelectClientCertificate(IWebBrowser browserControl, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)

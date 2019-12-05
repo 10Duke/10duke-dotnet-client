@@ -109,5 +109,14 @@ RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
                 return ((string)(this["SignerKey"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowRememberMe {
+            get {
+                return ((bool)(this["ShowRememberMe"]));
+            }
+        }
     }
 }
