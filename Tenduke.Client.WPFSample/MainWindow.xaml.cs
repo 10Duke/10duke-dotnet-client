@@ -41,7 +41,8 @@ namespace Tenduke.Client.WPFSample
             ClientSecret = Properties.Settings.Default.ClientSecret,
             RedirectUri = Properties.Settings.Default.RedirectUri,
             Scope = Properties.Settings.Default.Scope,
-            SignerKey = EntServerPublicKey
+            SignerKey = EntServerPublicKey,
+            ShowRememberMe = Properties.Settings.Default.ShowRememberMe
         };
 
         /// <summary>

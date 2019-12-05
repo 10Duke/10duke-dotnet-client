@@ -12,7 +12,7 @@ namespace Tenduke.Client.WPFSample.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -107,6 +107,15 @@ RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
         public bool StoreAuthorization {
             get {
                 return ((bool)(this["StoreAuthorization"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowRememberMe {
+            get {
+                return ((bool)(this["ShowRememberMe"]));
             }
         }
     }
