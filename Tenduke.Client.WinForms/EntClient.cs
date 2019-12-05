@@ -1,9 +1,6 @@
-﻿using CefSharp.WinForms;
+﻿using CefSharp;
+using CefSharp.WinForms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Desktop;
 using Tenduke.Client.Desktop.Util;
@@ -92,6 +89,15 @@ namespace Tenduke.Client.WinForms
             }
 
             return new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
+        }
+
+        /// <summary>
+        /// Clears cookies of the built-in browser component. Note that this clears cookies globally
+        /// for all Cef-based browsers.
+        /// </summary>
+        public static void ClearCookies()
+        {
+            Cef.GetGlobalCookieManager().DeleteCookies("", "");
         }
 
         #endregion
