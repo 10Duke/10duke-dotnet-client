@@ -25,7 +25,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/oauth2/authz/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/user/oauth20/authz")]
         public string AuthzUri {
             get {
                 return ((string)(this["AuthzUri"]));
@@ -34,7 +34,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/oauth2/access/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/user/oauth20/token")]
         public string TokenUri {
             get {
                 return ((string)(this["TokenUri"]));
@@ -43,7 +43,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/userinfo/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/userinfo/")]
         public string UserInfoUri {
             get {
                 return ((string)(this["UserInfoUri"]));
