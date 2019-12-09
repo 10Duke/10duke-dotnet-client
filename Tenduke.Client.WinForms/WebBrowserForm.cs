@@ -3,6 +3,8 @@ using CefSharp.WinForms;
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tenduke.Client.Desktop.Util;
 
@@ -24,6 +26,11 @@ namespace Tenduke.Client.WinForms
         /// Indicates if loading the initial browser page has been started.
         /// </summary>
         private bool initialPageLoadStarted;
+
+        /// <summary>
+        /// Indicates if the window is in closed state.
+        /// </summary>
+        private bool closed;
 
         #endregion
 
@@ -74,6 +81,7 @@ namespace Tenduke.Client.WinForms
         /// <param name="e">The event arguments.</param>
         private void WebBrowserForm_Shown(object sender, EventArgs e)
         {
+            closed = false;
             if (loaderPath == null)
             {
                 loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
@@ -97,9 +105,14 @@ namespace Tenduke.Client.WinForms
 
         private void WebBrowserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Controls.Remove(ChromiumWebBrowser);
-            ChromiumWebBrowser.Dispose();
-            ChromiumWebBrowser = null;
+            closed = true;
+            if (ChromiumWebBrowser != null)
+            { 
+                this.Controls.Remove(ChromiumWebBrowser);
+                ChromiumWebBrowser.Dispose();
+                ChromiumWebBrowser = null;
+            }
+
             if (loaderPath != null)
             {
                 File.Delete(loaderPath);
@@ -120,16 +133,27 @@ namespace Tenduke.Client.WinForms
             if (url.StartsWith(RedirectUri))
             {
                 ResponseUri = url;
-                Invoke(new Action(() =>
-                {
-                    // DialogResult.OK indicates that response has been received, no matter
-                    // if the response contains an OAuth success response or an error response
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }));
+                CloseInternal();
             }
 
             return false;
+        }
+
+        private void CloseInternal()
+        {
+            Task.Delay(100).ContinueWith(t =>
+            {
+                Invoke(new Action(() =>
+                {
+                    if (!closed)
+                    {
+                        // DialogResult.OK indicates that response has been received, no matter
+                        // if the response contains an OAuth success response or an error response
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                }));
+            });
         }
 
         #endregion

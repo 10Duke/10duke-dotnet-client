@@ -2,7 +2,9 @@
 using CefSharp.Wpf;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Windows;
 using Tenduke.Client.Desktop.Util;
 
@@ -24,6 +26,11 @@ namespace Tenduke.Client.WPF
         /// Indicates if loading the initial browser page has been started.
         /// </summary>
         private bool initialPageLoadStarted;
+
+        /// <summary>
+        /// Indicates if the window is in closed state.
+        /// </summary>
+        private bool closed;
 
         #endregion
 
@@ -71,6 +78,7 @@ namespace Tenduke.Client.WPF
         /// <param name="e">The event arguments.</param>
         private void windowWebBrowser_Loaded(object sender, RoutedEventArgs e)
         {
+            closed = false;
             if (loaderPath == null)
             {
                 loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
@@ -96,9 +104,14 @@ namespace Tenduke.Client.WPF
 
         private void windowWebBrowser_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            gridForWebBrowser.Children.Remove(ChromiumWebBrowser);
-            ChromiumWebBrowser.Dispose();
-            ChromiumWebBrowser = null;
+            closed = true;
+            if (ChromiumWebBrowser != null)
+            {
+                gridForWebBrowser.Children.Remove(ChromiumWebBrowser);
+                ChromiumWebBrowser.Dispose();
+                ChromiumWebBrowser = null;
+            }
+
             if (loaderPath != null)
             {
                 File.Delete(loaderPath);
@@ -119,16 +132,27 @@ namespace Tenduke.Client.WPF
             if (url.StartsWith(RedirectUri))
             {
                 ResponseUri = url;
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    // true indicates that response has been received, no matter
-                    // if the response contains an OAuth success response or an error response
-                    DialogResult = true;
-                    Close();
-                }));
+                CloseInternal();
             }
 
             return false;
+        }
+
+        private void CloseInternal()
+        {
+            Task.Delay(100).ContinueWith(t =>
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    if (!closed)
+                    {
+                        // true indicates that response has been received, no matter
+                        // if the response contains an OAuth success response or an error response
+                        DialogResult = true;
+                        Close();
+                    }
+                }));
+            });
         }
 
         #endregion
