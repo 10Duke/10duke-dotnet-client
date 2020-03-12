@@ -10,11 +10,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>- Cleanup fix for an issue with desktop clients</PackageReleaseNotes>
+    <PackageReleaseNotes>- Add support for other than Any CPU builds in the provided default CefSharp assembly resolver</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>2.3.2</Version>
-    <AssemblyVersion>2.3.2.0</AssemblyVersion>
+    <Version>2.3.3</Version>
+    <AssemblyVersion>2.3.3.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
