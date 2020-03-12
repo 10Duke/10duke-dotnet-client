@@ -110,11 +110,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Tenduke.Client, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.2.3.2\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    <Reference Include="Tenduke.Client, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.2.3.3\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Tenduke.Client.Desktop, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.Desktop.2.3.2\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
+    <Reference Include="Tenduke.Client.Desktop, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.2.3.3\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
