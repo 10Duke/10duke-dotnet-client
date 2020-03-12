@@ -51,13 +51,21 @@ namespace Tenduke.Client.Desktop.Util
             if (eventArgs.Name.StartsWith("CefSharp"))
             {
                 string assemblyName = eventArgs.Name.Split(new[] { ',' }, 2)[0] + ".dll";
+
                 string archSpecificPath = Path.Combine(
                     resolverArgs.BaseDir,
                     Environment.Is64BitProcess ? SUBDIR_X64 : SUBDIR_X86,
                     assemblyName);
+                if (File.Exists(archSpecificPath))
+                {
+                    return Assembly.LoadFile(archSpecificPath);
+                }
 
-                return File.Exists(archSpecificPath)
-                           ? Assembly.LoadFile(archSpecificPath)
+                string flatPath = Path.Combine(
+                    resolverArgs.BaseDir,
+                    assemblyName);
+                return File.Exists(flatPath)
+                           ? Assembly.LoadFile(flatPath)
                            : null;
             }
 
