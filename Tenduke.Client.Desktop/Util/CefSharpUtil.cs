@@ -69,10 +69,20 @@ namespace Tenduke.Client.Desktop.Util
             var resolverArgsOrDefault = resolverArgs == null ? BuildDefaultCefSharpResolverArgs() : resolverArgs;
             if (resolverArgsOrDefault.BaseDir != null)
             {
-                var browserSubprocessPath = Path.Combine(resolverArgsOrDefault.BaseDir,
+                var browserSubprocessFileName = "CefSharp.BrowserSubprocess.exe";
+                var archSpecificBrowserSubprocessPath = Path.Combine(resolverArgsOrDefault.BaseDir,
                                                    Environment.Is64BitProcess ? "x64" : "x86",
-                                                   "CefSharp.BrowserSubprocess.exe");
-                cefSettings.BrowserSubprocessPath = browserSubprocessPath;
+                                                   browserSubprocessFileName);
+                if (File.Exists(archSpecificBrowserSubprocessPath))
+                {
+                    cefSettings.BrowserSubprocessPath = archSpecificBrowserSubprocessPath;
+                }
+                else
+                {
+                    var flatBrowserSubprocessPath = Path.Combine(resolverArgsOrDefault.BaseDir,
+                                                       browserSubprocessFileName);
+                    cefSettings.BrowserSubprocessPath = flatBrowserSubprocessPath;
+                }
             }
             Cef.Initialize(cefSettings, performDependencyCheck: false, browserProcessHandler: null);
         }
