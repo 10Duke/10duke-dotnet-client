@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Add support for other than Any CPU builds in the provided default CefSharp assembly resolver</releaseNotes>
+    <releaseNotes>Add fallback logics for finding browser subprocess executable</releaseNotes>
     <copyright>Copyright © 2018- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WPF</tags>
   </metadata>
