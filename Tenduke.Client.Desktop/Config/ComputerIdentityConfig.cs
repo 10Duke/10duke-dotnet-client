@@ -1,5 +1,5 @@
 ﻿using System;
-using Tenduke.Client.Util;
+using Tenduke.Client.Desktop.Util;
 
 namespace Tenduke.Client.Desktop.Config
 {
