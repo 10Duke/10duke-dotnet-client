@@ -56,17 +56,17 @@ namespace Tenduke.Client.Desktop
                 var retValue = computerId;
                 if (retValue == null)
                 {
-                    Tenduke.Client.Util.ComputerIdentity.ComputerIdentifier[] idComponents =
+                    ComputerIdentity.ComputerIdentifier[] idComponents =
                         ComputerIdentityConfig == null || (ComputerIdentityConfig.ComputeBy == null && ComputerIdentityConfig.AdditionalIdentifier == null)
-                        ? new[] { Tenduke.Client.Util.ComputerIdentity.ComputerIdentifier.BaseboardSerialNumber } // Uses BaseboardSerialNumber as default
+                        ? new[] { ComputerIdentity.ComputerIdentifier.BaseboardSerialNumber } // Uses BaseboardSerialNumber as default
                         : ComputerIdentityConfig.ComputeBy;
                     if (ComputerIdentityConfig == null)
                     {
-                        retValue = Tenduke.Client.Util.ComputerIdentity.BuildComputerId(null, null, idComponents);
+                        retValue = ComputerIdentity.BuildComputerId(null, null, idComponents);
                     }
                     else if (ComputerIdentityConfig.ComputerId == null)
                     {
-                        retValue = Tenduke.Client.Util.ComputerIdentity.BuildComputerId(ComputerIdentityConfig.AdditionalIdentifier, ComputerIdentityConfig.Salt, idComponents);
+                        retValue = ComputerIdentity.BuildComputerId(ComputerIdentityConfig.AdditionalIdentifier, ComputerIdentityConfig.Salt, idComponents);
                     }
                     else
                     {
