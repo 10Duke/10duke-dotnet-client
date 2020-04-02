@@ -117,11 +117,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tenduke.Client, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.2.3.4\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    <Reference Include="Tenduke.Client, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.3.0.0\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Tenduke.Client.Desktop, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.Desktop.2.3.4\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
+    <Reference Include="Tenduke.Client.Desktop, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.3.0.0\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

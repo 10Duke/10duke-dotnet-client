@@ -44,7 +44,7 @@ namespace Tenduke.Client.WinFormsSample
         /// <summary>
         /// The <see cref="Tenduke.Client.WinForms.EntClient"/> instance used by this sample application.
         /// </summary>
-        protected WinForms.EntClient EntClient { get; set; }
+        protected EntClient EntClient { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
@@ -54,7 +54,7 @@ namespace Tenduke.Client.WinFormsSample
             InitializeComponent();
             comboBoxConsumeMode.SelectedIndex = 0;
             listViewAuthorizationDecisions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            EntClient = new WinForms.EntClient() { OAuthConfig = OAuthConfig };
+            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
         }
 
         /// <summary>
@@ -66,6 +66,8 @@ namespace Tenduke.Client.WinFormsSample
         {
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();
+            Close();
+            /*
             if (EntClient.IsAuthorized())
             {
                 ShowWelcomeMessage();
@@ -77,7 +79,7 @@ namespace Tenduke.Client.WinFormsSample
                 // If the authorization process was cancelled, close this form. This will cause the whole application
                 // to be closed.
                 Close();
-            }
+            }*/
         }
 
         /// <summary>
