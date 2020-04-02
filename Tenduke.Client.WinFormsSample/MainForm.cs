@@ -66,8 +66,6 @@ namespace Tenduke.Client.WinFormsSample
         {
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();
-            Close();
-            /*
             if (EntClient.IsAuthorized())
             {
                 ShowWelcomeMessage();
@@ -79,7 +77,7 @@ namespace Tenduke.Client.WinFormsSample
                 // If the authorization process was cancelled, close this form. This will cause the whole application
                 // to be closed.
                 Close();
-            }*/
+            }
         }
 
         /// <summary>
