@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WebBrowserForm));
             this.panelWebBrowserContainer = new System.Windows.Forms.Panel();
+            this.chromiumWebBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
+            this.panelWebBrowserContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelWebBrowserContainer
@@ -38,11 +40,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelWebBrowserContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelWebBrowserContainer.Controls.Add(this.chromiumWebBrowser);
             this.panelWebBrowserContainer.Location = new System.Drawing.Point(0, 0);
             this.panelWebBrowserContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelWebBrowserContainer.Name = "panelWebBrowserContainer";
             this.panelWebBrowserContainer.Size = new System.Drawing.Size(784, 582);
             this.panelWebBrowserContainer.TabIndex = 0;
+            // 
+            // chromiumWebBrowser
+            // 
+            this.chromiumWebBrowser.ActivateBrowserOnCreation = false;
+            this.chromiumWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chromiumWebBrowser.Location = new System.Drawing.Point(0, 0);
+            this.chromiumWebBrowser.Name = "chromiumWebBrowser";
+            this.chromiumWebBrowser.Size = new System.Drawing.Size(784, 582);
+            this.chromiumWebBrowser.TabIndex = 0;
             // 
             // WebBrowserForm
             // 
@@ -57,6 +69,7 @@
             this.Text = "Sign on";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebBrowserForm_FormClosing);
             this.Shown += new System.EventHandler(this.WebBrowserForm_Shown);
+            this.panelWebBrowserContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -64,5 +77,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panelWebBrowserContainer;
+        private CefSharp.WinForms.ChromiumWebBrowser chromiumWebBrowser;
     }
 }

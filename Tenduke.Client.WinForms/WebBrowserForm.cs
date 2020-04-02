@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using CefSharp.WinForms;
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -35,11 +34,6 @@ namespace Tenduke.Client.WinForms
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// The <see cref="ChromiumWebBrowser"/>.
-        /// </summary>
-        public ChromiumWebBrowser ChromiumWebBrowser { get; set; }
 
         /// <summary>
         /// The initial address for the browser.
@@ -86,32 +80,24 @@ namespace Tenduke.Client.WinForms
             {
                 loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
             }
-            ChromiumWebBrowser = new ChromiumWebBrowser(loaderPath);
+            chromiumWebBrowser.Load(loaderPath);
             initialPageLoadStarted = false;
-            ChromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
-            panelWebBrowserContainer.Controls.Add(ChromiumWebBrowser);
-            ChromiumWebBrowser.Dock = DockStyle.Fill;
-            ChromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
+            chromiumWebBrowser.LoadingStateChanged += chromiumWebBrowser_LoadingStateChanged;
+            chromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
         }
 
-        private void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        private void chromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (!initialPageLoadStarted && !e.IsLoading)
             {
                 initialPageLoadStarted = true;
-                ChromiumWebBrowser.Load(Address);
+                chromiumWebBrowser.Load(Address);
             }
         }
 
         private void WebBrowserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             closed = true;
-            if (ChromiumWebBrowser != null)
-            { 
-                this.Controls.Remove(ChromiumWebBrowser);
-                ChromiumWebBrowser.Dispose();
-                ChromiumWebBrowser = null;
-            }
 
             if (loaderPath != null)
             {
@@ -133,27 +119,10 @@ namespace Tenduke.Client.WinForms
             if (url.StartsWith(RedirectUri))
             {
                 ResponseUri = url;
-                CloseInternal();
+                DialogResult = DialogResult.OK;
             }
 
             return false;
-        }
-
-        private void CloseInternal()
-        {
-            Task.Delay(100).ContinueWith(t =>
-            {
-                Invoke(new Action(() =>
-                {
-                    if (!closed)
-                    {
-                        // DialogResult.OK indicates that response has been received, no matter
-                        // if the response contains an OAuth success response or an error response
-                        DialogResult = DialogResult.OK;
-                        Close();
-                    }
-                }));
-            });
         }
 
         #endregion
