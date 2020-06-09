@@ -96,7 +96,7 @@ This call returns a +Tenduke.Client.EntApi.Authz.AuthorizationDecision+ object t
 ._Release license_
 [source,csharp]
 ----
-var tokenResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse["jti"], ResponseType.JWT);
+var releaseResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse["jti"], ResponseType.JWT);
 ----
 
 This call is used for returning a consumed lease (license seat) back to the license pool.
