@@ -60,6 +60,7 @@ namespace Tenduke.Client.Util
             var encodedKey = publicKeyPkcs1Pem
                 .Replace("-----BEGIN PUBLIC KEY-----", "")
                 .Replace("-----END PUBLIC KEY-----", "")
+                .Replace("\r", "")
                 .Replace("\n", "");
             return ReadRsaPublicKey(Convert.FromBase64String(encodedKey));
         }
