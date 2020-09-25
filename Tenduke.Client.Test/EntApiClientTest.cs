@@ -43,7 +43,7 @@ FQIDAQAB
         }
 
         [Test]
-        //[Ignore("SignerKey, EndpointUri and AccessToken must be configured for running the test")]
+        [Ignore("SignerKey, EndpointUri and AccessToken must be configured for running the test")]
         public async Task TestAuthzApi()
         {
             var signerKey = CryptoUtil.ReadRsaPublicKey(tokenSignerKey);

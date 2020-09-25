@@ -146,6 +146,19 @@ namespace Tenduke.Client.WinForms.Authorization
 
             var uriBuilder = new UriBuilder(OAuthConfig.AuthzUri);
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            BuildAuthorizationUriQuery(args, query);
+            uriBuilder.Query = query.ToString();
+
+            return uriBuilder.Uri;
+        }
+
+        /// <summary>
+        /// Builds the query part of Uri for starting the authorization process on the server.
+        /// </summary>
+        /// <param name="args">Authorization operation arguments.</param>
+        /// <param name="query">Query parameters to populate</param>
+        protected virtual void BuildAuthorizationUriQuery(A args, NameValueCollection query)
+        {
             query["response_type"] = GetResponseType();
             query["client_id"] = OAuthConfig.ClientID;
             query["showRememberMe"] = OAuthConfig.ShowRememberMe ? "true" : "false";
@@ -174,10 +187,6 @@ namespace Tenduke.Client.WinForms.Authorization
             {
                 query["nonce"] = args.Nonce;
             }
-
-            uriBuilder.Query = query.ToString();
-
-            return uriBuilder.Uri;
         }
 
         #endregion

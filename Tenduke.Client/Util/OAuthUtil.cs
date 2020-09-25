@@ -38,8 +38,10 @@ namespace Tenduke.Client.Util
         /// </summary>
         /// <param name="code">The authorization code.</param>
         /// <param name="oauthConfig">OAuth configuration.</param>
+        /// <param name="codeVerifier">PKCE (Proog Key for Code Exchange) code verifier,
+        /// if using PKCE to secure the Authorization Code Grant flow.</param>
         /// <returns>The access token response as a string.</returns>
-        public static string RequestAccessToken(string code, IAuthorizationCodeGrantConfig oauthConfig)
+        public static string RequestAccessToken(string code, IAuthorizationCodeGrantConfig oauthConfig, string codeVerifier = null)
         {
             if (oauthConfig.TokenUri == null)
             {
@@ -69,6 +71,12 @@ namespace Tenduke.Client.Util
                 {
                     requestStreamWriter.Write("&client_secret=");
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
+                }
+
+                if (codeVerifier != null)
+                {
+                    requestStreamWriter.Write("&code_verifier=");
+                    requestStreamWriter.Write(HttpUtility.UrlEncode(codeVerifier));
                 }
             }
 
