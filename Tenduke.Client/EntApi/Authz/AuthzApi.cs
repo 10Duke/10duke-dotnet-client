@@ -37,13 +37,20 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="authorizedItem">Name of the item for which authorization is requested.</param>
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <param name="consume"><c>true</c> to consume a license, <c>false</c> otherwise.</param>
+        /// <param name="consumptionMode">Consumption mode: <see cref="ConsumptionMode.Cache"/> for short-term consumption by online clients,
+        /// <see cref="ConsumptionMode.Checkout"/> for longer term consumption by clients that may go offline.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response from the server.</returns>
-        public async Task<AuthorizationDecision> CheckOrConsumeAsync(string authorizedItem, bool consume = false, ResponseType responseType = null)
+        public async Task<AuthorizationDecision> CheckOrConsumeAsync(
+            string authorizedItem,
+            bool consume = false,
+            ResponseType responseType = null,
+            ConsumptionMode consumptionMode = ConsumptionMode.Cache)
         {
             var authzDecisionRequestUri = BuildCheckOrConsumeUri(
                 new string[] { authorizedItem },
                 responseType,
-                consume);
+                consume,
+                consumptionMode);
             var method = consume ? HttpMethod.Post : HttpMethod.Get;
             var responseData = await SendAuthorizationRequestAsync(authzDecisionRequestUri, method);
             var responseBody = responseData.Key;
@@ -59,13 +66,19 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="authorizedItems">Names of the items for which authorization is requested.</param>
         /// <param name="responseType">The <see cref="ResponseType"/> requested from the server, or <c>null</c> for server default.</param>
         /// <param name="consume"><c>true</c> to consume a license, <c>false</c> otherwise.</param>
+        /// <param name="consumptionMode">Consumption mode: <see cref="ConsumptionMode.Cache"/> for short-term consumption by online clients,
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response from the server.</returns>
-        public async Task<IList<AuthorizationDecision>> CheckOrConsumeAsync(IList<string> authorizedItems, bool consume = false, ResponseType responseType = null)
+        public async Task<IList<AuthorizationDecision>> CheckOrConsumeAsync(
+            IList<string> authorizedItems,
+            bool consume = false,
+            ResponseType responseType = null,
+            ConsumptionMode consumptionMode = ConsumptionMode.Cache)
         {
             var authzDecisionRequestUri = BuildCheckOrConsumeUri(
                 authorizedItems,
                 responseType,
-                consume);
+                consume,
+                consumptionMode);
             var method = consume ? HttpMethod.Post : HttpMethod.Get;
             var responseData = await SendAuthorizationRequestAsync(authzDecisionRequestUri, method);
             var responseBody = responseData.Key;
@@ -116,8 +129,14 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="authorizedItems">Items for which authorization decisions are requested.</param>
         /// <param name="responseType">The response format to request.</param>
         /// <param name="consume"><c>true</c> to consume a license, <c>false</c> to only check if authorization is granted or denied.</param>
+        /// <param name="consumptionMode">Consumption mode: <see cref="ConsumptionMode.Cache"/> for short-term consumption by online clients,
+        /// <see cref="ConsumptionMode.Checkout"/> for longer term consumption by clients that may go offline.</param>
         /// <returns>Uri for the authorization decision request.</returns>
-        protected Uri BuildCheckOrConsumeUri(IList<string> authorizedItems, ResponseType responseType, bool consume)
+        protected Uri BuildCheckOrConsumeUri(
+            IList<string> authorizedItems,
+            ResponseType responseType,
+            bool consume,
+            ConsumptionMode consumptionMode = ConsumptionMode.Cache)
         {
             if (AuthzApiConfig == null)
             {
@@ -137,6 +156,7 @@ namespace Tenduke.Client.EntApi.Authz
             }
 
             query["doConsume"] = consume ? "true" : "false";
+            query["consumptionMode"] = consumptionMode == ConsumptionMode.Checkout ? "checkout" : "cache";
 
             if (ComputerId != null)
             {
