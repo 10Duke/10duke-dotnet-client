@@ -103,7 +103,8 @@ namespace Tenduke.Client.WinForms.Authorization
             return new WebBrowserForm()
             {
                 Address = initialAddress.ToString(),
-                RedirectUri = OAuthConfig.RedirectUri
+                RedirectUri = OAuthConfig.RedirectUri,
+                AllowInsecureCerts = OAuthConfig.AllowInsecureCerts
             };
         }
 

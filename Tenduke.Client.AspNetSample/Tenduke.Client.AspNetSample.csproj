@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.8" />
-    <PackageReference Include="Tenduke.Client.AspNetCore" Version="2.3.4" />
+    <PackageReference Include="Tenduke.Client.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

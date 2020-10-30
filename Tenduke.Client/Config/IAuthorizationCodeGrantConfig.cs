@@ -10,7 +10,8 @@ namespace Tenduke.Client.Config
         #region Properties
 
         /// <summary>
-        /// OAuth 2.0 client secret.
+        /// OAuth 2.0 client secret. Please note that this is ignored if
+        /// <see cref="UsePkce"/> is <c>true</c>.
         /// </summary>
         string ClientSecret { get; }
 
@@ -18,6 +19,12 @@ namespace Tenduke.Client.Config
         /// Uri of the OAuth 2.0 token endpoint of the 10Duke Entitlement service.
         /// </summary>
         string TokenUri { get; }
+
+        /// <summary>
+        /// Indicates if PKCE (Proof Key for Code Exchange) is used. Please note that
+        /// if <c>true</c>, <see cref="ClientSecret"/> is ignored.
+        /// </summary>
+        bool UsePkce { get; }
 
         #endregion
     }

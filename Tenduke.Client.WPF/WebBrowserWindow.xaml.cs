@@ -58,6 +58,11 @@ namespace Tenduke.Client.WPF
         /// </summary>
         public string ResponseUri { get; set; }
 
+        /// <summary>
+        /// Indicates if insecure certificates are accepted.
+        /// </summary>
+        public bool AllowInsecureCerts { get; set; }
+
         #endregion
 
         #region Constructors
@@ -165,6 +170,7 @@ namespace Tenduke.Client.WPF
         private class AuthzResourceRequestHandler : IResourceRequestHandler
         {
             private readonly WebBrowserWindow parent;
+            private bool disposedValue;
 
             public AuthzResourceRequestHandler(WebBrowserWindow parent)
             {
@@ -208,6 +214,35 @@ namespace Tenduke.Client.WPF
             {
                 return false;
             }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposedValue)
+                {
+                    if (disposing)
+                    {
+                        // TODO: dispose managed state (managed objects)
+                    }
+
+                    // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                    // TODO: set large fields to null
+                    disposedValue = true;
+                }
+            }
+
+            // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+            // ~AuthzResourceRequestHandler()
+            // {
+            //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            //     Dispose(disposing: false);
+            // }
+
+            public void Dispose()
+            {
+                // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
         }
 
         /// <summary>
@@ -239,7 +274,17 @@ namespace Tenduke.Client.WPF
 
             public bool OnCertificateError(IWebBrowser browserControl, IBrowser browser, CefErrorCode errorCode, string requestUrl, ISslInfo sslInfo, IRequestCallback callback)
             {
-                return false;
+                if (!parent.AllowInsecureCerts)
+                {
+                    return false;
+                }
+
+                callback.Continue(true);
+                return true;
+            }
+
+            public void OnDocumentAvailableInMainFrame(IWebBrowser chromiumWebBrowser, IBrowser browser)
+            {
             }
 
             public bool OnOpenUrlFromTab(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, WindowOpenDisposition targetDisposition, bool userGesture)

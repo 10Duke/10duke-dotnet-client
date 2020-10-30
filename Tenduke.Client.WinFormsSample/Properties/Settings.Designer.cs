@@ -12,7 +12,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/user/oauth20/authz")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:48443/user/oauth20/authz")]
         public string AuthzUri {
             get {
                 return ((string)(this["AuthzUri"]));
@@ -34,7 +34,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/user/oauth20/token")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:48443/user/oauth20/token")]
         public string TokenUri {
             get {
                 return ((string)(this["TokenUri"]));
@@ -43,7 +43,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://genco.10duke.com/userinfo/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:48443/userinfo/")]
         public string UserInfoUri {
             get {
                 return ((string)(this["UserInfoUri"]));
@@ -61,7 +61,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YohSi-u3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ClientSecret {
             get {
                 return ((string)(this["ClientSecret"]));
@@ -97,13 +97,16 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3oMwV7MpnuEpdDSsW8Fy
-NXQescT48dgcORAU1LFcZr2XpkpS7oCtlzOmFstC0DVtKjJKxUurufGQ4/0XFNA2
-InbGk66WL1ir6fAFC04XisiMVgYqrP4AypqE0jIcfcwrJRzKHPkrtrOib4Da7do1
-nQrsK8p9iXpWMqRDnPpn1fJ9mwxP74jtb7A/4FlrbMZKtud8dK5P6GPxyDUTMDal
-n/dqQ46uuc4FVVn+Kt+/dZpN2uicy3v9SOhS3oVQDlPyrecYuQ8kblwijFVvIC8A
-RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
-+QIDAQAB-----END PUBLIC KEY-----")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6iLsJRfYeGnqpu2MwURT
+rkNtPZ+ItgXD7yCN6NRuX6G4DyrHI6amhXeSRTG7F2/OKmSrIJKkNtSt5+A/gFu9
+zFH6OeUfkJqJZHYB8ZLH0cFRftcIf6VvXDkdVcp6hY0wOxO+pGWmQ8QKor55rcIY
+fbnAYQBVG81VOHGkCgE0XvaEK+2nubJjLcHdC/t1cxMgsmTBwkJ4GfouIr4kewsG
+i5zTQgbJ4XkyUSJF75ihv/GMLHAch/2YcpkTaXaM20+FEjvKj7B1hMj8x7ldDydi
+94zVu7Sy3dGcd0dL15QESIh7Tm3ZwcxR1wtH0v8/ZwVZx1CNeWv51qFMMx8lv6KO
+VwIDAQAB
+-----END PUBLIC KEY-----
+")]
         public string SignerKey {
             get {
                 return ((string)(this["SignerKey"]));
@@ -116,6 +119,15 @@ RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
         public bool ShowRememberMe {
             get {
                 return ((bool)(this["ShowRememberMe"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AllowInsecureCerts {
+            get {
+                return ((bool)(this["AllowInsecureCerts"]));
             }
         }
     }

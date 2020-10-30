@@ -32,6 +32,11 @@ namespace Tenduke.Client.Config
         /// </summary>
         public bool ShowRememberMe { get; set; }
 
+        /// <summary>
+        /// Indicates if insecure certificates are accepted when communicating with the server.
+        /// </summary>
+        public bool AllowInsecureCerts { get; set; }
+
         #endregion
 
         #region Constructors

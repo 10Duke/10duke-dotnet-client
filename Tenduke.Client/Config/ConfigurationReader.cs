@@ -36,6 +36,8 @@ namespace Tenduke.Client.Config
             public string UserInfoUri => Config["UserInfoUri"];
 
             public bool ShowRememberMe => string.IsNullOrEmpty(Config["ShowRememberMe"]) ? false : bool.Parse(Config["ShowRememberMe"]);
+
+            public bool AllowInsecureCerts => string.IsNullOrEmpty(Config["AllowInsecureCerts"]) ? false : bool.Parse(Config["AllowInsecureCerts"]);
         }
 
         protected class BrowserBasedAuthorizationConfig : OAuthConfig, IBrowserBasedAuthorizationConfig
@@ -64,6 +66,8 @@ namespace Tenduke.Client.Config
             public string ClientSecret => Config["ClientSecret"];
 
             public string TokenUri => Config["TokenUri"];
+
+            public bool UsePkce => string.IsNullOrEmpty(Config["UsePkce"]) ? false : bool.Parse(Config["UsePkce"]);
         }
 
         #endregion

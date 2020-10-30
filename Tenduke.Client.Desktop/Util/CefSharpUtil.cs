@@ -49,7 +49,7 @@ namespace Tenduke.Client.Desktop.Util
         /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
         /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void InitializeCefSharp(AbstractCefSettings cefSettings)
+        public static void InitializeCefSharp(CefSettingsBase cefSettings)
         {
             InitializeCefSharp(cefSettings, BuildDefaultCefSharpResolverArgs());
         }
@@ -64,7 +64,7 @@ namespace Tenduke.Client.Desktop.Util
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void InitializeCefSharp(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs = null)
+        public static void InitializeCefSharp(CefSettingsBase cefSettings, CefSharpResolverArgs resolverArgs = null)
         {
             var resolverArgsOrDefault = resolverArgs == null ? BuildDefaultCefSharpResolverArgs() : resolverArgs;
             if (resolverArgsOrDefault.BaseDir != null)

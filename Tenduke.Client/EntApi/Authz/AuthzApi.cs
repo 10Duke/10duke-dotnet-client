@@ -214,13 +214,34 @@ namespace Tenduke.Client.EntApi.Authz
                 NoCache = true,
                 NoStore = true
             };
-            var response = await HttpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
 
-            var responseContentType = response.Content.Headers.ContentType;
-            var responseBody = await response.Content.ReadAsStringAsync();
+            HttpResponseMessage response;
+            if (AuthzApiConfig.AllowInsecureCerts)
+            {
+                using (var httpClientHandler = new HttpClientHandler())
+                {
+                    httpClientHandler.ServerCertificateCustomValidationCallback =
+                        (message, cert, chain, sslPolicyErrors) => true;
+                    using (var trustAllClient = new HttpClient(httpClientHandler))
+                    {
+                        response = await trustAllClient.SendAsync(request);
+                    }
+                }
+            }
+            else
+            {
+                response = await HttpClient.SendAsync(request);
+            }
 
-            return new KeyValuePair<string, MediaTypeHeaderValue>(responseBody, responseContentType);
+            using (response)
+            {
+                response.EnsureSuccessStatusCode();
+
+                var responseContentType = response.Content.Headers.ContentType;
+                var responseBody = await response.Content.ReadAsStringAsync();
+
+                return new KeyValuePair<string, MediaTypeHeaderValue>(responseBody, responseContentType);
+            }
         }
 
         #endregion

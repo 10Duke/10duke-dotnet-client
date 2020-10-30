@@ -98,7 +98,8 @@ namespace Tenduke.Client.WPF.Authorization
             return new WebBrowserWindow()
             {
                 Address = initialAddress.ToString(),
-                RedirectUri = OAuthConfig.RedirectUri
+                RedirectUri = OAuthConfig.RedirectUri,
+                AllowInsecureCerts = OAuthConfig.AllowInsecureCerts
             };
         }
 

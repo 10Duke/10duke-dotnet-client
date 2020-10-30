@@ -34,11 +34,7 @@ namespace Tenduke.Client.WinForms
         /// or <c>null</c> for default behavior.</param>
         public static void Initialize(CefSharpResolverArgs resolverArgs = null)
         {
-            var cefSettings = new CefSettings();
-            cefSettings.CefCommandLineArgs.Remove("enable-system-flash");
-            // Disable GPU settings because on some GPUs these cause incorrect rendering when display is scaled
-            cefSettings.CefCommandLineArgs.Add("disable-gpu", "1"); // Disable GPU acceleration
-            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1"); //Disable GPU vsync
+            var cefSettings = BuildDefaultCefSettings();
             Initialize(cefSettings, resolverArgs);
         }
 
@@ -63,6 +59,17 @@ namespace Tenduke.Client.WinForms
         }
 
         /// <summary>
+        /// Builds cef settings object and populates it with default settings.
+        /// </summary>
+        /// <returns>The initialized CefSharp initialization parameter object.</returns>
+        public static CefSettings BuildDefaultCefSettings()
+        {
+            var retValue = new CefSettings();
+            PopulateDefaultCefSettings(retValue);
+            return retValue;
+        }
+
+        /// <summary>
         /// Starts the authorization process and waits for the process to complete before returning.
         /// When authorization has been completed, the <see cref="Authorization"/> property is populated
         /// and the access token in <see cref="AuthorizationInfo.AccessTokenResponse"/> is used for the
@@ -72,6 +79,10 @@ namespace Tenduke.Client.WinForms
         {
             var authorization = InitializeAuthorizationCodeGrant();
             var args = new AuthorizationCodeGrantArgs();
+            if (OAuthConfig.UsePkce)
+            {
+                args = args.WithNewCodeVerifier();
+            }
             authorization.AuthorizeSync(args);
             Authorization = authorization;
         }

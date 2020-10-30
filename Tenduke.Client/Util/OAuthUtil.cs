@@ -49,6 +49,11 @@ namespace Tenduke.Client.Util
             }
 
             var tokenRequest = WebRequest.CreateHttp(oauthConfig.TokenUri);
+            if (oauthConfig.AllowInsecureCerts)
+            {
+                tokenRequest.ServerCertificateValidationCallback =
+                    (sender, certificate, chain, sslPolicyErrors) => true;
+            }
             tokenRequest.Method = "POST";
             tokenRequest.AllowAutoRedirect = false;
             tokenRequest.ContentType = "application/x-www-form-urlencoded";
@@ -67,13 +72,13 @@ namespace Tenduke.Client.Util
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.RedirectUri));
                 }
 
-                if (oauthConfig.ClientSecret != null)
+                if (oauthConfig.ClientSecret != null && !oauthConfig.UsePkce)
                 {
                     requestStreamWriter.Write("&client_secret=");
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
                 }
 
-                if (codeVerifier != null)
+                if (codeVerifier != null && oauthConfig.UsePkce)
                 {
                     requestStreamWriter.Write("&code_verifier=");
                     requestStreamWriter.Write(HttpUtility.UrlEncode(codeVerifier));
