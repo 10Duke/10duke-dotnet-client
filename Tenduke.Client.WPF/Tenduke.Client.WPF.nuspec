@@ -11,7 +11,10 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Update to Tenduke.Client.Desktop 3.0.0</releaseNotes>
+    <releaseNotes>- Add support for PKCE (Proof Key for Code Exchange) OAuth / OpenID Connect flow
+- Add support for specifying consumption mode in license consumption calls
+- Add configuration for allowing insecure certificates
+- Bump CefSharp version to 85.3.13</releaseNotes>
     <copyright>Copyright © 2018- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WPF</tags>
   </metadata>
