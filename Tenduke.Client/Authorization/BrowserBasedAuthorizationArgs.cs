@@ -1,4 +1,6 @@
-﻿namespace Tenduke.Client.Authorization
+﻿using System;
+
+namespace Tenduke.Client.Authorization
 {
     /// <summary>
     /// Arguments for authorization operations of <see cref="BrowserBasedAuthorization{T, O}"/>.

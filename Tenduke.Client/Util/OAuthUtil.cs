@@ -38,8 +38,10 @@ namespace Tenduke.Client.Util
         /// </summary>
         /// <param name="code">The authorization code.</param>
         /// <param name="oauthConfig">OAuth configuration.</param>
+        /// <param name="codeVerifier">PKCE (Proog Key for Code Exchange) code verifier,
+        /// if using PKCE to secure the Authorization Code Grant flow.</param>
         /// <returns>The access token response as a string.</returns>
-        public static string RequestAccessToken(string code, IAuthorizationCodeGrantConfig oauthConfig)
+        public static string RequestAccessToken(string code, IAuthorizationCodeGrantConfig oauthConfig, string codeVerifier = null)
         {
             if (oauthConfig.TokenUri == null)
             {
@@ -47,6 +49,11 @@ namespace Tenduke.Client.Util
             }
 
             var tokenRequest = WebRequest.CreateHttp(oauthConfig.TokenUri);
+            if (oauthConfig.AllowInsecureCerts)
+            {
+                tokenRequest.ServerCertificateValidationCallback =
+                    (sender, certificate, chain, sslPolicyErrors) => true;
+            }
             tokenRequest.Method = "POST";
             tokenRequest.AllowAutoRedirect = false;
             tokenRequest.ContentType = "application/x-www-form-urlencoded";
@@ -65,10 +72,16 @@ namespace Tenduke.Client.Util
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.RedirectUri));
                 }
 
-                if (oauthConfig.ClientSecret != null)
+                if (oauthConfig.ClientSecret != null && !oauthConfig.UsePkce)
                 {
                     requestStreamWriter.Write("&client_secret=");
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
+                }
+
+                if (codeVerifier != null && oauthConfig.UsePkce)
+                {
+                    requestStreamWriter.Write("&code_verifier=");
+                    requestStreamWriter.Write(HttpUtility.UrlEncode(codeVerifier));
                 }
             }
 

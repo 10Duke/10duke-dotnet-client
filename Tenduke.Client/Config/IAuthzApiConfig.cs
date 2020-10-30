@@ -18,5 +18,10 @@ namespace Tenduke.Client.Config
         /// tokens returned by the <c>/authz/</c> API.
         /// </summary>
         RSA SignerKey { get; }
+
+        /// <summary>
+        /// Indicates if insecure certificates are accepted when communicating with the server.
+        /// </summary>
+        bool AllowInsecureCerts { get; }
     }
 }

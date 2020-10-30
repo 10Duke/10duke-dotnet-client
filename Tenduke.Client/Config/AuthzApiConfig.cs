@@ -26,6 +26,11 @@ namespace Tenduke.Client.Config
         public RSA SignerKey { get; set; }
 
         /// <summary>
+        /// Indicates if insecure certificates are accepted when communicating with the server.
+        /// </summary>
+        public bool AllowInsecureCerts { get; set; }
+
+        /// <summary>
         /// Initializes an <see cref="IAuthzApiConfig"/> instance based on the given <paramref name="browserBasedAuthorizationConfig"/>
         /// object representing OAuth 2.0 configuration used for connecting to the 10Duke Entitlement service.
         /// This method assumes that the <c>/authz/</c> endpoint is on the same host as the OAuth 2.0 authorization
@@ -41,7 +46,8 @@ namespace Tenduke.Client.Config
                 : new AuthzApiConfig()
                 {
                     EndpointUri = BuildDefaultAuthzUri(browserBasedAuthorizationConfig.AuthzUri).ToString(),
-                    SignerKey = browserBasedAuthorizationConfig.SignerKey
+                    SignerKey = browserBasedAuthorizationConfig.SignerKey,
+                    AllowInsecureCerts = browserBasedAuthorizationConfig.AllowInsecureCerts
                 };
         }
 

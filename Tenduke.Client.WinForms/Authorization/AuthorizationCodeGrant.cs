@@ -27,6 +27,22 @@ namespace Tenduke.Client.WinForms.Authorization
         #region Methods
 
         /// <summary>
+        /// Builds the query part of Uri for starting the authorization process on the server.
+        /// </summary>
+        /// <param name="args">Authorization operation arguments.</param>
+        /// <param name="query">Query parameters to populate</param>
+        protected override void BuildAuthorizationUriQuery(AuthorizationCodeGrantArgs args, NameValueCollection query)
+        {
+            base.BuildAuthorizationUriQuery(args, query);
+
+            if (args != null && args.CodeVerifier != null)
+            {
+                query["code_challenge_method"] = "S256";
+                query["code_challenge"] = args.ComputeCodeChallenge();
+            }
+        }
+
+        /// <summary>
         /// Reads response and populates this object from the response parameters received
         /// from the server as a response to an authorization request.
         /// </summary>
@@ -122,7 +138,7 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <param name="args">Authorization operation arguments.</param>
         protected string RequestAccessToken(AuthorizationCodeGrantArgs args)
         {
-            return OAuthUtil.RequestAccessToken(AuthorizationCode, OAuthConfig);
+            return OAuthUtil.RequestAccessToken(AuthorizationCode, OAuthConfig, args.CodeVerifier);
         }
 
         /// <summary>

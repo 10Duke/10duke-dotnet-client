@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="AuthzUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://genco.10duke.com/user/oauth20/authz</Value>
+      <Value Profile="(Default)">https://localhost:48443/user/oauth20/authz</Value>
     </Setting>
     <Setting Name="TokenUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://genco.10duke.com/user/oauth20/token</Value>
+      <Value Profile="(Default)">https://localhost:48443/user/oauth20/token</Value>
     </Setting>
     <Setting Name="UserInfoUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://genco.10duke.com/userinfo/</Value>
+      <Value Profile="(Default)">https://localhost:48443/userinfo/</Value>
     </Setting>
     <Setting Name="ClientID" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SampleAppWinForms</Value>
     </Setting>
     <Setting Name="ClientSecret" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">YohSi-u3</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RedirectUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">oob:SampleApp</Value>
@@ -27,16 +27,22 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SignerKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3oMwV7MpnuEpdDSsW8Fy
-NXQescT48dgcORAU1LFcZr2XpkpS7oCtlzOmFstC0DVtKjJKxUurufGQ4/0XFNA2
-InbGk66WL1ir6fAFC04XisiMVgYqrP4AypqE0jIcfcwrJRzKHPkrtrOib4Da7do1
-nQrsK8p9iXpWMqRDnPpn1fJ9mwxP74jtb7A/4FlrbMZKtud8dK5P6GPxyDUTMDal
-n/dqQ46uuc4FVVn+Kt+/dZpN2uicy3v9SOhS3oVQDlPyrecYuQ8kblwijFVvIC8A
-RVef4ppDil5WGO1rkF6CUYOYL3Z8CWLYuW7uPLDMmPMWPBdobATgEn5+DpkPO5MW
-+QIDAQAB-----END PUBLIC KEY-----</Value>
+      <Value Profile="(Default)">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6iLsJRfYeGnqpu2MwURT
+rkNtPZ+ItgXD7yCN6NRuX6G4DyrHI6amhXeSRTG7F2/OKmSrIJKkNtSt5+A/gFu9
+zFH6OeUfkJqJZHYB8ZLH0cFRftcIf6VvXDkdVcp6hY0wOxO+pGWmQ8QKor55rcIY
+fbnAYQBVG81VOHGkCgE0XvaEK+2nubJjLcHdC/t1cxMgsmTBwkJ4GfouIr4kewsG
+i5zTQgbJ4XkyUSJF75ihv/GMLHAch/2YcpkTaXaM20+FEjvKj7B1hMj8x7ldDydi
+94zVu7Sy3dGcd0dL15QESIh7Tm3ZwcxR1wtH0v8/ZwVZx1CNeWv51qFMMx8lv6KO
+VwIDAQAB
+-----END PUBLIC KEY-----
+</Value>
     </Setting>
     <Setting Name="ShowRememberMe" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AllowInsecureCerts" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

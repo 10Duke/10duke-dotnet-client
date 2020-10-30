@@ -159,7 +159,7 @@ namespace Tenduke.Client.Desktop
         /// </summary>
         /// <param name="cefSettings">CefSharp initialization parameters. In many cases it is sufficient to
         /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
-        public static void Initialize(AbstractCefSettings cefSettings)
+        public static void Initialize(CefSettingsBase cefSettings)
         {
             Initialize(cefSettings, new CefSharpResolverArgs() { BaseDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) });
         }
@@ -179,10 +179,22 @@ namespace Tenduke.Client.Desktop
         /// pass an empty instance of a derived class suitable for the use case. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
-        public static void Initialize(AbstractCefSettings cefSettings, CefSharpResolverArgs resolverArgs = null)
+        public static void Initialize(CefSettingsBase cefSettings, CefSharpResolverArgs resolverArgs = null)
         {
             CefSharpUtil.InitializeCefSharp(cefSettings, resolverArgs);
             cefSharpInitialized = true;
+        }
+
+        /// <summary>
+        /// Populates default settings in the given settings object.
+        /// </summary>
+        /// <param name="cefSettings">CefSharp initialization parameter object.</param>
+        protected static void PopulateDefaultCefSettings(CefSettingsBase cefSettings)
+        {
+            cefSettings.CefCommandLineArgs.Remove("enable-system-flash");
+            // Disable GPU settings because on some GPUs these cause incorrect rendering when display is scaled
+            cefSettings.CefCommandLineArgs.Add("disable-gpu", "1"); // Disable GPU acceleration
+            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1"); //Disable GPU vsync
         }
 
         /// <summary>

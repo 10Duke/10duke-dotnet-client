@@ -38,7 +38,9 @@ namespace Tenduke.Client.WinFormsSample
             RedirectUri = Properties.Settings.Default.RedirectUri,
             Scope = Properties.Settings.Default.Scope,
             SignerKey = EntServerPublicKey,
-            ShowRememberMe = Properties.Settings.Default.ShowRememberMe
+            ShowRememberMe = Properties.Settings.Default.ShowRememberMe,
+            UsePkce = string.IsNullOrEmpty(Properties.Settings.Default.ClientSecret),
+            AllowInsecureCerts = Properties.Settings.Default.AllowInsecureCerts
         };
 
         /// <summary>
