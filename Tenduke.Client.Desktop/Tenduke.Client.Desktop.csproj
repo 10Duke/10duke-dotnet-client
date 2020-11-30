@@ -31,9 +31,12 @@
 
   <ItemGroup>
     <PackageReference Include="CefSharp.Common" Version="86.0.241" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
-    <PackageReference Include="System.Management" Version="4.7.0" />
-    <PackageReference Include="Tenduke.Client" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 
 </Project>
