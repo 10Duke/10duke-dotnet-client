@@ -26,7 +26,7 @@ Class +Tenduke.Client.WPF.EntClient+ is the main implementation class that suppo
 
 When using 10Duke Identity, the client application delegates authentication to the 10Duke Identity Provider. For using 10Duke APIs, including Entitlement, the client application must authorize the API calls by presenting an OAuth 2.0 access token. The simplest way to achieve both authentication (and Single Sign-On) and authorization is to use OpenID Connect (OIDC). OpenID Connect is based on OAuth 2.0, and as a result of the sign-on flow both identity and authorization are established.
 
-Authentication and authorization are implemented using https://tools.ietf.org/html/rfc6749#section-4.1[OAuth 2.0 Authorization Code Grant flow] with https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth[OpenID Connect]. An embedded browser is used for user interaction, most notably for the login prompt. This approach is secure, flexible and unleashes advanced use cases like federated authentication.
+Authentication and authorization are implemented using https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth[OpenID Connect Authorization Code Grant flow] with https://tools.ietf.org/html/rfc7636[PKCE]. An embedded browser is used for user interaction, most notably for the login prompt. This approach is secure, flexible and unleashes advanced use cases like federated authentication.
 
 ==== Embedded browser
 
