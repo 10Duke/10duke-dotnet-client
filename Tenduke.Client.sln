@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client", "Tenduke.Client\Tenduke.Client.csproj", "{B5112486-55F1-4FB7-9239-BD32A8BBFAB7}"
 EndProject
@@ -16,10 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinFormsSample", "Tenduke.Client.WinFormsSample\Tenduke.Client.WinFormsSample.csproj", "{19394F2E-385E-4CE0-906E-6E0FB2D3CD4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPFSample", "Tenduke.Client.WPFSample\Tenduke.Client.WPFSample.csproj", "{BDFC3484-1111-4207-8700-E20A179F9F2F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetSample", "Tenduke.Client.AspNetSample\Tenduke.Client.AspNetSample.csproj", "{CACED441-7115-4589-AA34-5F3414AF7694}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetSampleOwin", "Tenduke.Client.AspNetSampleOwin\Tenduke.Client.AspNetSampleOwin.csproj", "{4CF78289-A1FA-4D10-917E-A082CD6A569B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Test", "Tenduke.Client.Test\Tenduke.Client.Test.csproj", "{72A68A54-B61D-4539-B1E4-45D677C7949A}"
 EndProject
@@ -87,22 +83,6 @@ Global
 		{BDFC3484-1111-4207-8700-E20A179F9F2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDFC3484-1111-4207-8700-E20A179F9F2F}.Release|x64.ActiveCfg = Release|Any CPU
 		{BDFC3484-1111-4207-8700-E20A179F9F2F}.Release|x64.Build.0 = Release|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Debug|x64.Build.0 = Debug|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Release|x64.ActiveCfg = Release|Any CPU
-		{CACED441-7115-4589-AA34-5F3414AF7694}.Release|x64.Build.0 = Release|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Debug|x64.Build.0 = Debug|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Release|x64.ActiveCfg = Release|Any CPU
-		{4CF78289-A1FA-4D10-917E-A082CD6A569B}.Release|x64.Build.0 = Release|Any CPU
 		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|x64.ActiveCfg = Debug|Any CPU
