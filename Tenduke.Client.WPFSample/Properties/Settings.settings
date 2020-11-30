@@ -29,6 +29,9 @@
     <Setting Name="ShowRememberMe" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AllowInsecureCerts" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="SignerKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6iLsJRfYeGnqpu2MwURT
@@ -40,9 +43,6 @@ i5zTQgbJ4XkyUSJF75ihv/GMLHAch/2YcpkTaXaM20+FEjvKj7B1hMj8x7ldDydi
 VwIDAQAB
 -----END PUBLIC KEY-----
 </Value>
-    </Setting>
-    <Setting Name="AllowInsecureCerts" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

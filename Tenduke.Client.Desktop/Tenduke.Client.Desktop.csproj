@@ -13,12 +13,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
-    <Version>3.1.0</Version>
-    <PackageReleaseNotes>- Add support for PKCE (Proof Key for Code Exchange) OAuth / OpenID Connect flow
-- Add support for specifying consumption mode in license consumption calls
-- Add configuration for allowing insecure certificates</PackageReleaseNotes>
+    <AssemblyVersion>3.1.1.0</AssemblyVersion>
+    <FileVersion>3.1.1.0</FileVersion>
+    <Version>3.1.1</Version>
+    <PackageReleaseNotes>- Update CefSharp from 85.3.130 to 86.0.241 (security issues in version 85.3.130)
+- Update other dependencies to latest versions</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,10 +32,7 @@
     <PackageReference Include="CefSharp.Common" Version="86.0.241" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="3.1.1" />
   </ItemGroup>
 
 </Project>

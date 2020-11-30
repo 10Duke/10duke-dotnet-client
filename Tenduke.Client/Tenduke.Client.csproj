@@ -10,13 +10,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>- Add support for PKCE (Proof Key for Code Exchange) OAuth / OpenID Connect flow
-- Add support for specifying consumption mode in license consumption calls
-- Add configuration for allowing insecure certificates</PackageReleaseNotes>
+    <PackageReleaseNotes>- Dependency updates</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.1.0</Version>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <Version>3.1.1</Version>
+    <AssemblyVersion>3.1.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

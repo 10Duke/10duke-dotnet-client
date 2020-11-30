@@ -113,6 +113,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tenduke.Client, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.3.1.1\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Tenduke.Client.Desktop, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.3.1.1\lib\netstandard2.0\Tenduke.Client.Desktop.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -155,16 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj">
-      <Project>{43218a83-6801-4343-b5d0-d141fd393a06}</Project>
-      <Name>Tenduke.Client.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj">
-      <Project>{b5112486-55f1-4fb7-9239-bd32a8bbfab7}</Project>
-      <Name>Tenduke.Client</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
