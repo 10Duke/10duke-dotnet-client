@@ -157,6 +157,10 @@
       <Project>{43218a83-6801-4343-b5d0-d141fd393a06}</Project>
       <Name>Tenduke.Client.Desktop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj">
+      <Project>{8930610c-b2ca-4167-a6b0-b4a10676bb54}</Project>
+      <Name>Tenduke.Client.WinBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tenduke.Client.WinForms\Tenduke.Client.WinForms.csproj">
       <Project>{a53c3d21-1e8d-41df-84a9-d89fa9ed0885}</Project>
       <Name>Tenduke.Client.WinForms</Name>

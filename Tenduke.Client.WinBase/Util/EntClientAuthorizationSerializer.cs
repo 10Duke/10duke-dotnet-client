@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
 using Tenduke.Client.Util;
+using Tenduke.Client.WinBase;
 
 namespace Tenduke.Client.Desktop.Util
 {
@@ -14,7 +12,7 @@ namespace Tenduke.Client.Desktop.Util
     /// by binary serialization.
     /// </summary>
     public class EntClientAuthorizationSerializer<C> : AuthorizationSerializer<C, IAuthorizationCodeGrantConfig>
-                where C : BaseDesktopClient<C>
+                where C : BaseWinClient<C>
     {
         #region Methods
 
