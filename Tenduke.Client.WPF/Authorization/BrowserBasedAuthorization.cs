@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Web;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.WPF.Authorization
 {
@@ -125,64 +125,7 @@ namespace Tenduke.Client.WPF.Authorization
         /// <returns>Uri to use as the initial Uri where the embedded browser is opened.</returns>
         protected Uri BuildAuthorizationUri(A args)
         {
-            if (OAuthConfig == null)
-            {
-                throw new InvalidOperationException("OAuthConfig must be specified");
-            }
-
-            if (OAuthConfig.ClientID == null)
-            {
-                throw new InvalidOperationException("OAuthConfig.ClientID must be specified");
-            }
-
-            if (OAuthConfig.AuthzUri == null)
-            {
-                throw new InvalidOperationException("OAuthConfig.AuthzUri must be specified");
-            }
-
-            var uriBuilder = new UriBuilder(OAuthConfig.AuthzUri);
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-            BuildAuthorizationUriQuery(args, query);
-            uriBuilder.Query = query.ToString();
-
-            return uriBuilder.Uri;
-        }
-
-        /// <summary>
-        /// Builds the query part of Uri for starting the authorization process on the server.
-        /// </summary>
-        /// <param name="args">Authorization operation arguments.</param>
-        /// <param name="query">Query parameters to populate</param>
-        protected virtual void BuildAuthorizationUriQuery(A args, NameValueCollection query)
-        {
-            query["response_type"] = GetResponseType();
-            query["client_id"] = OAuthConfig.ClientID;
-            query["showRememberMe"] = OAuthConfig.ShowRememberMe ? "true" : "false";
-
-            if (OAuthConfig.RedirectUri != null)
-            {
-                query["redirect_uri"] = OAuthConfig.RedirectUri;
-            }
-
-            if (OAuthConfig.Scope != null)
-            {
-                query["scope"] = OAuthConfig.Scope;
-            }
-
-            if (OAuthConfig.Scope != null)
-            {
-                query["scope"] = OAuthConfig.Scope;
-            }
-
-            if (args != null && args.State != null)
-            {
-                query["state"] = args.State;
-            }
-
-            if (args != null && args.Nonce != null)
-            {
-                query["nonce"] = args.Nonce;
-            }
+            return AuthorizationUri.BuildAuthorizationUri(OAuthConfig, GetResponseType(), args);
         }
 
         #endregion
