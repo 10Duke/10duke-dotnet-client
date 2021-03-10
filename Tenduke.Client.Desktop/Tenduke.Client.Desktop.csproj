@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>10Duke Software</Authors>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common" Version="86.0.241" />
+    <PackageReference Include="CefSharp.Common" Version="88.2.90" />
   </ItemGroup>
 
   <ItemGroup>

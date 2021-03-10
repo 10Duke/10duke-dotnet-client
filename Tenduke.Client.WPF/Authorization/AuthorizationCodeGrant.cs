@@ -138,6 +138,16 @@ namespace Tenduke.Client.WPF.Authorization
                 : Client.Authorization.AccessTokenResponse.FromResponseObject(accessTokenResponse, OAuthConfig.SignerKey);
         }
 
+        /// <summary>
+        /// Builds the full Uri for starting the authorization process on the server.
+        /// </summary>
+        /// <param name="args">Authorization operation arguments.</param>
+        /// <returns>Uri to use as the initial Uri where the embedded browser is opened.</returns>
+        protected override Uri BuildAuthorizationUri(AuthorizationCodeGrantArgs args)
+        {
+            return AuthorizationUri.BuildAuthorizationUri(OAuthConfig, GetResponseType(), args);
+        }
+
         #endregion
     }
 }

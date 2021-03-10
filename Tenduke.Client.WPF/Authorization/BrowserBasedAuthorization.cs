@@ -123,7 +123,7 @@ namespace Tenduke.Client.WPF.Authorization
         /// </summary>
         /// <param name="args">Authorization operation arguments.</param>
         /// <returns>Uri to use as the initial Uri where the embedded browser is opened.</returns>
-        protected Uri BuildAuthorizationUri(A args)
+        protected virtual Uri BuildAuthorizationUri(A args)
         {
             return AuthorizationUri.BuildAuthorizationUri(OAuthConfig, GetResponseType(), args);
         }
