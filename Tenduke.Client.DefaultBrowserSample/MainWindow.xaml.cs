@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using Tenduke.Client.Config;
 using Tenduke.Client.DefaultBrowser.Config;
 using Tenduke.Client.EntApi;
 using Tenduke.Client.EntApi.Authz;
@@ -23,7 +21,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <summary>
         /// Registry key for stored authorization.
         /// </summary>
-        private readonly string REGISTRY_KEY_STORED_AUTHORIZATION = "Software\\10Duke\\Tenduke.Client\\WPFSample";
+        private readonly string REGISTRY_KEY_STORED_AUTHORIZATION = "Software\\10Duke\\Tenduke.Client\\DefaultBrowserSample";
 
         /// <summary>
         /// Public key to use for verifying 10Duke Entitlement Service signatures.
