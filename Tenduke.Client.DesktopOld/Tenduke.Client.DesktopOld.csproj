@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>10Duke Software</Authors>
+    <Company>10Duke Software</Company>
+    <Description>Base classes and utilities for 10Duke Identity and Entitlement client libraries for .Net desktop applications</Description>
+    <Copyright>Copyright © 2018- 10Duke Software</Copyright>
+    <PackageLicenseUrl>https://github.com/10Duke/10duke-dotnet-client/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
+    <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
+    <Version>3.2.0</Version>
+    <PackageReleaseNotes>- Update CefSharp to 88.2.90
+- Refactor utilities to Tenduke.Client.WinBase library, prepare for a new client library that uses the OS default browser</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\loader.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources\loader.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Common" Version="88.2.90" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="3.2.0" />
+  </ItemGroup>
+
+</Project>

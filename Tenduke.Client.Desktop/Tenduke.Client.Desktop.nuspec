@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Tenduke.Client.WPF</id>
+    <id>Tenduke.Client.Desktop</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>10Duke Software</authors>
@@ -14,7 +14,7 @@
     <releaseNotes>- Update CefSharp to 88.2.90
 - Add support for additional claims in license consumption requests
     </releaseNotes>
-    <copyright>Copyright © 2018- 10Duke Software</copyright>
-    <tags>Entitlement Licensing Identity 10Duke Desktop WPF</tags>
+    <copyright>Copyright © 2019- 10Duke Software</copyright>
+    <tags>Entitlement Licensing Identity 10Duke Desktop</tags>
   </metadata>
 </package>

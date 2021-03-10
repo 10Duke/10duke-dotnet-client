@@ -2,15 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>3.2.0</Version>
+    <Description>Base library for Windows based 10Duke Identity and Entitlement client libraries</Description>
+    <Authors>10Duke Software</Authors>
+    <Company>10Duke Software</Company>
+    <Copyright>Copyright © 2018- 10Duke Software</Copyright>
+    <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
+    <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="3.2.0" />
   </ItemGroup>
 
 </Project>

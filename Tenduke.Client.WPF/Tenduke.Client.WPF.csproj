@@ -121,6 +121,15 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tenduke.Client, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.3.2.0\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Tenduke.Client.Desktop, Version=3.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.3.2.1\lib\net461\Tenduke.Client.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Tenduke.Client.WinBase, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.WinBase.3.2.0\lib\netstandard2.0\Tenduke.Client.WinBase.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -155,28 +164,88 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="am.pak" />
+    <None Include="ar.pak" />
+    <None Include="bg.pak" />
+    <None Include="bn.pak" />
+    <None Include="ca.pak" />
+    <None Include="cef.pak" />
+    <None Include="cef_100_percent.pak" />
+    <None Include="cef_200_percent.pak" />
+    <None Include="cef_extensions.pak" />
+    <None Include="cs.pak" />
+    <None Include="da.pak" />
+    <None Include="de.pak" />
+    <None Include="devtools_resources.pak" />
+    <None Include="el.pak" />
+    <None Include="en-GB.pak" />
+    <None Include="en-US.pak" />
+    <None Include="es-419.pak" />
+    <None Include="es.pak" />
+    <None Include="et.pak" />
+    <None Include="fa.pak" />
+    <None Include="fi.pak" />
+    <None Include="fil.pak" />
+    <None Include="fr.pak" />
+    <None Include="gu.pak" />
+    <None Include="he.pak" />
+    <None Include="hi.pak" />
+    <None Include="hr.pak" />
+    <None Include="hu.pak" />
+    <None Include="icudtl.dat" />
+    <None Include="id.pak" />
+    <None Include="it.pak" />
+    <None Include="ja.pak" />
+    <None Include="kn.pak" />
+    <None Include="ko.pak" />
+    <None Include="lt.pak" />
+    <None Include="lv.pak" />
+    <None Include="ml.pak" />
+    <None Include="mr.pak" />
+    <None Include="ms.pak" />
+    <None Include="nb.pak" />
+    <None Include="nl.pak" />
     <None Include="packages.config" />
+    <None Include="pl.pak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="pt-BR.pak" />
+    <None Include="pt-PT.pak" />
+    <None Include="ro.pak" />
+    <None Include="ru.pak" />
+    <None Include="sk.pak" />
+    <None Include="sl.pak" />
+    <None Include="snapshot_blob.bin" />
+    <None Include="sr.pak" />
+    <None Include="sv.pak" />
+    <None Include="sw.pak" />
+    <None Include="ta.pak" />
+    <None Include="te.pak" />
+    <None Include="th.pak" />
+    <None Include="tr.pak" />
+    <None Include="uk.pak" />
+    <None Include="v8_context_snapshot.bin" />
+    <None Include="vi.pak" />
+    <None Include="zh-CN.pak" />
+    <None Include="zh-TW.pak" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj">
-      <Project>{43218a83-6801-4343-b5d0-d141fd393a06}</Project>
-      <Name>Tenduke.Client.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj">
-      <Project>{8930610c-b2ca-4167-a6b0-b4a10676bb54}</Project>
-      <Name>Tenduke.Client.WinBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj">
-      <Project>{b5112486-55f1-4fb7-9239-bd32a8bbfab7}</Project>
-      <Name>Tenduke.Client</Name>
-    </ProjectReference>
+    <Content Include="CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="CefSharp.BrowserSubprocess.exe" />
+    <Content Include="CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="CefSharp.Core.Runtime.dll" />
+    <Content Include="CefSharp.Core.Runtime.pdb" />
+    <Content Include="chrome_elf.dll" />
+    <Content Include="d3dcompiler_47.dll" />
+    <Content Include="libcef.dll" />
+    <Content Include="libEGL.dll" />
+    <Content Include="libGLESv2.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

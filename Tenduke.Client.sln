@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client", "Tenduke.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetCore", "Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj", "{1DE5C95A-508E-4FEE-A81E-8680BC44D15F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Desktop", "Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj", "{43218A83-6801-4343-B5D0-D141FD393A06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.DesktopOld", "Tenduke.Client.DesktopOld\Tenduke.Client.DesktopOld.csproj", "{43218A83-6801-4343-B5D0-D141FD393A06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinForms", "Tenduke.Client.WinForms\Tenduke.Client.WinForms.csproj", "{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}"
 EndProject
@@ -19,11 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPFSample", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Test", "Tenduke.Client.Test\Tenduke.Client.Test.csproj", "{72A68A54-B61D-4539-B1E4-45D677C7949A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinBase", "Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj", "{8930610C-B2CA-4167-A6B0-B4A10676BB54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.WinBase", "Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj", "{8930610C-B2CA-4167-A6B0-B4A10676BB54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.DefaultBrowser", "Tenduke.Client.DefaultBrowser\Tenduke.Client.DefaultBrowser.csproj", "{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.DefaultBrowser", "Tenduke.Client.DefaultBrowser\Tenduke.Client.DefaultBrowser.csproj", "{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.DefaultBrowserSample", "Tenduke.Client.DefaultBrowserSample\Tenduke.Client.DefaultBrowserSample.csproj", "{92EF0618-26E2-40ED-95C7-A39550E10E90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.DefaultBrowserSample", "Tenduke.Client.DefaultBrowserSample\Tenduke.Client.DefaultBrowserSample.csproj", "{92EF0618-26E2-40ED-95C7-A39550E10E90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.Desktop", "Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj", "{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,14 @@ Global
 		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|x64.ActiveCfg = Release|Any CPU
 		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|x64.Build.0 = Release|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Debug|x64.Build.0 = Debug|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Release|x64.ActiveCfg = Release|Any CPU
+		{BB3B0629-A838-4BEB-BFF0-32AAFF87E37D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

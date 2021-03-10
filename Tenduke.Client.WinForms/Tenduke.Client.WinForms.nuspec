@@ -11,9 +11,8 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>
-      - Update CefSharp from 85.3.130 to 86.0.241 (security issues in version 85.3.130)
-      - Update other dependencies to latest versions
+    <releaseNotes>- Update CefSharp to 88.2.90
+- Add support for additional claims in license consumption requests
     </releaseNotes>
     <copyright>Copyright © 2019- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WinForms</tags>
