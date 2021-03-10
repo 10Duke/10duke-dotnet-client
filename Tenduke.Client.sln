@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client", "Tenduke.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.AspNetCore", "Tenduke.Client.AspNetCore\Tenduke.Client.AspNetCore.csproj", "{1DE5C95A-508E-4FEE-A81E-8680BC44D15F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.DesktopOld", "Tenduke.Client.DesktopOld\Tenduke.Client.DesktopOld.csproj", "{43218A83-6801-4343-B5D0-D141FD393A06}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinForms", "Tenduke.Client.WinForms\Tenduke.Client.WinForms.csproj", "{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPF", "Tenduke.Client.WPF\Tenduke.Client.WPF.csproj", "{C7354410-7BB2-4AD5-880A-68B8CBAF908D}"
@@ -51,14 +49,6 @@ Global
 		{1DE5C95A-508E-4FEE-A81E-8680BC44D15F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1DE5C95A-508E-4FEE-A81E-8680BC44D15F}.Release|x64.ActiveCfg = Release|Any CPU
 		{1DE5C95A-508E-4FEE-A81E-8680BC44D15F}.Release|x64.Build.0 = Release|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Debug|x64.Build.0 = Debug|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Release|x64.ActiveCfg = Release|Any CPU
-		{43218A83-6801-4343-B5D0-D141FD393A06}.Release|x64.Build.0 = Release|Any CPU
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A53C3D21-1E8D-41DF-84A9-D89FA9ED0885}.Debug|x64.ActiveCfg = Debug|Any CPU
