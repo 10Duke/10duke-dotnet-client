@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Tenduke.Client.Config;
 using Tenduke.Client.Desktop.Util;
 using Tenduke.Client.WinBase;
 
@@ -11,7 +12,7 @@ namespace Tenduke.Client.Desktop
     /// Base class for desktop clients working against the 10Duke Entitlement service and using
     /// the CefSharp embedded browser for user interaction.
     /// </summary>
-    public class BaseDesktopClient<C> : BaseWinClient<C> where C : BaseDesktopClient<C>
+    public class BaseDesktopClient<C> : BaseWinClient<C, IAuthorizationCodeGrantConfig> where C : BaseDesktopClient<C>
     {
         #region Private fields
 

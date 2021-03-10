@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tenduke.Client.Config
+﻿namespace Tenduke.Client.Config
 {
     /// <summary>
     /// Interface to be implemented by configuration for OAuth Authorization Code Grant flow.

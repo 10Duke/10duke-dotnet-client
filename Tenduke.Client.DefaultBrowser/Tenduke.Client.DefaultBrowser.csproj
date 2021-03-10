@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\authCompleted.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources\authCompleted.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -11,7 +11,7 @@ namespace Tenduke.Client.WinBase
     /// Base class for desktop clients working against the 10Duke Entitlement service and using
     /// the CefSharp embedded browser for user interaction.
     /// </summary>
-    public class BaseWinClient<C> : BaseClient<C, IAuthorizationCodeGrantConfig> where C : BaseWinClient<C>
+    public class BaseWinClient<C, A> : BaseClient<C, A> where C : BaseWinClient<C, A> where A : IAuthorizationCodeGrantConfig
     {
         #region Private fields
 
@@ -123,11 +123,11 @@ namespace Tenduke.Client.WinBase
         /// Gets an <see cref="EntClientAuthorizationSerializer"/> for reading and writing <see cref="Authorization"/>
         /// of this object by binary serialization.
         /// </summary>
-        public EntClientAuthorizationSerializer<C> AuthorizationSerializer
+        public EntClientAuthorizationSerializer<C, A> AuthorizationSerializer
         {
             get
             {
-                return new EntClientAuthorizationSerializer<C>() { EntClient = (C) this };
+                return new EntClientAuthorizationSerializer<C, A>() { EntClient = (C) this };
             }
         }
 

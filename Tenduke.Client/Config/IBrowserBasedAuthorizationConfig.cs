@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
 namespace Tenduke.Client.Config
 {
@@ -14,6 +13,9 @@ namespace Tenduke.Client.Config
 
         /// <summary>
         /// The redirect Uri for redirecting back to the client from the server.
+        /// Please note that there are authentication flows that use a dynamic redirect
+        /// uri. When using this kind of an authentication flow, the configured
+        /// redirect uri is ignored.
         /// </summary>
         string RedirectUri { get; }
 

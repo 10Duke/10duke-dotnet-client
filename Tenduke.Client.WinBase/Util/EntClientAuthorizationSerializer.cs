@@ -11,8 +11,9 @@ namespace Tenduke.Client.Desktop.Util
     /// Object that works with an <see cref="EntClient"/> instance for reading and writing <see cref="EntClient.Authorization"/>
     /// by binary serialization.
     /// </summary>
-    public class EntClientAuthorizationSerializer<C> : AuthorizationSerializer<C, IAuthorizationCodeGrantConfig>
-                where C : BaseWinClient<C>
+    public class EntClientAuthorizationSerializer<C, A> : AuthorizationSerializer<C, A>
+                where C : BaseWinClient<C, A>
+                where A : IAuthorizationCodeGrantConfig
     {
         #region Methods
 

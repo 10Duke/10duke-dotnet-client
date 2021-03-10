@@ -1,0 +1,47 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Tenduke.Client.DefaultBrowserSample.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AuthzUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://localhost:48443/user/oauth20/authz</Value>
+    </Setting>
+    <Setting Name="TokenUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://localhost:48443/user/oauth20/token</Value>
+    </Setting>
+    <Setting Name="UserInfoUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://localhost:48443/userinfo/</Value>
+    </Setting>
+    <Setting Name="ClientID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SampleAppDefaultBrowser</Value>
+    </Setting>
+    <Setting Name="ClientSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RedirectUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">oob:SampleApp</Value>
+    </Setting>
+    <Setting Name="Scope" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">openid profile email</Value>
+    </Setting>
+    <Setting Name="StoreAuthorization" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowRememberMe" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SignerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6iLsJRfYeGnqpu2MwURT
+rkNtPZ+ItgXD7yCN6NRuX6G4DyrHI6amhXeSRTG7F2/OKmSrIJKkNtSt5+A/gFu9
+zFH6OeUfkJqJZHYB8ZLH0cFRftcIf6VvXDkdVcp6hY0wOxO+pGWmQ8QKor55rcIY
+fbnAYQBVG81VOHGkCgE0XvaEK+2nubJjLcHdC/t1cxMgsmTBwkJ4GfouIr4kewsG
+i5zTQgbJ4XkyUSJF75ihv/GMLHAch/2YcpkTaXaM20+FEjvKj7B1hMj8x7ldDydi
+94zVu7Sy3dGcd0dL15QESIh7Tm3ZwcxR1wtH0v8/ZwVZx1CNeWv51qFMMx8lv6KO
+VwIDAQAB
+-----END PUBLIC KEY-----</Value>
+    </Setting>
+    <Setting Name="AllowInsecureCerts" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

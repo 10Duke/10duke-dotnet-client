@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Test", "Tend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WinBase", "Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj", "{8930610C-B2CA-4167-A6B0-B4A10676BB54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.DefaultBrowser", "Tenduke.Client.DefaultBrowser\Tenduke.Client.DefaultBrowser.csproj", "{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.DefaultBrowserSample", "Tenduke.Client.DefaultBrowserSample\Tenduke.Client.DefaultBrowserSample.csproj", "{92EF0618-26E2-40ED-95C7-A39550E10E90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +105,22 @@ Global
 		{8930610C-B2CA-4167-A6B0-B4A10676BB54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8930610C-B2CA-4167-A6B0-B4A10676BB54}.Release|x64.ActiveCfg = Release|Any CPU
 		{8930610C-B2CA-4167-A6B0-B4A10676BB54}.Release|x64.Build.0 = Release|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D0BE6DA-26A3-4175-8BEF-BB21AB278D6E}.Release|x64.Build.0 = Release|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Debug|x64.Build.0 = Debug|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|x64.ActiveCfg = Release|Any CPU
+		{92EF0618-26E2-40ED-95C7-A39550E10E90}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
