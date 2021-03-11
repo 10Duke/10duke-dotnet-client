@@ -43,7 +43,7 @@ namespace Tenduke.Client.WinFormsSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:48443/userinfo/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:48443/user/info")]
         public string UserInfoUri {
             get {
                 return ((string)(this["UserInfoUri"]));

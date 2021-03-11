@@ -12,8 +12,8 @@ Client libraries for .NET applications, for using services of the 10Duke Identit
 |===
 |Package |Application type |.NET target framework 
 
-|https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client.AspNetCore[Tenduke.Client.AspNetCore]
-|Web / ASP.NET Core
+|https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client.DefaultBrowser[Tenduke.Client.DefaultBrowser]
+|Desktop / Any application running on an OS that can launch the OS default browser
 |.NET Standard 2.0
 
 |https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client.WPF[Tenduke.Client.WPF]
@@ -23,6 +23,10 @@ Client libraries for .NET applications, for using services of the 10Duke Identit
 |https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client.WinForms[Tenduke.Client.WinForms]
 |Desktop / WinForms
 |.NET Framework 4.6.1
+
+|https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client.AspNetCore[Tenduke.Client.AspNetCore]
+|Web / ASP.NET Core
+|.NET Standard 2.0
 |===
 
 All the client libraries are based on the generic https://github.com/10Duke/10duke-dotnet-client/tree/master/Tenduke.Client[Tenduke.Client] base library, which can be used as a basis for building a client for any .NET Standard 2.0 compatible platform.
@@ -33,5 +37,5 @@ All the client libraries are distributed via NuGet. An example of installing the
 
 ._Installation with NuGet PackageManager_
 ----
-Install-Package Tenduke.Client.AspNetCore
+Install-Package Tenduke.Client.DefaultBrowser
 ----

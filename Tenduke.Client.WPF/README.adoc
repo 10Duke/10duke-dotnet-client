@@ -59,18 +59,21 @@ Here, +myOAuthConfig+ is an instance of +Tenduke.Client.Config.AuthorizationCode
 ----
 var myOAuthConfig = new AuthorizationCodeGrantConfig()
 {
-    AuthzUri = "https://my-test-idp.10duke.net/oauth2/authz/",
-    TokenUri = "https://my-test-idp.10duke.net/oauth2/access/",
-    UserInfoUri = "https://my-test-idp.10duke.net/userinfo/",
+    AuthzUri = "https://my-test-idp.10duke.net/user/oauth20/authz",
+    TokenUri = "https://my-test-idp.10duke.net/user/oauth20/token",
+    UserInfoUri = "https://my-test-idp.10duke.net/user/info",
     ClientID = "my-client-id",
-    ClientSecret = "my-client-secret",
+    ClientSecret = null,
     RedirectUri = "oob:MyTestApplication",
     Scope = "openid profile email",
-    SignerKey = [Public key of 10Duke Entitlement service]
+    SignerKey = [Public key of 10Duke Entitlement service],
+    ShowRememberMe = true,
+    UsePkce = true,
+    AllowInsecureCerts = false
 };
 ----
 
-Here, the Uris must point to an actual 10Duke Entitlement service deployment. +ClientID+, +ClientSecret+ and +RedirectUri+ are standard OAuth parameters and they must match values configured in the 10Duke Entitlement service deployment. +Scope+ is the OAuth / OpenID Connect scope required by the client application, usually at least the +openid+ and +profile+ scope should be specified. +SignerKey+ is the RSA public key that is used for verifying signatures of tokens issued by the 10Duke Entitlement service. The following utility is provided for reading an RSA key from string:
+Here, the Uris must point to an actual 10Duke Entitlement service deployment. +ClientID+, +ClientSecret+ (only used if +UsePkce+ is `false`) and +RedirectUri+ are standard OAuth parameters and they must match values configured in the 10Duke Entitlement service deployment. +Scope+ is the OAuth / OpenID Connect scope required by the client application, usually at least the +openid+ and +profile+ scope should be specified. +SignerKey+ is the RSA public key that is used for verifying signatures of tokens issued by the 10Duke Entitlement service. The following utility is provided for reading an RSA key from string:
 [source,csharp]
 ----
 var publicKey = Tenduke.Client.Util.CryptoUtil.ReadRsaPublicKey(publicKeyAsString);
@@ -126,7 +129,19 @@ This call returns an object with OpenID Connect user info.
 var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync("MyLicense", true, ResponseType.JWT);
 ----
 
-This call returns a +Tenduke.Client.EntApi.Authz.AuthorizationDecision+ object that describes an _authorization decision_, returned as a signed JWT token. The +AuthorizationDecision+ indicates if a license lease has been granted (and a license seat has been taken), and the client application can rely on the +AuthorizationDecision+ until the object expires. Expiration of the object is the same as expiration of the returned JWT token and expiration of the license lease.
+The call above returns a +Tenduke.Client.EntApi.Authz.AuthorizationDecision+ object that describes an _authorization decision_, returned as a signed JWT token. The +AuthorizationDecision+ indicates if a license lease has been granted (and a license seat has been taken), and the client application can rely on the +AuthorizationDecision+ until the object expires. Expiration of the object is the same as expiration of the returned JWT token and expiration of the license lease.
+
+[source,csharp]
+----
+var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync(
+    "MyLicense",
+    true,
+    ResponseType.JWT,
+    ConsumptionMode.Cache,
+    new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("licenseId", licenseId) });
+----
+
+This example specifies some more parameters to the consumption request. The last parameter shown in the example can be used for giving any additional claims understood by the license consumption endpoint. Standard additional claims include `licenseId` and `entitlementId` that can be used for explicitly selecting the license or entitlement to consume. In basic use cases for consuming if a valid license is found, these parameters are not required.
 
 ._Release license_
 [source,csharp]
