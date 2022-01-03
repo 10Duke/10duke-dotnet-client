@@ -68,10 +68,10 @@ var myOAuthConfig = new DefaultBrowserAuthorizationCodeGrantConfig()
 
 Here, the Uris must point to an actual 10Duke Entitlement service deployment. +ClientID+, +ClientSecret+ (only used if +UsePkce+ is `false`) and +RedirectUri+ are standard OAuth parameters and they must match values configured in the 10Duke Entitlement service deployment. +Scope+ is the OAuth / OpenID Connect scope required by the client application, usually at least the +openid+ and +profile+ scope should be specified.
 
-+SignerKey+ is the RSA public key that is used for verifying signatures of tokens issued by the 10Duke Entitlement service. The following utility is provided for reading an RSA key from string:
++SignerKey+ is the RSA public key that is used for verifying signatures of tokens issued by the 10Duke Entitlement service. The following utility is provided for reading an RSA key from string, where the string can be either an RSA public key in PEM format or URL of server JWKS endpoint:
 [source,csharp]
 ----
-var publicKey = Tenduke.Client.Util.CryptoUtil.ReadRsaPublicKey(publicKeyAsString);
+var publicKey = await Tenduke.Client.Util.CryptoUtil.ReadFirstRsaPublicKey(publicKeyOrJwksUrl, new HttpClient());
 ----
 
 Please note that +RedirectUri+ is ignored by this OS default browser based client library, and a dynamically created HTTP listener is used instead as described above.
