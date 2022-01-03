@@ -24,6 +24,17 @@ namespace Tenduke.Client.WinForms.Authorization
 
         #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationCodeGrant"/> class.
+        /// </summary>
+        public AuthorizationCodeGrant()
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

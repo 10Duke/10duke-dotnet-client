@@ -19,6 +19,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
     /// <summary>
     /// Authorization Code Grant flow using OS default browser.
     /// </summary>
+    [Serializable]
     public class AuthorizationCodeGrant : Authorization<
         AuthorizationCodeGrant, IDefaultBrowserAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
@@ -37,12 +38,24 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// Resolver for HTML response to send after OIDC authentication / authorization
         /// process has been completed. If not specified, default HTML response is returned.
         /// </summary>
+        [field: NonSerialized]
         public IAuthorizationCompletedResponseResolver AuthorizationCompletedResponseResolver { get; set; }
 
         /// <summary>
         /// The authorization code received from the 10Duke Entitlement service.
         /// </summary>
         protected string AuthorizationCode { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationCodeGrant"/> class.
+        /// </summary>
+        public AuthorizationCodeGrant()
+        {
+        }
 
         #endregion
 

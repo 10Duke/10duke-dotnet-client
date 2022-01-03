@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
 {
@@ -115,11 +116,17 @@ namespace Tenduke.Client.Authorization
         {
             string responseJson = info.GetString("ResponseObject");
             ResponseObject = responseJson == null ? null : JsonConvert.DeserializeObject(responseJson);
-            RSAParameters? rsaParameters = info.GetValue("SignerKey", typeof(RSAParameters?)) as RSAParameters?;
+            object rsaParameters = info.GetValue("SignerKey", typeof(object));
             if (rsaParameters != null)
             {
                 var rsa = new RSACryptoServiceProvider();
-                rsa.ImportParameters(rsaParameters.Value);
+                if (rsaParameters is RSAParametersSerializable) {
+                    rsa.ImportParameters((rsaParameters as RSAParametersSerializable).RSAParameters);
+                }
+                else
+                {
+                    rsa.ImportParameters((rsaParameters as RSAParameters?).Value);
+                }
                 SignerKey = rsa;
             }
         }
@@ -168,7 +175,10 @@ namespace Tenduke.Client.Authorization
         {
             string responseJson = ResponseObject == null ? null : JsonConvert.SerializeObject(ResponseObject);
             info.AddValue("ResponseObject", responseJson);
-            RSAParameters? rsaParameters = SignerKey == null ? (RSAParameters?) null : SignerKey.ExportParameters(false);
+            RSAParametersSerializable rsaParameters =
+                SignerKey == null
+                ? null
+                : new RSAParametersSerializable(SignerKey.ExportParameters(false));
             info.AddValue("SignerKey", rsaParameters);
         }
 
