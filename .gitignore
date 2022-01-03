@@ -5,4 +5,5 @@ test-tmp/
 .idea/
 .DS_Store
 *.nupkg
+*.snupkg
 packages/

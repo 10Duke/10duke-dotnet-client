@@ -5,17 +5,18 @@
     <Authors>10Duke Software</Authors>
     <Description>Base classes and utilities for 10Duke Identity and Entitlement client libraries</Description>
     <Copyright>Copyright © 2018- 10Duke Software</Copyright>
-    <PackageLicenseUrl>https://github.com/10Duke/10duke-dotnet-client/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
-    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>- Refactor utilities, prepare support for a new client library that uses OS default browser
-- Add support for additional claims in license consumption calls</PackageReleaseNotes>
+    <PackageReleaseNotes>Support reading signer key from server JWKS endpoint, fix public key serialization with .NET Core, and update dependency versions</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>3.3.1</Version>
+    <AssemblyVersion>3.3.1.0</AssemblyVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

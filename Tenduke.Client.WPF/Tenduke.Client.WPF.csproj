@@ -19,6 +19,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +44,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -62,6 +68,12 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.6.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.15.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.15.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
@@ -123,6 +135,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Tenduke.Client, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.3.3.1\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Tenduke.Client.Desktop, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.3.3.1\lib\net461\Tenduke.Client.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Tenduke.Client.WinBase, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.WinBase.3.3.1\lib\netstandard2.0\Tenduke.Client.WinBase.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -240,20 +261,6 @@
     <Content Include="libcef.dll" />
     <Content Include="libEGL.dll" />
     <Content Include="libGLESv2.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj">
-      <Project>{bb3b0629-a838-4beb-bff0-32aaff87e37d}</Project>
-      <Name>Tenduke.Client.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj">
-      <Project>{8930610c-b2ca-4167-a6b0-b4a10676bb54}</Project>
-      <Name>Tenduke.Client.WinBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj">
-      <Project>{b5112486-55f1-4fb7-9239-bd32a8bbfab7}</Project>
-      <Name>Tenduke.Client</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

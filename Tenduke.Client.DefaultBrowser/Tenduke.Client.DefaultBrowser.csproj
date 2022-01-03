@@ -3,16 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.2.0</Version>
+    <Version>3.3.1</Version>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
     <Description>Client library for 10Duke Identity and Entitlement that uses the operating system default browser for user interaction</Description>
     <Copyright>Copyright © 2018- 10Duke Software</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageReleaseNotes>Support reading signer key from server JWKS endpoint, fix public key serialization with .NET Core, and update dependency versions</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="3.3.1" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="3.3.1" />
   </ItemGroup>
 
 </Project>

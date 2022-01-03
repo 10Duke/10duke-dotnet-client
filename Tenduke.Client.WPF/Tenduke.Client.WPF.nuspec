@@ -6,15 +6,14 @@
     <title>$title$</title>
     <authors>10Duke Software</authors>
     <owners>10Duke Software</owners>
-    <licenseUrl>https://github.com/10Duke/10duke-dotnet-client/blob/master/LICENSE</licenseUrl>
+	<license type="expression">MIT</license>
     <projectUrl>https://github.com/10Duke/10duke-dotnet-client</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>- Update CefSharp to 88.2.90
-- Add support for additional claims in license consumption requests
-    </releaseNotes>
+    <releaseNotes>Support reading signer key from server JWKS endpoint, fix public key serialization with .NET Core, and update dependency versions</releaseNotes>
     <copyright>Copyright © 2018- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WPF</tags>
+	<repository url="https://github.com/10Duke/10duke-dotnet-client.git" />
   </metadata>
 </package>

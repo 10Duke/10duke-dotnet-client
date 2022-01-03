@@ -7,15 +7,17 @@
     <Description>ASP.NET client library for 10Duke Identity and Entitlement</Description>
     <PackageTags>Entitlement Licensing Identity 10Duke AspNet</PackageTags>
     <Copyright>Copyright © 2018- 10Duke Software</Copyright>
-    <PackageLicenseUrl>https://github.com/10Duke/10duke-dotnet-client/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
-    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client</RepositoryUrl>
-    <PackageReleaseNotes>Update to Tenduke.Client 3.2.0</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
+    <PackageReleaseNotes>Update to Tenduke.Client 3.3.1</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>3.3.1</Version>
+    <AssemblyVersion>3.3.1.0</AssemblyVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,10 +26,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="3.3.1" />
   </ItemGroup>
 
 </Project>
