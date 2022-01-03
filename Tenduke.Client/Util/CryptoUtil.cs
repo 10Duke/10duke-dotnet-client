@@ -1,7 +1,13 @@
-﻿using System;
+﻿using Jose;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace Tenduke.Client.Util
 {
@@ -51,13 +57,82 @@ namespace Tenduke.Client.Util
         }
 
         /// <summary>
-        /// Reads an RSA public key from PEM / PKCS#1 format.
+        /// Reads an RSA public key from PEM / PKCS#1 format, or from JWKS URL. In practice there will
+        /// always be just one currently valid public key.
         /// </summary>
-        /// <param name="publicKeyPkcs1Pem">String representation of the public key, in PEM / PKCS#1 format.</param>
+        /// <param name="publicKeyPkcs1PemOrJwksUri">String representation of the public key, in PEM / PKCS#1 format,
+        /// or URL of a JWKS endpoint.</param>
         /// <returns><see cref="RSACryptoServiceProvider"/> object representing the RSA public key.</returns>
-        public static RSACryptoServiceProvider ReadRsaPublicKey(string publicKeyPkcs1Pem)
+        public async static Task<RSASigningKey> ReadFirstRsaPublicKey(
+            string publicKeyPkcs1PemOrJwksUri,
+            HttpClient httpClient)
         {
-            var encodedKey = publicKeyPkcs1Pem
+            var keys = await ReadRsaPublicKeys(publicKeyPkcs1PemOrJwksUri, httpClient);
+            return keys[0];
+        }
+
+        /// <summary>
+        /// Reads RSA public keys from PEM / PKCS#1 format, or from JWKS URL.
+        /// </summary>
+        /// <param name="publicKeyPkcs1PemOrJwksUri">String representation of the public key, in PEM / PKCS#1 format,
+        /// or URL of a JWKS endpoint.</param>
+        /// <returns>Collection of <see cref="RSACryptoServiceProvider"/> objects.</returns>
+        public async static Task<IList<RSASigningKey>> ReadRsaPublicKeys(
+            string publicKeyPkcs1PemOrJwksUri,
+            HttpClient httpClient)
+        {
+            try
+            {
+                Uri jwksUrl = new Uri(publicKeyPkcs1PemOrJwksUri);
+                var request = new HttpRequestMessage()
+                {
+                    RequestUri = jwksUrl,
+                    Method = HttpMethod.Get
+                };
+
+                request.Headers.CacheControl = new CacheControlHeaderValue()
+                {
+                    NoCache = true,
+                    NoStore = true
+                };
+                using (var response = await httpClient.SendAsync(request))
+                {
+                    response.EnsureSuccessStatusCode();
+                    var jwksResponse = await response.Content.ReadAsAsync<JsonWebKeySet>();
+                    var retValue = new List<RSASigningKey>();
+                    foreach (var jwk in jwksResponse.Keys)
+                    {
+                        var rsaPubKey = JsonWebKeyPublicToRSA(jwk);
+                        retValue.Add(new RSASigningKey { KeyId = jwk.KeyId, RSAKey = rsaPubKey });
+                    }
+
+                    return retValue;
+                }
+
+            }
+            catch (UriFormatException)
+            {
+                var encodedKey = publicKeyPkcs1PemOrJwksUri
+                    .Replace("-----BEGIN PUBLIC KEY-----", "")
+                    .Replace("-----END PUBLIC KEY-----", "")
+                    .Replace("\r", "")
+                    .Replace("\n", "");
+                var rsaPubKey = ReadRsaPublicKey(Convert.FromBase64String(encodedKey));
+                var signingKey = new RSASigningKey { KeyId = null, RSAKey = rsaPubKey };
+                return new List<RSASigningKey> { signingKey };
+            }
+
+        }
+
+        /// <summary>
+        /// Reads an RSA public key from PEM / PKCS#1 format, or from JWKS URL.
+        /// </summary>
+        /// <param name="publicKeyPkcs1PemOrJwksUri">String representation of the public key, in PEM / PKCS#1 format,
+        /// or URL of a JWKS endpoint.</param>
+        /// <returns><see cref="RSACryptoServiceProvider"/> object representing the RSA public key.</returns>
+        public static RSACryptoServiceProvider ReadRsaPublicKey(string publicKeyPkcs1PemOrJwksUri)
+        {
+            var encodedKey = publicKeyPkcs1PemOrJwksUri
                 .Replace("-----BEGIN PUBLIC KEY-----", "")
                 .Replace("-----END PUBLIC KEY-----", "")
                 .Replace("\r", "")
@@ -163,6 +238,24 @@ namespace Tenduke.Client.Util
             }
 
             finally { binr.Close(); }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="JsonWebKey"/> with a public key to a <see cref="RSACryptoServiceProvider"/>.
+        /// </summary>
+        /// <param name="jwkPublic"><see cref="JsonWebKey"/> representing a public RSA key.</param>
+        /// <returns><see cref="RSACryptoServiceProvider"/> with the public key.</returns>
+        public static RSACryptoServiceProvider JsonWebKeyPublicToRSA(JsonWebKey jwkPublic)
+        {
+            var rsaParams = new RSAParameters()
+            {
+                Modulus = Base64Url.Decode(jwkPublic.N),
+                Exponent = Base64Url.Decode(jwkPublic.E),
+            };
+
+            var retValue = new RSACryptoServiceProvider();
+            retValue.ImportParameters(rsaParams);
+            return retValue;
         }
 
         #endregion

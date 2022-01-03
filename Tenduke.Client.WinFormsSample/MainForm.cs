@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
 using Tenduke.Client.Config;
@@ -21,11 +21,6 @@ namespace Tenduke.Client.WinFormsSample
         private readonly string REGISTRY_KEY_STORED_AUTHORIZATION = "Software\\10Duke\\Tenduke.Client\\WinFormsSample";
 
         /// <summary>
-        /// Public key to use for verifying 10Duke Entitlement Service signatures.
-        /// </summary>
-        public static readonly RSA EntServerPublicKey = CryptoUtil.ReadRsaPublicKey(Properties.Settings.Default.SignerKey);
-
-        /// <summary>
         /// OAuth 2.0 configuration for connecting this sample application to the 10Duke Entitlement service.
         /// </summary>
         public readonly AuthorizationCodeGrantConfig OAuthConfig = new AuthorizationCodeGrantConfig()
@@ -37,7 +32,6 @@ namespace Tenduke.Client.WinFormsSample
             ClientSecret = Properties.Settings.Default.ClientSecret,
             RedirectUri = Properties.Settings.Default.RedirectUri,
             Scope = Properties.Settings.Default.Scope,
-            SignerKey = EntServerPublicKey,
             ShowRememberMe = Properties.Settings.Default.ShowRememberMe,
             UsePkce = string.IsNullOrEmpty(Properties.Settings.Default.ClientSecret),
             AllowInsecureCerts = Properties.Settings.Default.AllowInsecureCerts
@@ -56,7 +50,6 @@ namespace Tenduke.Client.WinFormsSample
             InitializeComponent();
             comboBoxConsumeMode.SelectedIndex = 0;
             listViewAuthorizationDecisions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
         }
 
         /// <summary>
@@ -64,8 +57,12 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         /// <param name="sender">Sender of the event.</param>
         /// <param name="e">The event arguments.</param>
-        private void MainForm_Shown(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
+            var signerKey = await CryptoUtil.ReadFirstRsaPublicKey(Properties.Settings.Default.SignerKey, new HttpClient());
+            OAuthConfig.SignerKey = signerKey.RSAKey;
+            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
+
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();
             if (EntClient.IsAuthorized())
