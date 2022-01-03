@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Specialized;
 using Tenduke.Client.Config;
-using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
 {

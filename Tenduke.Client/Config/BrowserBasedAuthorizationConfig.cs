@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Config
 {
@@ -55,11 +56,18 @@ namespace Tenduke.Client.Config
             RedirectUri = info.GetString("RedirectUri");
             AuthzUri = info.GetString("AuthzUri");
             Issuer = info.GetString("Issuer");
-            RSAParameters? rsaParameters = info.GetValue("SignerKey", typeof(RSAParameters?)) as RSAParameters?;
+            object rsaParameters = info.GetValue("SignerKey", typeof(object));
             if (rsaParameters != null)
             {
                 var rsa = new RSACryptoServiceProvider();
-                rsa.ImportParameters(rsaParameters.Value);
+                if (rsaParameters is RSAParametersSerializable)
+                {
+                    rsa.ImportParameters((rsaParameters as RSAParametersSerializable).RSAParameters);
+                }
+                else
+                {
+                    rsa.ImportParameters((rsaParameters as RSAParameters?).Value);
+                }
                 SignerKey = rsa;
             }
         }
@@ -79,7 +87,10 @@ namespace Tenduke.Client.Config
             info.AddValue("RedirectUri", RedirectUri);
             info.AddValue("AuthzUri", AuthzUri);
             info.AddValue("Issuer", Issuer);
-            RSAParameters? rsaParameters = SignerKey == null ? (RSAParameters?)null : SignerKey.ExportParameters(false);
+            RSAParametersSerializable rsaParameters =
+                SignerKey == null
+                ? null
+                : new RSAParametersSerializable(SignerKey.ExportParameters(false));
             info.AddValue("SignerKey", rsaParameters);
         }
 
