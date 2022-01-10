@@ -140,11 +140,20 @@ namespace Tenduke.Client.Util
             }
 
             string jsonResponse;
-            using (var response = tokenRequest.GetResponse())
+            try
             {
+                using (var response = tokenRequest.GetResponse())
                 using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
                 {
                     jsonResponse = responseStreamReader.ReadToEnd();
+                }
+            }
+            catch (WebException ex)
+            {
+                using (var errorResponse = ex.Response.GetResponseStream())
+                using (var errorResponseStreamReader = new StreamReader(errorResponse))
+                {
+                    jsonResponse = errorResponseStreamReader.ReadToEnd();
                 }
             }
 
