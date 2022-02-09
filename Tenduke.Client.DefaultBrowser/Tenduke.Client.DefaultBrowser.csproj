@@ -17,7 +17,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>C:\Users\jakes\prod\10duke-dotnet-client\10duke-dotnet-client-key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\10duke-dotnet-client-key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
