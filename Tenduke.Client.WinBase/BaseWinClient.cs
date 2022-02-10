@@ -52,13 +52,17 @@ namespace Tenduke.Client.WinBase
                         ComputerIdentityConfig == null || (ComputerIdentityConfig.ComputeBy == null && ComputerIdentityConfig.AdditionalIdentifier == null)
                         ? new[] { ComputerIdentity.ComputerIdentifier.BaseboardSerialNumber } // Uses BaseboardSerialNumber as default
                         : ComputerIdentityConfig.ComputeBy;
+                    ComputerIdentity.HashAlg hashAlg =
+                        ComputerIdentityConfig == null || ComputerIdentityConfig.HashAlg == null
+                        ? ComputerIdentity.HashAlg.SHA1 // Uses SHA1 as default (required for backwards compatibility)
+                        : ComputerIdentityConfig.HashAlg.Value;
                     if (ComputerIdentityConfig == null)
                     {
-                        retValue = ComputerIdentity.BuildComputerId(null, null, idComponents);
+                        retValue = ComputerIdentity.BuildComputerId(null, null, hashAlg, idComponents);
                     }
                     else if (ComputerIdentityConfig.ComputerId == null)
                     {
-                        retValue = ComputerIdentity.BuildComputerId(ComputerIdentityConfig.AdditionalIdentifier, ComputerIdentityConfig.Salt, idComponents);
+                        retValue = ComputerIdentity.BuildComputerId(ComputerIdentityConfig.AdditionalIdentifier, ComputerIdentityConfig.Salt, hashAlg, idComponents);
                     }
                     else
                     {
