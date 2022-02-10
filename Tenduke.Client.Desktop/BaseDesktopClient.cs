@@ -76,7 +76,8 @@ namespace Tenduke.Client.Desktop
             cefSettings.CefCommandLineArgs.Remove("enable-system-flash");
             // Disable GPU settings because on some GPUs these cause incorrect rendering when display is scaled
             cefSettings.CefCommandLineArgs.Add("disable-gpu", "1"); // Disable GPU acceleration
-            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1"); //Disable GPU vsync
+            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1"); // Disable GPU vsync
+            cefSettings.CefCommandLineArgs.Add("disable-gpu-shader-disk-cache", "1"); // Do not use GPU disk cache
         }
 
         /// <summary>
