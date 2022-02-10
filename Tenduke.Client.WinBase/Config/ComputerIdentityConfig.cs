@@ -22,6 +22,12 @@ namespace Tenduke.Client.Desktop.Config
         public ComputerIdentity.ComputerIdentifier[] ComputeBy { get; set; }
 
         /// <summary>
+        /// <para>Hash algorithm to use for computing the computer identifier.</para>
+        /// <para>If value of <see cref="ComputerId"/> is not <c>null</c>, this property is ignored.</para>.
+        /// </summary>
+        public ComputerIdentity.HashAlg? HashAlg { get; set; }
+
+        /// <summary>
         /// <para>Additional application-specified part to use as an additional component with <see cref="ComputeBy"/>
         /// when computing the computer identifier.</para>
         /// <para>If value of <see cref="ComputerId"/> is not <c>null</c>, this property is ignored.</para>.

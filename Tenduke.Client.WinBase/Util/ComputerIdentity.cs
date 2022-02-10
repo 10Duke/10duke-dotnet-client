@@ -89,7 +89,40 @@ namespace Tenduke.Client.Desktop.Util
 
         #endregion
 
+        #region ComputerIdentifier enumeration
+
+        /// <summary>
+        /// Hash algorithm to use for building the computer identifier.
+        /// </summary>
+        public enum HashAlg
+        {
+            /// <summary>
+            /// SHA1
+            /// </summary>
+            SHA1,
+
+            /// <summary>
+            /// SHA256
+            /// </summary>
+            SHA256,
+        }
+
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Builds a hash of selected computer identifiers. This overload uses <see cref="HashAlg.SHA1"/> for computing the hash.
+        /// </summary>
+        /// <param name="customId">You own custom value to as a component of the computer identifier, may represent a single
+        /// identifier or multiple identifiers concatenated. <c>null</c> for no custom / caller-specified computer id.</param>
+        /// <param name="salt">Application specific salt for computing the hash, or <c>null</c> for no application-specific salt.</param>
+        /// <param name="identifyBy"><see cref="ComputerIdentifier"/> values to use as components for the computer identifier.</param>
+        /// <returns>The computer identifier hash as a URL safe string.</returns>
+        public static string BuildComputerId(string customId, string salt, params ComputerIdentifier[] identifyBy)
+        {
+            return BuildComputerId(customId, salt, HashAlg.SHA256, identifyBy);
+        }
 
         /// <summary>
         /// Builds a hash of selected computer identifiers.
@@ -99,7 +132,7 @@ namespace Tenduke.Client.Desktop.Util
         /// <param name="salt">Application specific salt for computing the hash, or <c>null</c> for no application-specific salt.</param>
         /// <param name="identifyBy"><see cref="ComputerIdentifier"/> values to use as components for the computer identifier.</param>
         /// <returns>The computer identifier hash as a URL safe string.</returns>
-        public static string BuildComputerId(string customId, string salt, params ComputerIdentifier[] identifyBy)
+        public static string BuildComputerId(string customId, string salt, HashAlg hashAlg, params ComputerIdentifier[] identifyBy)
         {
             var baseString = new StringBuilder();
             baseString.Append(ComputerIdentity.ComputerIdSalt);
@@ -135,12 +168,7 @@ namespace Tenduke.Client.Desktop.Util
                 baseString.Append(salt);
             }
 
-            using (var sha1 = new SHA1Managed())
-            {
-                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(baseString.ToString()));
-                // URL safe Base64
-                return Convert.ToBase64String(hash).TrimEnd('=').Replace("+", "-").Replace("/", "_");
-            }
+            return ComputeHash(baseString.ToString(), hashAlg);
         }
 
         /// <summary>
@@ -294,6 +322,40 @@ namespace Tenduke.Client.Desktop.Util
             }
 
             return new string(decodedChars);
+        }
+
+        /// <summary>
+        /// Computes the computer id hash.
+        /// </summary>
+        /// <param name="baseString">Base string built by appending one or more identifier elements.</param>
+        /// <param name="hashAlg">The <see cref="HashAlg"/> to use.</param>
+        /// <returns>The computer identifier hash as a URL safe string.</returns>
+        /// <exception cref="NotSupportedException">Thrown if the given <paramref name="hashAlg"/> is not supported.</exception>
+        private static string ComputeHash(string baseString, HashAlg hashAlg)
+        {
+            byte[] hash;
+            if (hashAlg == HashAlg.SHA1)
+            {
+                using (var sha1 = new SHA1Managed())
+                {
+                    hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(baseString));
+                }
+            }
+            else if (hashAlg == HashAlg.SHA256)
+            {
+                using (var sha256 = SHA256.Create())
+                {
+                    hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(baseString));
+                }
+            }
+            else
+            {
+                var message = string.Format("Hash algorithm {0} not supported", hashAlg);
+                throw new NotSupportedException(message);
+            }
+
+            // URL safe Base64
+            return Convert.ToBase64String(hash).TrimEnd('=').Replace("+", "-").Replace("/", "_");
         }
 
         #endregion
