@@ -16,6 +16,17 @@ namespace Tenduke.Client.WinForms
     /// </summary>
     public class EntClient : BaseDesktopClient<EntClient>
     {
+
+        #region Events
+
+        /// <summary>
+        /// Raised when initializing the web browser form. Subscribers of the event may
+        /// set properties of the form.
+        /// </summary>
+        public event EventHandler<InitializeBrowserFormEventArgs> RaiseInitializeBrowserForm;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -99,7 +110,27 @@ namespace Tenduke.Client.WinForms
                 throw new InvalidOperationException("OAuthConfig must be specified");
             }
 
-            return new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
+            var retValue = new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
+            retValue.RaiseInitializeBrowserForm += HandleRaiseInitializeBrowserForm;
+            return retValue;
+        }
+
+        /// <summary>
+        /// Called for invoking the <see cref="RaiseInitializeBrowserForm"/> event.
+        /// </summary>
+        /// <param name="e">The <see cref="InitializeBrowserFormEventArgs"/>.</param>
+        protected virtual void OnRaiseInitializeBrowserForm(InitializeBrowserFormEventArgs e)
+        {
+            EventHandler<InitializeBrowserFormEventArgs> handler = RaiseInitializeBrowserForm;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        private void HandleRaiseInitializeBrowserForm(object sender, InitializeBrowserFormEventArgs e)
+        {
+            OnRaiseInitializeBrowserForm(e);
         }
 
         /// <summary>

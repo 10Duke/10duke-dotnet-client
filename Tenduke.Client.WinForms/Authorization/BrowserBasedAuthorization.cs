@@ -30,6 +30,16 @@ namespace Tenduke.Client.WinForms.Authorization
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Raised when initializing the web browser form. Subscribers of the event may
+        /// set properties of the form.
+        /// </summary>
+        public event EventHandler<InitializeBrowserFormEventArgs> RaiseInitializeBrowserForm;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -100,12 +110,27 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <returns>The <see cref="WebBrowserForm"/>.</returns>
         protected virtual WebBrowserForm InitializeWebBrowserForm(Uri initialAddress)
         {
-            return new WebBrowserForm()
+            var webBrowserForm = new WebBrowserForm()
             {
                 Address = initialAddress.ToString(),
                 RedirectUri = OAuthConfig.RedirectUri,
                 AllowInsecureCerts = OAuthConfig.AllowInsecureCerts
             };
+            OnRaiseInitializeBrowserForm(new InitializeBrowserFormEventArgs(webBrowserForm));
+            return webBrowserForm;
+        }
+
+        /// <summary>
+        /// Called for invoking the <see cref="RaiseInitializeBrowserForm"/> event.
+        /// </summary>
+        /// <param name="e">The <see cref="InitializeBrowserFormEventArgs"/>.</param>
+        protected virtual void OnRaiseInitializeBrowserForm(InitializeBrowserFormEventArgs e)
+        {
+            EventHandler<InitializeBrowserFormEventArgs> handler = RaiseInitializeBrowserForm;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         /// <summary>

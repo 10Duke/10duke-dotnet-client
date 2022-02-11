@@ -1,7 +1,7 @@
-﻿using Jose;
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
 {
