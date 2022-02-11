@@ -363,10 +363,22 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         protected override void ReadAccessTokenResponse(dynamic accessTokenResponse)
         {
             ReadAccessTokenResponseCommon(accessTokenResponse);
-            AccessTokenResponse =
-                accessTokenResponse["access_token"] == null
-                ? null
-                : Client.Authorization.AccessTokenResponse.FromResponseObject(accessTokenResponse, OAuthConfig.SignerKey);
+            if (accessTokenResponse["access_token"] == null)
+            {
+                AccessTokenResponse = null;
+                Error = accessTokenResponse["error"];
+                ErrorDescription = accessTokenResponse["error_description"];
+                ErrorUri = accessTokenResponse["error_uri"];
+            }
+            else
+            {
+                AccessTokenResponse = Client.Authorization.AccessTokenResponse.FromResponseObject(
+                    accessTokenResponse,
+                    OAuthConfig.SignerKey);
+                Error = null;
+                ErrorDescription = null;
+                ErrorUri = null;
+            }
         }
 
         #endregion
