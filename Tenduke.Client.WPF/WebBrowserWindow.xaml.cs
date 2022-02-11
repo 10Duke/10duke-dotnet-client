@@ -1,8 +1,10 @@
 ﻿using CefSharp;
+using CefSharp.Enums;
+using CefSharp.Structs;
 using CefSharp.Wpf;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
@@ -63,6 +65,11 @@ namespace Tenduke.Client.WPF
         /// </summary>
         public bool AllowInsecureCerts { get; set; }
 
+        /// <summary>
+        /// Indicates if CEF console logging is enabled.
+        /// </summary>
+        public bool EnableCefConsoleLogging { get; set; }
+
         #endregion
 
         #region Constructors
@@ -91,7 +98,8 @@ namespace Tenduke.Client.WPF
             ChromiumWebBrowser = new ChromiumWebBrowser
             {
                 Address = loaderPath,
-                RequestHandler = new AuthzRequestHandler(this)
+                RequestHandler = new AuthzRequestHandler(this),
+                DisplayHandler = new CefDisplayHandler(this),
             };
             initialPageLoadStarted = false;
             ChromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
@@ -310,6 +318,64 @@ namespace Tenduke.Client.WPF
             }
 
             public bool OnSelectClientCertificate(IWebBrowser browserControl, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Private CefSharp display handler implementation
+
+        private class CefDisplayHandler : IDisplayHandler
+        {
+            private readonly WebBrowserWindow parent;
+
+            public CefDisplayHandler(WebBrowserWindow parent)
+            {
+                this.parent = parent;
+            }
+            public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs)
+            {
+            }
+
+            public bool OnAutoResize(IWebBrowser chromiumWebBrowser, IBrowser browser, CefSharp.Structs.Size newSize)
+            {
+                return false;
+            }
+
+            public bool OnConsoleMessage(IWebBrowser chromiumWebBrowser, ConsoleMessageEventArgs consoleMessageArgs)
+            {
+                // Return true to stop the message from being output to the console.
+                return !parent.EnableCefConsoleLogging;
+            }
+
+            public bool OnCursorChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IntPtr cursor, CursorType type, CursorInfo customCursorInfo)
+            {
+                return false;
+            }
+
+            public void OnFaviconUrlChange(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<string> urls)
+            {
+            }
+
+            public void OnFullscreenModeChange(IWebBrowser chromiumWebBrowser, IBrowser browser, bool fullscreen)
+            {
+            }
+
+            public void OnLoadingProgressChange(IWebBrowser chromiumWebBrowser, IBrowser browser, double progress)
+            {
+            }
+
+            public void OnStatusMessage(IWebBrowser chromiumWebBrowser, StatusMessageEventArgs statusMessageArgs)
+            {
+            }
+
+            public void OnTitleChanged(IWebBrowser chromiumWebBrowser, TitleChangedEventArgs titleChangedArgs)
+            {
+            }
+
+            public bool OnTooltipChanged(IWebBrowser chromiumWebBrowser, ref string text)
             {
                 return false;
             }
