@@ -62,6 +62,7 @@ namespace Tenduke.Client.WinFormsSample
             var signerKey = await CryptoUtil.ReadFirstRsaPublicKey(Properties.Settings.Default.SignerKey, new HttpClient());
             OAuthConfig.SignerKey = signerKey.RSAKey;
             EntClient = new EntClient() { OAuthConfig = OAuthConfig };
+            EntClient.RaiseInitializeBrowserForm += EntClient_RaiseInitializeBrowserForm;
 
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();
@@ -77,6 +78,11 @@ namespace Tenduke.Client.WinFormsSample
                 // to be closed.
                 Close();
             }
+        }
+
+        private void EntClient_RaiseInitializeBrowserForm(object sender, WinForms.Authorization.InitializeBrowserFormEventArgs e)
+        {
+            e.WebBrowserForm.Location = new System.Drawing.Point(0, 0);
         }
 
         /// <summary>

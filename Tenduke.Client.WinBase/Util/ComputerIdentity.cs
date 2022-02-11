@@ -4,6 +4,7 @@ using System.Collections;
 using System.Management;
 using System.Security.Cryptography;
 using System.Text;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Desktop.Util
 {
@@ -354,8 +355,7 @@ namespace Tenduke.Client.Desktop.Util
                 throw new NotSupportedException(message);
             }
 
-            // URL safe Base64
-            return Convert.ToBase64String(hash).TrimEnd('=').Replace("+", "-").Replace("/", "_");
+            return Base64Url.Encode(hash);
         }
 
         #endregion

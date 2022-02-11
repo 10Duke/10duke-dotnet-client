@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.Security.Cryptography;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
 {
@@ -28,18 +31,10 @@ namespace Tenduke.Client.Authorization
         /// <param name="verifyWithKey">RSA public key to use for verifying OpenID Connect ID token signature, if an ID token is present in the response.
         /// If <c>null</c>, no verification is done.</param>
         /// <returns><see cref="IDToken"/> object containing the parsed ID Token data.</returns>
-        /// <exception cref="Jose.IntegrityException">Thrown if token signature verification fails.</exception>
+        /// <exception cref="SecurityTokenInvalidSignatureException">Thrown if token signature verification fails.</exception>
         public static IDToken Parse(string encodedToken, RSA verifyWithKey)
         {
-            string decoded;
-            if (verifyWithKey == null)
-            {
-                decoded = Jose.JWT.Payload(encodedToken);
-            }
-            else
-            {
-                decoded = Jose.JWT.Decode(encodedToken, verifyWithKey);
-            }
+            var decoded = JwtUtil.ReadPayload(encodedToken, verifyWithKey);
             dynamic json = JsonConvert.DeserializeObject(decoded);
             return new IDToken() { ResponsePayload = json };
         }

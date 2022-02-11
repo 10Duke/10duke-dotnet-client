@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using Tenduke.Client.Util;
 
 namespace Tenduke.Client.EntApi.Authz
 {
@@ -48,7 +49,7 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="contentType">The response content type.</param>
         /// <param name="verifyWithKey">RSA public key to use for verifying the token signature. If <c>null</c>, no verification is done.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response.</returns>
-        /// <exception cref="Jose.IntegrityException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
+        /// <exception cref="SecurityTokenInvalidSignatureException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
         public static AuthorizationDecision FromServerResponse(string authorizedItem, string responseBody, MediaTypeHeaderValue contentType, RSA verifyWithKey)
         {
             if (string.IsNullOrEmpty(responseBody))
@@ -76,7 +77,7 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="verifyWithKey">RSA public key to use for verifying the token signature. If <c>null</c>, no verification is done.</param>
         /// <returns>List of <see cref="AuthorizationDecision"/> objects representing the authorization decision responses for the given
         /// <paramref name="authorizedItems"/>.</returns>
-        /// <exception cref="Jose.IntegrityException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
+        /// <exception cref="SecurityTokenInvalidSignatureException">Thrown if the response is in JWT format and if token signature verification fails.</exception>
         public static IList<AuthorizationDecision> FromServerResponse(IList<string> authorizedItems, string responseBody, MediaTypeHeaderValue contentType, RSA verifyWithKey)
         {
             if (string.IsNullOrEmpty(responseBody))
@@ -154,18 +155,10 @@ namespace Tenduke.Client.EntApi.Authz
         /// <param name="jwtResponse">Authorization decision response from the server, as a JWT string.</param>
         /// <param name="verifyWithKey">RSA public key to use for verifying the token signature. If <c>null</c>, no verification is done.</param>
         /// <returns><see cref="AuthorizationDecision"/> object representing the authorization decision response.</returns>
-        /// <exception cref="Jose.IntegrityException">Thrown if token signature verification fails.</exception>
+        /// <exception cref="SecurityTokenInvalidSignatureException">Thrown if token signature verification fails.</exception>
         public static AuthorizationDecision FromJwt(string jwtResponse, RSA verifyWithKey)
         {
-            string decoded;
-            if (verifyWithKey == null)
-            {
-                decoded = Jose.JWT.Payload(jwtResponse);
-            }
-            else
-            {
-                decoded = Jose.JWT.Decode(jwtResponse, verifyWithKey);
-            }
+            var decoded = JwtUtil.ReadPayload(jwtResponse, verifyWithKey);
             dynamic json = JsonConvert.DeserializeObject(decoded);
             return new AuthorizationDecision()
             {
