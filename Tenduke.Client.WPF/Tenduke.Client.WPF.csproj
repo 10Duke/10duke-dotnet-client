@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationCodeGrant.cs" />
     <Compile Include="Authorization\BrowserBasedAuthorization.cs" />
+    <Compile Include="Authorization\InitializeBrowserWindowEventArgs.cs" />
     <Compile Include="EntClient.cs" />
     <Compile Include="WebBrowserWindow.xaml.cs">
       <DependentUpon>WebBrowserWindow.xaml</DependentUpon>

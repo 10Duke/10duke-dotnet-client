@@ -16,6 +16,16 @@ namespace Tenduke.Client.WPF
     /// </summary>
     public class EntClient : BaseDesktopClient<EntClient>
     {
+        #region Events
+
+        /// <summary>
+        /// Raised when initializing the web browser window. Subscribers of the event may
+        /// set properties of the window.
+        /// </summary>
+        public event EventHandler<InitializeBrowserWindowEventArgs> RaiseInitializeBrowserWindow;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -99,7 +109,27 @@ namespace Tenduke.Client.WPF
                 throw new InvalidOperationException("OAuthConfig must be specified");
             }
 
-            return new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
+            var retValue = new AuthorizationCodeGrant() { OAuthConfig = OAuthConfig };
+            retValue.RaiseInitializeBrowserWindow += HandleRaiseInitializeBrowserWindow;
+            return retValue;
+        }
+
+        /// <summary>
+        /// Called for invoking the <see cref="RaiseInitializeBrowserWindow"/> event.
+        /// </summary>
+        /// <param name="e">The <see cref="InitializeBrowserWindowEventArgs"/>.</param>
+        protected virtual void OnRaiseInitializeBrowserWindow(InitializeBrowserWindowEventArgs e)
+        {
+            EventHandler<InitializeBrowserWindowEventArgs> handler = RaiseInitializeBrowserWindow;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        private void HandleRaiseInitializeBrowserWindow(object sender, InitializeBrowserWindowEventArgs e)
+        {
+            OnRaiseInitializeBrowserWindow(e);
         }
 
         /// <summary>

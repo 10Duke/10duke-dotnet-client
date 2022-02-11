@@ -11,6 +11,7 @@ using Tenduke.Client.EntApi;
 using Tenduke.Client.EntApi.Authz;
 using Tenduke.Client.Util;
 using Tenduke.Client.WPF;
+using Tenduke.Client.WPF.Authorization;
 
 namespace Tenduke.Client.WPFSample
 {
@@ -59,7 +60,7 @@ namespace Tenduke.Client.WPFSample
         {
             var signerKey = await CryptoUtil.ReadFirstRsaPublicKey(Properties.Settings.Default.SignerKey, new HttpClient());
             OAuthConfig.SignerKey = signerKey.RSAKey;
-            EntClient = new WPF.EntClient() { OAuthConfig = OAuthConfig };
+            EntClient = new EntClient() { OAuthConfig = OAuthConfig };
 
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
             EnsureAuthorization();

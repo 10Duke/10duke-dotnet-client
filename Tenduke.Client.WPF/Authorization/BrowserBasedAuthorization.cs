@@ -29,6 +29,16 @@ namespace Tenduke.Client.WPF.Authorization
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Raised when initializing the web browser window. Subscribers of the event may
+        /// set properties of the window.
+        /// </summary>
+        public event EventHandler<InitializeBrowserWindowEventArgs> RaiseInitializeBrowserWindow;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -95,12 +105,27 @@ namespace Tenduke.Client.WPF.Authorization
         /// <returns>The <see cref="WebBrowserWindow"/>.</returns>
         protected virtual WebBrowserWindow InitializeWebBrowserWindow(Uri initialAddress)
         {
-            return new WebBrowserWindow()
+            var webBrowserWindow = new WebBrowserWindow()
             {
                 Address = initialAddress.ToString(),
                 RedirectUri = OAuthConfig.RedirectUri,
                 AllowInsecureCerts = OAuthConfig.AllowInsecureCerts
             };
+            OnRaiseInitializeBrowserWindow(new InitializeBrowserWindowEventArgs(webBrowserWindow));
+            return webBrowserWindow;
+        }
+
+        /// <summary>
+        /// Called for invoking the <see cref="RaiseInitializeBrowserWindow"/> event.
+        /// </summary>
+        /// <param name="e">The <see cref="InitializeBrowserWindowEventArgs"/>.</param>
+        protected virtual void OnRaiseInitializeBrowserWindow(InitializeBrowserWindowEventArgs e)
+        {
+            EventHandler<InitializeBrowserWindowEventArgs> handler = RaiseInitializeBrowserWindow;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         /// <summary>
