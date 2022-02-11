@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Support reading signer key from server JWKS endpoint, fix public key serialization with .NET Core, and update dependency versions</releaseNotes>
+    <releaseNotes>Strong naming, SHA256 computer id hash support, disable CEF GPU shader disk cache, add handler for web browser window initialization (allow setting window properties), control cef console logging, set error properties by access token response, update CefSharp to version 97.1.61</releaseNotes>
     <copyright>Copyright © 2019- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop WinForms</tags>
 	<repository url="https://github.com/10Duke/10duke-dotnet-client.git" />

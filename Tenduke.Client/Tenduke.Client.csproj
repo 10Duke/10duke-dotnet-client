@@ -9,11 +9,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Support reading signer key from server JWKS endpoint, fix public key serialization with .NET Core, and update dependency versions</PackageReleaseNotes>
+    <PackageReleaseNotes>Strong naming, SHA256 computer id hash support, disable CEF GPU shader disk cache, add handler for web browser window initialization (allow setting window properties), control cef console logging, set error properties by access token response, update CefSharp to version 97.1.61</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.3.1</Version>
-    <AssemblyVersion>3.3.1.0</AssemblyVersion>
+    <Version>3.4.0</Version>
+    <AssemblyVersion>3.4.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

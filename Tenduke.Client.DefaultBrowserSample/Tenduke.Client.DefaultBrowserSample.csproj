@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.DefaultBrowser\Tenduke.Client.DefaultBrowser.csproj" />
+    <PackageReference Include="Tenduke.Client.DefaultBrowser" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
