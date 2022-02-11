@@ -57,6 +57,11 @@ namespace Tenduke.Client.WPF.Authorization
             }
         }
 
+        /// <summary>
+        /// Indicates if CEF console logging is enabled.
+        /// </summary>
+        public bool EnableCefConsoleLogging { get; set; }
+
         #endregion
 
         #region Methods
@@ -109,7 +114,8 @@ namespace Tenduke.Client.WPF.Authorization
             {
                 Address = initialAddress.ToString(),
                 RedirectUri = OAuthConfig.RedirectUri,
-                AllowInsecureCerts = OAuthConfig.AllowInsecureCerts
+                AllowInsecureCerts = OAuthConfig.AllowInsecureCerts,
+                EnableCefConsoleLogging = EnableCefConsoleLogging,
             };
             OnRaiseInitializeBrowserWindow(new InitializeBrowserWindowEventArgs(webBrowserWindow));
             return webBrowserWindow;
