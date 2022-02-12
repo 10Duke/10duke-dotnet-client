@@ -132,6 +132,13 @@ var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync(
 
 This example specifies some more parameters to the consumption request. The last parameter shown in the example can be used for giving any additional claims understood by the license consumption endpoint. Standard additional claims include `licenseId` and `entitlementId` that can be used for explicitly selecting the license or entitlement to consume. In basic use cases for consuming if a valid license is found, these parameters are not required.
 
+License consumption requests compute a computer id that is sent with the consumption requests in order to identify the client hardware. Computer id can be customized by setting `ComputerIdentityConfig`, for example the following configuration makes computer id computation use FIPS-compliant SHA256 hash algorithm:
+
+[source,csharp]
+----
+entClient.ComputerIdentityConfig = new ComputerIdentityConfig() { HashAlg = Desktop.Util.ComputerIdentity.HashAlg.SHA256 };
+----
+
 ._Release license_
 [source,csharp]
 ----
