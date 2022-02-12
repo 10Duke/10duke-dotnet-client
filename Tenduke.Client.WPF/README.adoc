@@ -40,7 +40,7 @@ This initialization call is a static call and must be called once in the lifecyc
 
 ===== Customizing the browser window
 
-The browser window showing the embedded browser can be customized by handling the `RaiseInitializeBrowserWindow` event and setting windows properties in the event handler. This example changes the window title:
+The browser window showing the embedded browser can be customized by handling the `RaiseInitializeBrowserWindow` event and setting window properties in the event handler. This example changes the window title:
 
 [source,csharp]
 ----
