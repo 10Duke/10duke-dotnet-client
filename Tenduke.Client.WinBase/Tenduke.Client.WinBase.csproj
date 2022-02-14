@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.4.0</Version>
+    <Version>3.4.1</Version>
     <Description>Base library for Windows based 10Duke Identity and Entitlement client libraries</Description>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
     <Copyright>Copyright © 2018- 10Duke Software</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
+    <PackageIcon>10duke-192x192.png</PackageIcon>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
     <PackageReleaseNotes>Strong naming, SHA256 computer id hash support, disable CEF GPU shader disk cache, add handler for web browser window initialization (allow setting window properties), control cef console logging, set error properties by access token response, update CefSharp to version 97.1.61</PackageReleaseNotes>
@@ -23,10 +24,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="Tenduke.Client" Version="3.4.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
   </ItemGroup>
 
 </Project>
