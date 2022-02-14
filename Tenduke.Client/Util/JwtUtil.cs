@@ -29,6 +29,7 @@ namespace Tenduke.Client.Util
                     IssuerSigningKey = key,
                     ValidateAudience = false,
                     ValidateIssuer = false,
+                    ValidateLifetime = false,
                 };
                 var validationResult = new JsonWebTokenHandler().ValidateToken(encodedToken, validationParams);
                 if (!validationResult.IsValid)
