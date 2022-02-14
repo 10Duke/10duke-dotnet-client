@@ -148,14 +148,14 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Tenduke.Client, Version=3.4.1.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.3.4.1\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
+    <Reference Include="Tenduke.Client, Version=3.4.2.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.3.4.2\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Tenduke.Client.Desktop, Version=3.4.1.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.Desktop.3.4.1\lib\net461\Tenduke.Client.Desktop.dll</HintPath>
+    <Reference Include="Tenduke.Client.Desktop, Version=3.4.2.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.Desktop.3.4.2\lib\net461\Tenduke.Client.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="Tenduke.Client.WinBase, Version=3.4.1.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.WinBase.3.4.1\lib\netstandard2.0\Tenduke.Client.WinBase.dll</HintPath>
+    <Reference Include="Tenduke.Client.WinBase, Version=3.4.2.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tenduke.Client.WinBase.3.4.2\lib\netstandard2.0\Tenduke.Client.WinBase.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
