@@ -24,7 +24,7 @@
       <Value Profile="(Default)">openid profile email</Value>
     </Setting>
     <Setting Name="StoreAuthorization" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ShowRememberMe" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
