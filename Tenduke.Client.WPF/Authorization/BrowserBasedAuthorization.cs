@@ -19,22 +19,13 @@ namespace Tenduke.Client.WPF.Authorization
             where O : IBrowserBasedAuthorizationConfig
             where A : BrowserBasedAuthorizationArgs
     {
-        #region Private fields
-
-        /// <summary>
-        /// Internal field holding WebBrowserWindow used for displaying the embedded web browser.
-        /// </summary>
-        [NonSerialized]
-        private WebBrowserWindow webBrowserWindow;
-
-        #endregion
-
         #region Events
 
         /// <summary>
         /// Raised when initializing the web browser window. Subscribers of the event may
         /// set properties of the window.
         /// </summary>
+        [field: NonSerialized]
         public event EventHandler<InitializeBrowserWindowEventArgs> RaiseInitializeBrowserWindow;
 
         #endregion
@@ -44,22 +35,13 @@ namespace Tenduke.Client.WPF.Authorization
         /// <summary>
         /// Form used for displaying the embedded web browser.
         /// </summary>
-        protected WebBrowserWindow WebBrowserWindow
-        {
-            get
-            {
-                return webBrowserWindow;
-            }
-
-            set
-            {
-                webBrowserWindow = value;
-            }
-        }
+        [field: NonSerialized]
+        protected WebBrowserWindow WebBrowserWindow { get; set; }
 
         /// <summary>
         /// Indicates if CEF console logging is enabled.
         /// </summary>
+        [field: NonSerialized]
         public bool EnableCefConsoleLogging { get; set; }
 
         #endregion

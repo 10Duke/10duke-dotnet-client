@@ -20,22 +20,13 @@ namespace Tenduke.Client.WinForms.Authorization
             where O : IBrowserBasedAuthorizationConfig
             where A : BrowserBasedAuthorizationArgs
     {
-        #region Private fields
-
-        /// <summary>
-        /// Internal field holding WebBrowserForm used for displaying the embedded web browser.
-        /// </summary>
-        [NonSerialized]
-        private WebBrowserForm webBrowserForm;
-
-        #endregion
-
         #region Events
 
         /// <summary>
         /// Raised when initializing the web browser form. Subscribers of the event may
         /// set properties of the form.
         /// </summary>
+        [field: NonSerialized]
         public event EventHandler<InitializeBrowserFormEventArgs> RaiseInitializeBrowserForm;
 
         #endregion
@@ -45,22 +36,13 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <summary>
         /// Form used for displaying the embedded web browser.
         /// </summary>
-        protected WebBrowserForm WebBrowserForm
-        {
-            get
-            {
-                return webBrowserForm;
-            }
-
-            set
-            {
-                webBrowserForm = value;
-            }
-        }
+        [field: NonSerialized]
+        protected WebBrowserForm WebBrowserForm { get; set; }
 
         /// <summary>
         /// Indicates if CEF console logging is enabled.
         /// </summary>
+        [field: NonSerialized]
         public bool EnableCefConsoleLogging { get; set; }
 
         #endregion

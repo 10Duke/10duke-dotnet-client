@@ -88,7 +88,7 @@ namespace Tenduke.Client.WPFSample.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool StoreAuthorization {
             get {
                 return ((bool)(this["StoreAuthorization"]));
