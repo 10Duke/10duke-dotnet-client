@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.4.1</Version>
+    <Version>3.4.2</Version>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
     <Description>Client library for 10Duke Identity and Entitlement that uses the operating system default browser for user interaction</Description>
@@ -34,7 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client.WinBase" Version="3.4.1" />
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 
 </Project>

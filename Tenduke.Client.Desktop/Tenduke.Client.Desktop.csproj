@@ -126,12 +126,6 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="Tenduke.Client, Version=3.4.1.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.3.4.1\lib\netstandard2.0\Tenduke.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Tenduke.Client.WinBase, Version=3.4.1.0, Culture=neutral, PublicKeyToken=38b2ba6ae9109e92, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tenduke.Client.WinBase.3.4.1\lib\netstandard2.0\Tenduke.Client.WinBase.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDesktopClient.cs" />
@@ -146,6 +140,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj">
+      <Project>{8930610c-b2ca-4167-a6b0-b4a10676bb54}</Project>
+      <Name>Tenduke.Client.WinBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj">
+      <Project>{b5112486-55f1-4fb7-9239-bd32a8bbfab7}</Project>
+      <Name>Tenduke.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

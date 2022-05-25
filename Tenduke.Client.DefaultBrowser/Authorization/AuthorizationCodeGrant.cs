@@ -105,7 +105,8 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
                 OnBeforeAuthorization(args, authzUri);
 
                 // Open URL in the OS default browser
-                Process.Start(new ProcessStartInfo(authzUri.ToString()) { UseShellExecute = true });
+                var cmd = authzUri.ToString();
+                Process.Start(new ProcessStartInfo(cmd) { UseShellExecute = true });
 
                 // Wait for the response (request sent to the redirectUri)
                 var timeoutSeconds = GetResponseTimeout();
