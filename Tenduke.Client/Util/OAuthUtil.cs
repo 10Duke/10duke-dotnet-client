@@ -126,7 +126,7 @@ namespace Tenduke.Client.Util
                 requestStreamWriter.Write("&client_id=");
                 requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientID));
 
-                if (oauthConfig.ClientSecret != null)
+                if (!oauthConfig.UsePkce && !string.IsNullOrEmpty(oauthConfig.ClientSecret))
                 {
                     requestStreamWriter.Write("&client_secret=");
                     requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
@@ -140,8 +140,14 @@ namespace Tenduke.Client.Util
             }
 
             string jsonResponse;
+            var certValidationCallback = ServicePointManager.ServerCertificateValidationCallback;
             try
             {
+                if (oauthConfig.AllowInsecureCerts)
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                }
+
                 using (var response = tokenRequest.GetResponse())
                 using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
                 {
@@ -154,6 +160,13 @@ namespace Tenduke.Client.Util
                 using (var errorResponseStreamReader = new StreamReader(errorResponse))
                 {
                     jsonResponse = errorResponseStreamReader.ReadToEnd();
+                }
+            }
+            finally
+            {
+                if (oauthConfig.AllowInsecureCerts)
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = certValidationCallback;
                 }
             }
 
