@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fix SerializationException when storing authorization</releaseNotes>
+    <releaseNotes>Fix request token request parameterization, update CefSharp and other dependencies</releaseNotes>
     <copyright>Copyright © 2019- 10Duke Software</copyright>
     <tags>Entitlement Licensing Identity 10Duke Desktop</tags>
 	<repository url="https://github.com/10Duke/10duke-dotnet-client.git" />

@@ -11,11 +11,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <PackageIcon>10duke-192x192.png</PackageIcon>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
-    <PackageReleaseNotes>Update to Tenduke.Client 3.4.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Update dependencies</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.4.1</Version>
-    <AssemblyVersion>3.4.1.0</AssemblyVersion>
+    <Version>3.4.3</Version>
+    <AssemblyVersion></AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -29,14 +29,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Tenduke.Client" Version="3.4.3" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 
 </Project>
