@@ -34,7 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client.WinBase" Version="3.4.3" />
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 
 </Project>
