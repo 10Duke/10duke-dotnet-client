@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.4.3</Version>
+    <Version>3.5.0</Version>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
     <Description>Client library for 10Duke Identity and Entitlement that uses the operating system default browser for user interaction</Description>
@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Fix request token request parameterization, update CefSharp and other dependencies</PackageReleaseNotes>
+    <PackageReleaseNotes>Improve browser authentication cancellation, fix an exception occurring when cleaning up a cancelled authentication wait task</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="3.4.3" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="3.4.3" />
   </ItemGroup>
 
 </Project>
