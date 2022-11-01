@@ -89,6 +89,7 @@ namespace Tenduke.Client.DefaultBrowserSample
                 var cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
                 var authenticatingWindow = new AuthenticatingMessageWindow();
+                authenticatingWindow.Owner = this;
                 authenticatingWindow.Closing += delegate
                     {
                         if (!cancellationToken.IsCancellationRequested)
@@ -97,8 +98,15 @@ namespace Tenduke.Client.DefaultBrowserSample
                         }
                     };
                 authenticatingWindow.Show();
-                await EntClient.Authorize(cancellationToken);
-                authenticatingWindow.Close();
+                try
+                {
+                    await EntClient.Authorize(cancellationToken);
+                }
+                finally
+                {
+                    authenticatingWindow.Close();
+                    cancellationTokenSource.Dispose();
+                }
                 Activate();
             }
         }
