@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Tenduke.Client.DefaultBrowser.Config;
@@ -61,7 +63,7 @@ namespace Tenduke.Client.DefaultBrowserSample
             EntClient = new DefaultBrowser.EntClient() { OAuthConfig = OAuthConfig };
 
             // This sample application always requires sign-on / authorization against the 10Duke entitlement service.
-            EnsureAuthorization();
+            await EnsureAuthorization();
             if (EntClient.IsAuthorized())
             {
                 ShowWelcomeMessage();
@@ -80,11 +82,23 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// Checks that either a previously stored valid authorization against the 10Duke Entitlement Service exists,
         /// or launches embedded browser for signing on and getting the authorization.
         /// </summary>
-        private void EnsureAuthorization()
+        private async Task EnsureAuthorization()
         {
             if (!UseStoredAuthorization())
             {
-                EntClient.AuthorizeSync();
+                var cancellationTokenSource = new CancellationTokenSource();
+                var cancellationToken = cancellationTokenSource.Token;
+                var authenticatingWindow = new AuthenticatingMessageWindow();
+                authenticatingWindow.Closing += delegate
+                    {
+                        if (!cancellationToken.IsCancellationRequested)
+                        {
+                            cancellationTokenSource.Cancel();
+                        }
+                    };
+                authenticatingWindow.Show();
+                await EntClient.Authorize(cancellationToken);
+                authenticatingWindow.Close();
                 Activate();
             }
         }
