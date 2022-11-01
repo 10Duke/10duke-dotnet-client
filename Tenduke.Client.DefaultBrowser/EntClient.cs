@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.DefaultBrowser.Authorization;
 using Tenduke.Client.DefaultBrowser.Config;
@@ -44,6 +46,22 @@ namespace Tenduke.Client.DefaultBrowser
                 args = args.WithNewCodeVerifier();
             }
             authorization.AuthorizeSync(args);
+            Authorization = authorization;
+        }
+
+        /// <summary>
+        /// Starts the authorization process.
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token for cancelling the operation.</param>
+        public virtual async Task Authorize(CancellationToken? cancellationToken = null)
+        {
+            var authorization = InitializeAuthorizationCodeGrant();
+            var args = new AuthorizationCodeGrantArgs();
+            if (OAuthConfig.UsePkce)
+            {
+                args = args.WithNewCodeVerifier();
+            }
+            await authorization.Authorize(args, cancellationToken);
             Authorization = authorization;
         }
 
