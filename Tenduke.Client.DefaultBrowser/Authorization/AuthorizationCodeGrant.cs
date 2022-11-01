@@ -120,6 +120,14 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
                 }
                 else
                 {
+                    if (cancellationToken != null && cancellationToken.Value.IsCancellationRequested)
+                    {
+                        try
+                        {
+                            await timeoutTask;
+                        }
+                        catch (TaskCanceledException) { }
+                    }
                     OnCancelled(args, authzUri);
                     return null;
                 }
