@@ -10,11 +10,11 @@
     <PackageIcon>10duke-192x192.png</PackageIcon>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
-    <PackageReleaseNotes>Fix request token request parameterization, update dependencies</PackageReleaseNotes>
+    <PackageReleaseNotes>Dependency updates</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<IncludeSource>true</IncludeSource>
-    <Version>3.4.3</Version>
-    <AssemblyVersion></AssemblyVersion>
+    <Version>3.6.0</Version>
+    <AssemblyVersion>3.6.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
