@@ -94,7 +94,7 @@ namespace Tenduke.Client.Util
         {
             try
             {
-                Uri jwksUrl = new Uri(publicKeyPkcs1PemOrJwksUri);
+                Uri jwksUrl = new(publicKeyPkcs1PemOrJwksUri);
                 var request = new HttpRequestMessage()
                 {
                     RequestUri = jwksUrl,
@@ -157,18 +157,15 @@ namespace Tenduke.Client.Util
         public static RSACryptoServiceProvider ReadRsaPublicKey(byte[] publicKeyPkcs1)
         {
             // encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
-            byte[] SeqOID = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
-            byte[] seq = new byte[15];
+            byte[] SeqOID = [0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00];
             // ---------  Set up stream to read the asn.1 encoded SubjectPublicKeyInfo blob  ------
-            MemoryStream mem = new MemoryStream(publicKeyPkcs1);
-            BinaryReader binr = new BinaryReader(mem);    //wrap Memory Stream with BinaryReader for easy reading
-            byte bt = 0;
-            ushort twobytes = 0;
+            MemoryStream mem = new(publicKeyPkcs1);
+            BinaryReader binr = new(mem);    // wrap Memory Stream with BinaryReader for easy reading
 
             try
             {
 
-                twobytes = binr.ReadUInt16();
+                ushort twobytes = binr.ReadUInt16();
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
@@ -176,7 +173,7 @@ namespace Tenduke.Client.Util
                 else
                     return null;
 
-                seq = binr.ReadBytes(15);       //read the Sequence OID
+                byte[] seq = binr.ReadBytes(15);
                 if (!seq.SequenceEqual(SeqOID))    //make sure Sequence for OID is correct
                     return null;
 
@@ -188,7 +185,7 @@ namespace Tenduke.Client.Util
                 else
                     return null;
 
-                bt = binr.ReadByte();
+                byte bt = binr.ReadByte();
                 if (bt != 0x00)     //expect null byte next
                     return null;
 
@@ -213,7 +210,7 @@ namespace Tenduke.Client.Util
                 }
                 else
                     return null;
-                byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };   //reverse byte order since asn.1 key uses big endian order
+                byte[] modint = [lowbyte, highbyte, 0x00, 0x00];   // reverse byte order since asn.1 key uses big endian order
                 int modsize = BitConverter.ToInt32(modint, 0);
 
                 byte firstbyte = binr.ReadByte();
@@ -233,7 +230,7 @@ namespace Tenduke.Client.Util
                 byte[] exponent = binr.ReadBytes(expbytes);
 
                 // ------- create RSACryptoServiceProvider instance and initialize with public key -----
-                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                RSACryptoServiceProvider rsa = new();
                 rsa.ImportParameters(parameters: new RSAParameters
                 {
                     Modulus = modulus,
@@ -267,6 +264,6 @@ namespace Tenduke.Client.Util
             return retValue;
         }
 
-        #endregion
+#endregion
     }
 }

@@ -14,7 +14,7 @@ namespace Tenduke.Client.WPF
     /// this client directly against the 10Duke Entitlement service. If user interaction
     /// is required, a WPM embedded browser windows is displayed.
     /// </summary>
-    public class EntClient : BaseDesktopClient<EntClient>
+    public class EntClient : BaseDesktopClient
     {
         #region Events
 
@@ -120,11 +120,7 @@ namespace Tenduke.Client.WPF
         /// <param name="e">The <see cref="InitializeBrowserWindowEventArgs"/>.</param>
         protected virtual void OnRaiseInitializeBrowserWindow(InitializeBrowserWindowEventArgs e)
         {
-            EventHandler<InitializeBrowserWindowEventArgs> handler = RaiseInitializeBrowserWindow;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            RaiseInitializeBrowserWindow?.Invoke(this, e);
         }
 
         private void HandleRaiseInitializeBrowserWindow(object sender, InitializeBrowserWindowEventArgs e)

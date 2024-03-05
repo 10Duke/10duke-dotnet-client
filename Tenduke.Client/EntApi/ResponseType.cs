@@ -56,20 +56,14 @@ namespace Tenduke.Client.EntApi
         /// <returns>The <see cref="ResponseType"/> object.</returns>
         public static ResponseType FromExtension(string extension)
         {
-            switch (extension)
+            return extension switch
             {
-                case ".jwt":
-                    return ResponseType.JWT;
-                case ".json":
-                    return ResponseType.Json;
-                case ".txt":
-                    return ResponseType.Text;
-                case "":
-                case null:
-                    return ResponseType.Default;
-                default:
-                    throw new NotSupportedException(string.Format("Extension {0} not supported", extension));
-            }
+                ".jwt" => ResponseType.JWT,
+                ".json" => ResponseType.Json,
+                ".txt" => ResponseType.Text,
+                "" or null => ResponseType.Default,
+                _ => throw new NotSupportedException(string.Format("Extension {0} not supported", extension)),
+            };
         }
     }
 }

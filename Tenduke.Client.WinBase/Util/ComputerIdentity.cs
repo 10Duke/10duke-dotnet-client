@@ -178,23 +178,19 @@ namespace Tenduke.Client.Desktop.Util
         /// <returns>The UUID value as a string, or <c>null</c> if not available.</returns>
         public static string GetComputerSystemProductUuid()
         {
-            using (var managementClass = new ManagementClass(MANAGEMENT_INFO_COMPUTER_SYSTEM_PRODUCT))
+            using var managementClass = new ManagementClass(MANAGEMENT_INFO_COMPUTER_SYSTEM_PRODUCT);
+            using var managementObjs = managementClass.GetInstances();
+            string retValue = null;
+            foreach (var managementObj in managementObjs)
             {
-                using (var managementObjs = managementClass.GetInstances())
+                retValue = (string)managementObj.Properties["UUID"]?.Value;
+                if (!string.IsNullOrEmpty(retValue) && !Guid.Empty.ToString().Equals(retValue))
                 {
-                    string retValue = null;
-                    foreach (var managementObj in managementObjs)
-                    {
-                        retValue = (string)managementObj.Properties["UUID"]?.Value;
-                        if (!string.IsNullOrEmpty(retValue) && !Guid.Empty.ToString().Equals(retValue))
-                        {
-                            break;
-                        }
-                    }
-
-                    return retValue;
+                    break;
                 }
             }
+
+            return retValue;
         }
 
         /// <summary>
@@ -203,23 +199,19 @@ namespace Tenduke.Client.Desktop.Util
         /// <returns>The motherboard serial number.</returns>
         public static string GetBaseboardSerialNumber()
         {
-            using (var managementClass = new ManagementClass(MANAGEMENT_INFO_BASEBOARD))
+            using var managementClass = new ManagementClass(MANAGEMENT_INFO_BASEBOARD);
+            using var managementObjs = managementClass.GetInstances();
+            string retValue = null;
+            foreach (var managementObj in managementObjs)
             {
-                using (var managementObjs = managementClass.GetInstances())
+                retValue = (string)managementObj.Properties["SerialNumber"]?.Value;
+                if (!string.IsNullOrEmpty(retValue))
                 {
-                    string retValue = null;
-                    foreach (var managementObj in managementObjs)
-                    {
-                        retValue = (string)managementObj.Properties["SerialNumber"]?.Value;
-                        if (!string.IsNullOrEmpty(retValue))
-                        {
-                            break;
-                        }
-                    }
-
-                    return retValue;
+                    break;
                 }
             }
+
+            return retValue;
         }
 
         /// <summary>
@@ -228,16 +220,12 @@ namespace Tenduke.Client.Desktop.Util
         /// <returns>The product id.</returns>
         public static string GetWindowsProductId()
         {
-            using (var baseKey =
+            using var baseKey =
                 Environment.Is64BitOperatingSystem
                 ? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64)
-                : RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
-            {
-                using (var winCurrentVersionKeyPath = baseKey.OpenSubKey(REGISTRY_KEY_PATH_WINDOWS_CURRENT_VERSION))
-                {
-                    return winCurrentVersionKeyPath.GetValue(REGISTRY_KEY_PRODUCT_ID) as string;
-                }
-            }
+                : RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            using var winCurrentVersionKeyPath = baseKey.OpenSubKey(REGISTRY_KEY_PATH_WINDOWS_CURRENT_VERSION);
+            return winCurrentVersionKeyPath.GetValue(REGISTRY_KEY_PRODUCT_ID) as string;
         }
 
         /// <summary>
@@ -247,18 +235,14 @@ namespace Tenduke.Client.Desktop.Util
         /// <returns>The digital product id.</returns>
         public static string GetWindowsDigitalProductId()
         {
-            using (var baseKey =
+            using var baseKey =
                 Environment.Is64BitOperatingSystem
                 ? RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64)
-                : RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default))
-            {
-                using (var winCurrentVersionKeyPath = baseKey.OpenSubKey(REGISTRY_KEY_PATH_WINDOWS_CURRENT_VERSION))
-                {
-                    var key = Environment.Is64BitOperatingSystem ? REGISTRY_KEY_DIGITAL_PRODUCT_ID_4 : REGISTRY_KEY_DIGITAL_PRODUCT_ID;
-                    var digitalProductId = winCurrentVersionKeyPath.GetValue(key) as byte[];
-                    return DecodeFromDigitalProductId(digitalProductId);
-                }
-            }
+                : RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            using var winCurrentVersionKeyPath = baseKey.OpenSubKey(REGISTRY_KEY_PATH_WINDOWS_CURRENT_VERSION);
+            var key = Environment.Is64BitOperatingSystem ? REGISTRY_KEY_DIGITAL_PRODUCT_ID_4 : REGISTRY_KEY_DIGITAL_PRODUCT_ID;
+            var digitalProductId = winCurrentVersionKeyPath.GetValue(key) as byte[];
+            return DecodeFromDigitalProductId(digitalProductId);
         }
 
         #endregion
@@ -279,11 +263,11 @@ namespace Tenduke.Client.Desktop.Util
             const int KeyEndIndex = KeyStartIndex + 15;
 
             // Possible alpha-numeric characters in product key.
-            char[] digits = new char[]
-                {
+            char[] digits =
+                [
                     'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'M', 'P', 'Q', 'R',
                     'T', 'V', 'W', 'X', 'Y', '2', '3', '4', '6', '7', '8', '9'
-                };
+                ];
 
             // Length of decoded product key
             const int DecodeLength = 29;
@@ -295,7 +279,7 @@ namespace Tenduke.Client.Desktop.Util
             char[] decodedChars = new char[DecodeLength];
 
             // Extract byte 52 to 67 inclusive.
-            ArrayList hexPid = new ArrayList();
+            ArrayList hexPid = [];
             for (int i = KeyStartIndex; i <= KeyEndIndex; i++)
             {
                 hexPid.Add(digitalProductId[i]);

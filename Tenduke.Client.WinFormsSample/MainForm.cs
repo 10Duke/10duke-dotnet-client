@@ -23,7 +23,7 @@ namespace Tenduke.Client.WinFormsSample
         /// <summary>
         /// OAuth 2.0 configuration for connecting this sample application to the 10Duke Entitlement service.
         /// </summary>
-        public readonly AuthorizationCodeGrantConfig OAuthConfig = new AuthorizationCodeGrantConfig()
+        public readonly AuthorizationCodeGrantConfig OAuthConfig = new()
         {
             AuthzUri = Properties.Settings.Default.AuthzUri,
             TokenUri = Properties.Settings.Default.TokenUri,
@@ -120,10 +120,8 @@ namespace Tenduke.Client.WinFormsSample
         /// <returns>Authorization info serialized as a byte array, or <c>null</c> if no stored authorization information found.</returns>
         private byte[] ReadAuthorizationInfoFromRegistry()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_STORED_AUTHORIZATION))
-            {
-                return key == null ? null : key.GetValue("StoredAuthorization") as byte[];
-            }
+            using var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_STORED_AUTHORIZATION);
+            return key == null ? null : key.GetValue("StoredAuthorization") as byte[];
         }
 
         /// <summary>
@@ -150,10 +148,8 @@ namespace Tenduke.Client.WinFormsSample
         /// <param name="authorizationInfo">Serialized authorization info.</param>
         private void StoreAuthorizationInfoToRegistry(byte[] authorizationInfo)
         {
-            using (var key = Registry.CurrentUser.CreateSubKey(REGISTRY_KEY_STORED_AUTHORIZATION))
-            {
-                key.SetValue("StoredAuthorization", authorizationInfo);
-            }
+            using var key = Registry.CurrentUser.CreateSubKey(REGISTRY_KEY_STORED_AUTHORIZATION);
+            key.SetValue("StoredAuthorization", authorizationInfo);
         }
 
         /// <summary>
@@ -185,7 +181,7 @@ namespace Tenduke.Client.WinFormsSample
                 name = builder.Length == 0 ? null : builder.ToString();
             }
 
-            name = name ?? "anonymous";
+            name ??= "anonymous";
             labelWelcome.Text = string.Format("Welcome {0}", name);
         }
 
@@ -214,7 +210,7 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private async void buttonRequestAuthorizationDecision_Click(object sender, EventArgs e)
+        private async void ButtonRequestAuthorizationDecision_Click(object sender, EventArgs e)
         {
             var authorizedItems = textBoxAuthorizedItemName.Text.Split(',').Select(item => item.Trim()).ToArray();
             var consumeMode = comboBoxConsumeMode.Text;
@@ -231,7 +227,7 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void listViewAuthorizationDecisions_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListViewAuthorizationDecisions_SelectedIndexChanged(object sender, EventArgs e)
         {
             EnableButtons();
         }
@@ -267,7 +263,7 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void buttonShowData_Click(object sender, EventArgs e)
+        private void ButtonShowData_Click(object sender, EventArgs e)
         {
             var selectedItem = (AuthorizationDecisionListViewItem)listViewAuthorizationDecisions.SelectedItems[0];
             var dataForm = new AuthorizationDecisionDetailsForm() { AuthorizationDecision = selectedItem.AuthorizationDecision };
@@ -279,7 +275,7 @@ namespace Tenduke.Client.WinFormsSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private async void buttonReleaseLicense_Click(object sender, EventArgs e)
+        private async void ButtonReleaseLicense_Click(object sender, EventArgs e)
         {
             var selectedItem = (AuthorizationDecisionListViewItem)listViewAuthorizationDecisions.SelectedItems[0];
             var tokenId = (string)selectedItem.AuthorizationDecision["jti"];
@@ -314,44 +310,34 @@ namespace Tenduke.Client.WinFormsSample
         /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
         /// response received for the authorized item.</param>
         /// <returns>The <see cref="ListViewItem"/>.</returns>
-        private ListViewItem BuildListViewItemForAuthorizationDecision(string authorizedItem, AuthorizationDecision authorizationDecision)
-        {
-            return new AuthorizationDecisionListViewItem(authorizedItem, authorizationDecision);
-        }
+        private static AuthorizationDecisionListViewItem BuildListViewItemForAuthorizationDecision(string authorizedItem, AuthorizationDecision authorizationDecision)
+            => new(authorizedItem, authorizationDecision);
 
         /// <summary>
         /// Item for displaying an <see cref="AuthorizationDecision"/> in the list view and for storing data of the authorization decision.
         /// </summary>
-        private class AuthorizationDecisionListViewItem : ListViewItem
+        /// <remarks>
+        /// Initializes a new instance of the <see cref="AuthorizationDecisionListViewItem"/> class.
+        /// </remarks>
+        /// <param name="authorizedItem">Name of the authorized item.</param>
+        /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
+        /// response received for the authorized item.</param>
+        private class AuthorizationDecisionListViewItem(string authorizedItem, AuthorizationDecision authorizationDecision) : ListViewItem(new string[] { authorizedItem, authorizationDecision[authorizedItem]?.ToString(), authorizationDecision.ToString() })
         {
             /// <summary>
             /// Name of the authorized item.
             /// </summary>
-            public string AuthorizedItem { get; set; }
+            public string AuthorizedItem { get; set; } = authorizedItem;
 
             /// <summary>
             /// Flag indicating if authorization was granted.
             /// </summary>
-            public bool Granted { get; set; }
+            public bool Granted { get; set; } = authorizationDecision[authorizedItem] != null && (bool)authorizationDecision[authorizedItem];
 
             /// <summary>
             /// The authorization decision response from the server.
             /// </summary>
-            public AuthorizationDecision AuthorizationDecision { get; set; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="AuthorizationDecisionListViewItem"/> class.
-            /// </summary>
-            /// <param name="authorizedItem">Name of the authorized item.</param>
-            /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
-            /// response received for the authorized item.</param>
-            public AuthorizationDecisionListViewItem(string authorizedItem, AuthorizationDecision authorizationDecision)
-                : base(new string[] { authorizedItem, authorizationDecision[authorizedItem]?.ToString(), authorizationDecision.ToString() })
-            {
-                AuthorizedItem = authorizedItem;
-                Granted = authorizationDecision[authorizedItem] != null && (bool)authorizationDecision[authorizedItem];
-                AuthorizationDecision = authorizationDecision;
-            }
+            public AuthorizationDecision AuthorizationDecision { get; set; } = authorizationDecision;
         }
     }
 }

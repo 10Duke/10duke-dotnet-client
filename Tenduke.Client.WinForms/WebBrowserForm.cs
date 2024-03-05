@@ -81,19 +81,15 @@ namespace Tenduke.Client.WinForms
         /// <param name="e">The event arguments.</param>
         private void WebBrowserForm_Shown(object sender, EventArgs e)
         {
-            closed = false;
-            if (loaderPath == null)
-            {
-                loaderPath = LoaderFileUtil.WriteLoaderHtmlToTempFile();
-            }
+            loaderPath ??= LoaderFileUtil.WriteLoaderHtmlToTempFile();
             chromiumWebBrowser.Load(loaderPath);
             initialPageLoadStarted = false;
-            chromiumWebBrowser.LoadingStateChanged += chromiumWebBrowser_LoadingStateChanged;
+            chromiumWebBrowser.LoadingStateChanged += ChromiumWebBrowser_LoadingStateChanged;
             chromiumWebBrowser.RequestHandler = new AuthzRequestHandler(this);
             chromiumWebBrowser.DisplayHandler = new CefDisplayHandler(this);
         }
 
-        private void chromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        private void ChromiumWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (!initialPageLoadStarted && !e.IsLoading)
             {
@@ -115,11 +111,10 @@ namespace Tenduke.Client.WinForms
         /// Called from <see cref="IRequestHandler.OnProtocolExecution(IWebBrowser, IBrowser, string)"/> of the browser request handler.
         /// Allows this component to intercept OAuth response callbacks.
         /// </summary>
-        /// <param name="browserControl">The browser control.</param>
         /// <param name="browser">The browser.</param>
         /// <param name="url">The redirect URL used for sending the OAuth response.</param>
         /// <returns>Always returns <c>false</c>, never letting the browser continue handling after this handler.</returns>
-        private bool HandleBrowserProtocolExecution(IWebBrowser browserControl, IBrowser browser, string url)
+        private bool HandleBrowserProtocolExecution(IBrowser _, string url)
         {
             if (url.StartsWith(RedirectUri))
             {
@@ -137,15 +132,10 @@ namespace Tenduke.Client.WinForms
         /// <summary>
         /// Implementation of CefSharp resource request handler, used for capturing the OAuth response.
         /// </summary>
-        private class AuthzResourceRequestHandler : IResourceRequestHandler
+        private class AuthzResourceRequestHandler(WebBrowserForm parent) : IResourceRequestHandler
         {
-            private readonly WebBrowserForm parent;
+            private readonly WebBrowserForm parent = parent;
             private bool disposedValue;
-
-            public AuthzResourceRequestHandler(WebBrowserForm parent)
-            {
-                this.parent = parent;
-            }
 
             public ICookieAccessFilter GetCookieAccessFilter(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
             {
@@ -169,7 +159,7 @@ namespace Tenduke.Client.WinForms
 
             public bool OnProtocolExecution(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request)
             {
-                return parent.HandleBrowserProtocolExecution(chromiumWebBrowser, browser, request.Url);
+                return parent.HandleBrowserProtocolExecution(browser, request.Url);
             }
 
             public void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
@@ -218,14 +208,9 @@ namespace Tenduke.Client.WinForms
         /// <summary>
         /// Implementation of CefSharp request handler, used for capturing the OAuth response.
         /// </summary>
-        private class AuthzRequestHandler : IRequestHandler
+        private class AuthzRequestHandler(WebBrowserForm parent) : IRequestHandler
         {
-            private readonly WebBrowserForm parent;
-
-            public AuthzRequestHandler(WebBrowserForm parent)
-            {
-                this.parent = parent;
-            }
+            private readonly WebBrowserForm parent = parent;
 
             public bool GetAuthCredentials(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
             {
@@ -262,11 +247,11 @@ namespace Tenduke.Client.WinForms
                 return true;
             }
 
-            public void OnPluginCrashed(IWebBrowser browserControl, IBrowser browser, string pluginPath)
+            public static void OnPluginCrashed(IWebBrowser _, IBrowser __, string ___)
             {
             }
 
-            public bool OnQuotaRequest(IWebBrowser browserControl, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
+            public static bool OnQuotaRequest(IWebBrowser _, IBrowser __, string ___, long ____, IRequestCallback _____)
             {
                 return false;
             }
@@ -289,14 +274,10 @@ namespace Tenduke.Client.WinForms
 
         #region Private CefSharp display handler implementation
 
-        private class CefDisplayHandler : IDisplayHandler
+        private class CefDisplayHandler(WebBrowserForm parent) : IDisplayHandler
         {
-            private readonly WebBrowserForm parent;
+            private readonly WebBrowserForm parent = parent;
 
-            public CefDisplayHandler(WebBrowserForm parent)
-            {
-                this.parent = parent;
-            }
             public void OnAddressChanged(IWebBrowser chromiumWebBrowser, AddressChangedEventArgs addressChangedArgs)
             {
             }

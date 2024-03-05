@@ -41,12 +41,7 @@ namespace Tenduke.Client.UserInfo
                 throw new InvalidOperationException("UserInfoUri must be specified in OAuthConfig");
             }
 
-            var accessToken = AccessToken;
-            if (accessToken == null)
-            {
-                throw new InvalidOperationException("AccessToken must be specified");
-            }
-
+            var accessToken = AccessToken ?? throw new InvalidOperationException("AccessToken must be specified");
             var request = new HttpRequestMessage()
             {
                 RequestUri = new Uri(OAuthConfig.UserInfoUri),

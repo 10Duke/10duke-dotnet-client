@@ -55,7 +55,7 @@ namespace Tenduke.Client.Authorization
         /// Generates a new PKCE code verifier.
         /// </summary>
         /// <returns>The code verifier string</returns>
-        private string GeneratePKCECodeVerifier()
+        private static string GeneratePKCECodeVerifier()
         {
             var random = RandomNumberGenerator.Create();
             var bytes = new byte[32];

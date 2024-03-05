@@ -28,7 +28,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <summary>
         /// OAuth 2.0 configuration for connecting this sample application to the 10Duke Entitlement service.
         /// </summary>
-        public readonly DefaultBrowserAuthorizationCodeGrantConfig OAuthConfig = new DefaultBrowserAuthorizationCodeGrantConfig()
+        public readonly DefaultBrowserAuthorizationCodeGrantConfig OAuthConfig = new()
         {
             AuthzUri = Properties.Settings.Default.AuthzUri,
             TokenUri = Properties.Settings.Default.TokenUri,
@@ -52,7 +52,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         public MainWindow()
         {
             InitializeComponent();
-            AuthorizationDecisionItems = new ObservableCollection<AuthorizationDecisionItem>();
+            AuthorizationDecisionItems = [];
             DataContext = this;
         }
 
@@ -88,8 +88,10 @@ namespace Tenduke.Client.DefaultBrowserSample
             {
                 var cancellationTokenSource = new CancellationTokenSource();
                 var cancellationToken = cancellationTokenSource.Token;
-                var authenticatingWindow = new AuthenticatingMessageWindow();
-                authenticatingWindow.Owner = this;
+                var authenticatingWindow = new AuthenticatingMessageWindow
+                {
+                    Owner = this
+                };
                 authenticatingWindow.Closing += delegate
                     {
                         if (!cancellationToken.IsCancellationRequested)
@@ -140,10 +142,8 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <returns>Authorization info serialized as a byte array, or <c>null</c> if no stored authorization information found.</returns>
         private byte[] ReadAuthorizationInfoFromRegistry()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_STORED_AUTHORIZATION))
-            {
-                return key == null ? null : key.GetValue("StoredAuthorization") as byte[];
-            }
+            using var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_STORED_AUTHORIZATION);
+            return key == null ? null : key.GetValue("StoredAuthorization") as byte[];
         }
 
         /// <summary>
@@ -170,10 +170,8 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <param name="authorizationInfo">Serialized authorization info.</param>
         private void StoreAuthorizationInfoToRegistry(byte[] authorizationInfo)
         {
-            using (var key = Registry.CurrentUser.CreateSubKey(REGISTRY_KEY_STORED_AUTHORIZATION))
-            {
-                key.SetValue("StoredAuthorization", authorizationInfo);
-            }
+            using var key = Registry.CurrentUser.CreateSubKey(REGISTRY_KEY_STORED_AUTHORIZATION);
+            key.SetValue("StoredAuthorization", authorizationInfo);
         }
 
         /// <summary>
@@ -205,7 +203,7 @@ namespace Tenduke.Client.DefaultBrowserSample
                 name = builder.Length == 0 ? null : builder.ToString();
             }
 
-            name = name ?? "anonymous";
+            name ??= "anonymous";
             labelWelcome.Content = string.Format("Welcome {0}", name);
         }
 
@@ -222,7 +220,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private async void buttonRequestAuthorizationDecision_Click(object sender, RoutedEventArgs e)
+        private async void ButtonRequestAuthorizationDecision_Click(object sender, RoutedEventArgs e)
         {
             var authorizedItems = textBoxAuthorizedItemName.Text.Split(',').Select(item => item.Trim()).ToArray();
             var responseType = ResponseType.JWT;
@@ -245,7 +243,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         {
             var authorizationDecisionItem = BuildAuthorizationDecisionItem(authorizedItem, authorizationDecision);
             AuthorizationDecisionItems.Add(authorizationDecisionItem);
-            RaisePropertyChanged("AuthorizationDecisionItems");
+            RaisePropertyChanged(nameof(AuthorizationDecisionItems));
         }
 
         /// <summary>
@@ -255,7 +253,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
         /// response received for the authorized item.</param>
         /// <returns>The <see cref="ListViewItem"/>.</returns>
-        private AuthorizationDecisionItem BuildAuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
+        private static AuthorizationDecisionItem BuildAuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
         {
             return new AuthorizationDecisionItem(authorizedItem, authorizationDecision);
         }
@@ -269,35 +267,28 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// <summary>
         /// Item for displaying an <see cref="AuthorizationDecision"/> in the list view and for storing data of the authorization decision.
         /// </summary>
-        public class AuthorizationDecisionItem
+        /// <remarks>
+        /// Initializes a new instance of the <see cref="AuthorizationDecisionItem"/> class.
+        /// </remarks>
+        /// <param name="authorizedItem">Name of the authorized item.</param>
+        /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
+        /// response received for the authorized item.</param>
+        public class AuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
         {
             /// <summary>
             /// Name of the authorized item.
             /// </summary>
-            public string AuthorizedItem { get; set; }
+            public string AuthorizedItem { get; set; } = authorizedItem;
 
             /// <summary>
             /// Flag indicating if authorization was granted.
             /// </summary>
-            public bool Granted { get; set; }
+            public bool Granted { get; set; } = authorizationDecision[authorizedItem] != null && (bool)authorizationDecision[authorizedItem];
 
             /// <summary>
             /// The authorization decision response from the server.
             /// </summary>
-            public AuthorizationDecision AuthorizationDecision { get; set; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="AuthorizationDecisionItem"/> class.
-            /// </summary>
-            /// <param name="authorizedItem">Name of the authorized item.</param>
-            /// <param name="authorizationDecision"><see cref="AuthorizationDecision"/> object describing authorization decision
-            /// response received for the authorized item.</param>
-            public AuthorizationDecisionItem(string authorizedItem, AuthorizationDecision authorizationDecision)
-            {
-                AuthorizedItem = authorizedItem;
-                Granted = authorizationDecision[authorizedItem] != null && (bool)authorizationDecision[authorizedItem];
-                AuthorizationDecision = authorizationDecision;
-            }
+            public AuthorizationDecision AuthorizationDecision { get; set; } = authorizationDecision;
         }
 
         /// <summary>
@@ -305,7 +296,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void listViewAuthorizationDecisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListViewAuthorizationDecisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EnableButtons();
         }
@@ -338,7 +329,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void buttonShowData_Click(object sender, RoutedEventArgs e)
+        private void ButtonShowData_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = (AuthorizationDecisionItem)listViewAuthorizationDecisions.SelectedItem;
             MessageBox.Show(selectedItem.AuthorizationDecision.ToString(), "Authorization decision data");
@@ -349,7 +340,7 @@ namespace Tenduke.Client.DefaultBrowserSample
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private async void buttonReleaseLicense_Click(object sender, RoutedEventArgs e)
+        private async void ButtonReleaseLicense_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = (AuthorizationDecisionItem)listViewAuthorizationDecisions.SelectedItem;
             var tokenId = (string)selectedItem.AuthorizationDecision["jti"];
@@ -358,8 +349,7 @@ namespace Tenduke.Client.DefaultBrowserSample
             bool noConsumptionFound = "noConsumptionFoundById" == (string)response[tokenId + "_errorCode"];
             if (successfullyReleased || noConsumptionFound)
             {
-                ObservableCollection<AuthorizationDecisionItem> source = listViewAuthorizationDecisions.ItemsSource as ObservableCollection<AuthorizationDecisionItem>;
-                if (source != null)
+                if (listViewAuthorizationDecisions.ItemsSource is ObservableCollection<AuthorizationDecisionItem> source)
                     source.Remove(selectedItem);
             }
             else

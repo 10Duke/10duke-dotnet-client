@@ -17,7 +17,7 @@ namespace Tenduke.Client.DefaultBrowser
     /// If user interaction is required, the operating system default browser
     /// is used.
     /// </summary>
-    public class EntClient : BaseWinClient<EntClient, IDefaultBrowserAuthorizationCodeGrantConfig>
+    public class EntClient : BaseWinClient<IDefaultBrowserAuthorizationCodeGrantConfig>
     {
         #region Properties
 
