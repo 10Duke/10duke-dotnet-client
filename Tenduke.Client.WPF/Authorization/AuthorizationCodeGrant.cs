@@ -13,7 +13,7 @@ namespace Tenduke.Client.WPF.Authorization
     /// </summary>
     [Serializable]
     public class AuthorizationCodeGrant
-        : BrowserBasedAuthorization<AuthorizationCodeGrant, IAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
+        : BrowserBasedAuthorization<IAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
         #region Properties
 

@@ -14,7 +14,7 @@ namespace Tenduke.Client.WinForms
     /// this client directly against the 10Duke Entitlement service. If user interaction
     /// is required, a WinForms embedded browser form is displayed.
     /// </summary>
-    public class EntClient : BaseDesktopClient<EntClient>
+    public class EntClient : BaseDesktopClient
     {
 
         #region Events
@@ -121,11 +121,7 @@ namespace Tenduke.Client.WinForms
         /// <param name="e">The <see cref="InitializeBrowserFormEventArgs"/>.</param>
         protected virtual void OnRaiseInitializeBrowserForm(InitializeBrowserFormEventArgs e)
         {
-            EventHandler<InitializeBrowserFormEventArgs> handler = RaiseInitializeBrowserForm;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            RaiseInitializeBrowserForm?.Invoke(this, e);
         }
 
         private void HandleRaiseInitializeBrowserForm(object sender, InitializeBrowserFormEventArgs e)

@@ -6,53 +6,12 @@ using Tenduke.Client.Config;
 namespace Tenduke.Client.Authorization
 {
     /// <summary>
-    /// Base class for authorization implementations, containing the authorization result data.
-    /// </summary>
-    [Serializable]
-    public abstract class AuthorizationInfo
-    {
-        #region Properties
-
-        /// <summary>
-        /// OAuth 2.0 Access Token response received from the 10Duke Identity and Entitlement service,
-        /// or <c>null</c> if no access token currently obtained.
-        /// </summary>
-        public AccessTokenResponse AccessTokenResponse { get; set; }
-
-        /// <summary>
-        /// Error code received from the 10Duke Identity and Entitlement service, or <c>null</c> if there is no error.
-        /// </summary>
-        public string Error { get; set; }
-
-        /// <summary>
-        /// Error description received from the 10Duke Identity and Entitlement service.
-        /// The error description may be given in the case that <see cref="Error"/> is not <c>null</c>.
-        /// </summary>
-        public string ErrorDescription { get; set; }
-
-        /// <summary>
-        /// Error Uri for additional error information, received from the 10Duke Identity and Entitlement service.
-        /// The error Uri may be given in the case that <see cref="Error"/> is not <c>null</c>.
-        /// </summary>
-        public string ErrorUri { get; set; }
-
-        /// <summary>
-        /// Timestamp when this authorization info has been received from the 10Duke Identity and Entitlement service.
-        /// </summary>
-        public DateTime? Received { get; set; }
-
-        #endregion
-    }
-
-    /// <summary>
     /// Base class for authorization implementations.
     /// </summary>
-    /// <typeparam name="T">Type of the implementing class.</typeparam>
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
     [Serializable]
-    public abstract class Authorization<T, O, A> : AuthorizationInfo, IDisposable
-            where T : Authorization<T, O, A>
+    public abstract class Authorization<O, A> : AuthorizationInfo
             where O : IOAuthConfig
             where A : AuthorizationArgs
     {
@@ -245,40 +204,6 @@ namespace Tenduke.Client.Authorization
                 ErrorDescription = ErrorDescription,
                 ErrorUri = ErrorUri
             });
-        }
-
-        #endregion
-
-        #region IDisposable Support
-
-        private bool disposedValue = false; // To detect redundant calls
-
-        /// <summary>
-        /// Frees any resources consumed by the <see cref="Authorization"/> object. Override
-        /// this method in derived classes if there are resources that need bo be disposed.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if called from the zero-argument <see cref="Dispose"/> method,
-        /// <c>false</c> if called from finalizer.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // No managed resources to free
-                }
-
-                // No unmanaged resources to free
-
-                disposedValue = true;
-            }
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
         }
 
         #endregion

@@ -19,11 +19,9 @@ namespace Tenduke.Client.WinFormsSample
         [STAThread]
         static void Main()
         {
-            var resolverArgs = CefSharpUtil.AddAssemblyResolverForCefSharp();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var appContext = new WinFormsSampleApplicationContext(resolverArgs);
+            var appContext = new WinFormsSampleApplicationContext();
             Application.Run(appContext);
         }
     }

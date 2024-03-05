@@ -10,7 +10,7 @@ namespace Tenduke.Client.Util
     /// Object that works with an <see cref="EntClient"/> instance for reading and writing <see cref="EntClient.Authorization"/>
     /// by binary serialization.
     /// </summary>
-    public class AuthorizationSerializer<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
+    public class AuthorizationSerializer<C, A> where A : IOAuthConfig where C : BaseClient<A>
     {
         #region Properties
 

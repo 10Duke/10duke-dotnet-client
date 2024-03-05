@@ -12,7 +12,7 @@ namespace Tenduke.Client
     /// the access token. This client implementation can be used when the access token is acquired using a custom
     /// process external to the client use case, or when no specific client implementation is available.
     /// </summary>
-    public class EntApiClient : BaseClient<EntApiClient, OAuthConfig>
+    public class EntApiClient : BaseClient<OAuthConfig>
     {
         /// <summary>
         /// Gets or sets the identifier of this system, used when communicating with the authorization

@@ -11,7 +11,7 @@ namespace Tenduke.Client.WinBase
     /// Base class for desktop clients working against the 10Duke Entitlement service and using
     /// the CefSharp embedded browser for user interaction.
     /// </summary>
-    public class BaseWinClient<C, A> : BaseClient<C, A> where C : BaseWinClient<C, A> where A : IAuthorizationCodeGrantConfig
+    public class BaseWinClient<A> : BaseClient<A> where A : IAuthorizationCodeGrantConfig
     {
         #region Private fields
 
@@ -50,7 +50,7 @@ namespace Tenduke.Client.WinBase
                 {
                     ComputerIdentity.ComputerIdentifier[] idComponents =
                         ComputerIdentityConfig == null || (ComputerIdentityConfig.ComputeBy == null && ComputerIdentityConfig.AdditionalIdentifier == null)
-                        ? new[] { ComputerIdentity.ComputerIdentifier.BaseboardSerialNumber } // Uses BaseboardSerialNumber as default
+                        ? [ComputerIdentity.ComputerIdentifier.BaseboardSerialNumber] // Uses BaseboardSerialNumber as default
                         : ComputerIdentityConfig.ComputeBy;
                     ComputerIdentity.HashAlg hashAlg =
                         ComputerIdentityConfig == null || ComputerIdentityConfig.HashAlg == null
@@ -127,11 +127,11 @@ namespace Tenduke.Client.WinBase
         /// Gets an <see cref="EntClientAuthorizationSerializer"/> for reading and writing <see cref="Authorization"/>
         /// of this object by binary serialization.
         /// </summary>
-        public EntClientAuthorizationSerializer<C, A> AuthorizationSerializer
+        public EntClientAuthorizationSerializer<BaseWinClient<A>, A> AuthorizationSerializer
         {
             get
             {
-                return new EntClientAuthorizationSerializer<C, A>() { EntClient = (C) this };
+                return new EntClientAuthorizationSerializer<BaseWinClient<A>, A>() { EntClient = (BaseWinClient<A>) this };
             }
         }
 

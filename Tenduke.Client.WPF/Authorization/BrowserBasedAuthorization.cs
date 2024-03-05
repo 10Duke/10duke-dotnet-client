@@ -14,8 +14,7 @@ namespace Tenduke.Client.WPF.Authorization
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
     [Serializable]
-    public abstract class BrowserBasedAuthorization<T, O, A> : Authorization<T, O, A>
-            where T : BrowserBasedAuthorization<T, O, A>
+    public abstract class BrowserBasedAuthorization<O, A> : Authorization<O, A>
             where O : IBrowserBasedAuthorizationConfig
             where A : BrowserBasedAuthorizationArgs
     {
@@ -109,11 +108,7 @@ namespace Tenduke.Client.WPF.Authorization
         /// <param name="e">The <see cref="InitializeBrowserWindowEventArgs"/>.</param>
         protected virtual void OnRaiseInitializeBrowserWindow(InitializeBrowserWindowEventArgs e)
         {
-            EventHandler<InitializeBrowserWindowEventArgs> handler = RaiseInitializeBrowserWindow;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            RaiseInitializeBrowserWindow?.Invoke(this, e);
         }
 
         /// <summary>

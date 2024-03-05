@@ -25,13 +25,9 @@ namespace Tenduke.Client.Desktop.Util
         /// <param name="path">The file path.</param>
         public static void WriteLoaderHtmlToFile(string path)
         {
-            using (var loaderHtmlStream = GetLoaderHtmlStream())
-            {
-                using (var fileStream = File.Create(path))
-                {
-                    loaderHtmlStream.CopyTo(fileStream);
-                }
-            }
+            using var loaderHtmlStream = GetLoaderHtmlStream();
+            using var fileStream = File.Create(path);
+            loaderHtmlStream.CopyTo(fileStream);
         }
 
         /// <summary>

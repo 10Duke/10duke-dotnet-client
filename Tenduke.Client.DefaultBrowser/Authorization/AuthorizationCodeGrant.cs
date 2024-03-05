@@ -20,8 +20,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
     /// Authorization Code Grant flow using OS default browser.
     /// </summary>
     [Serializable]
-    public class AuthorizationCodeGrant : Authorization<
-        AuthorizationCodeGrant, IDefaultBrowserAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
+    public class AuthorizationCodeGrant : Authorization<IDefaultBrowserAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
         #region Public constants
 
@@ -181,7 +180,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// the OIDC response.
         /// </summary>
         /// <returns>Reader for reading the HTML content. Caller of this method is responsible for closing the reader.</returns>
-        protected TextReader GetDefaultAuthorizationCompletedHtmlReader()
+        protected static TextReader GetDefaultAuthorizationCompletedHtmlReader()
         {
             return new StreamReader(GetDefaultAuthorizationCompletedHtmlStream());
         }
@@ -193,7 +192,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// <param name="responseUri">Request Uri used by the server for redirecting back to the client
         /// for sending the response.</param>
         /// <returns>NameValueCollection containing the parsed response parameters.</returns>
-        protected NameValueCollection ParseResponseParameters(Uri responseUri)
+        protected static NameValueCollection ParseResponseParameters(Uri responseUri)
         {
             return HttpUtility.ParseQueryString(responseUri.Query);
         }
@@ -266,7 +265,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// Gets the OAuth 2.0 <c>response_type</c> value to use.
         /// </summary>
         /// <returns>The response type value.</returns>
-        protected string GetResponseType()
+        protected static string GetResponseType()
         {
             return OAuthUtil.RESPONSE_TYPE_CODE;
         }
@@ -280,7 +279,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// <param name="port">The opened port</param>
         /// <param name="listenerUri">URI for accessing the opened listener</param>
         /// <returns><c>true</c> if opened successfully <c>false</c> otherwise</returns>
-        protected bool TryBindListenerOnFreePort(out HttpListener httpListener, out int port, out string listenerUri)
+        protected static bool TryBindListenerOnFreePort(out HttpListener httpListener, out int port, out string listenerUri)
         {
             // IANA suggested range for dynamic or private ports
             const int MinPort = 49215;
@@ -390,7 +389,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// </summary>
         /// <returns>Stream for reading the file. Caller of this method is responsible for closing the stream.</returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private Stream GetDefaultAuthorizationCompletedHtmlStream()
+        private static Stream GetDefaultAuthorizationCompletedHtmlStream()
         {
             return Assembly.GetExecutingAssembly().GetManifestResourceStream("Tenduke.Client.DefaultBrowser.resources.authCompleted.html");
         }
@@ -399,9 +398,9 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
 
         #region Nested BrowserBasedAuthorizationConfigWithDynamicRedirectUri
 
-        private class AuthorizationCodeGrantConfigWithDynamicRedirectUri : AuthorizationCodeGrantConfigWrapper
+        private class AuthorizationCodeGrantConfigWithDynamicRedirectUri(IAuthorizationCodeGrantConfig wrapped, string redirectUri) : AuthorizationCodeGrantConfigWrapper(wrapped)
         {
-            private string redirectUri;
+            private readonly string redirectUri = redirectUri;
 
             public override string RedirectUri
             {
@@ -409,12 +408,6 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
                 {
                     return redirectUri;
                 }
-            }
-
-            public AuthorizationCodeGrantConfigWithDynamicRedirectUri(IAuthorizationCodeGrantConfig wrapped, string redirectUri)
-                : base(wrapped)
-            {
-                this.redirectUri = redirectUri;
             }
         }
 

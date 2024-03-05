@@ -12,7 +12,7 @@ namespace Tenduke.Client.Desktop.Util
     /// by binary serialization.
     /// </summary>
     public class EntClientAuthorizationSerializer<C, A> : AuthorizationSerializer<C, A>
-                where C : BaseWinClient<C, A>
+                where C : BaseWinClient<A>
                 where A : IAuthorizationCodeGrantConfig
     {
         #region Methods

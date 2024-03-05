@@ -99,7 +99,7 @@
             this.buttonReleaseLicense.TabIndex = 6;
             this.buttonReleaseLicense.Text = "Release license";
             this.buttonReleaseLicense.UseVisualStyleBackColor = true;
-            this.buttonReleaseLicense.Click += new System.EventHandler(this.buttonReleaseLicense_Click);
+            this.buttonReleaseLicense.Click += new System.EventHandler(this.ButtonReleaseLicense_Click);
             // 
             // buttonShowData
             // 
@@ -110,7 +110,7 @@
             this.buttonShowData.TabIndex = 5;
             this.buttonShowData.Text = "Show data";
             this.buttonShowData.UseVisualStyleBackColor = true;
-            this.buttonShowData.Click += new System.EventHandler(this.buttonShowData_Click);
+            this.buttonShowData.Click += new System.EventHandler(this.ButtonShowData_Click);
             // 
             // listViewAuthorizationDecisions
             // 
@@ -131,7 +131,7 @@
             this.listViewAuthorizationDecisions.TabIndex = 4;
             this.listViewAuthorizationDecisions.UseCompatibleStateImageBehavior = false;
             this.listViewAuthorizationDecisions.View = System.Windows.Forms.View.Details;
-            this.listViewAuthorizationDecisions.SelectedIndexChanged += new System.EventHandler(this.listViewAuthorizationDecisions_SelectedIndexChanged);
+            this.listViewAuthorizationDecisions.SelectedIndexChanged += new System.EventHandler(this.ListViewAuthorizationDecisions_SelectedIndexChanged);
             // 
             // columnHeaderName
             // 
@@ -157,7 +157,7 @@
             this.buttonRequestAuthorizationDecision.TabIndex = 3;
             this.buttonRequestAuthorizationDecision.Text = "Authorize";
             this.buttonRequestAuthorizationDecision.UseVisualStyleBackColor = true;
-            this.buttonRequestAuthorizationDecision.Click += new System.EventHandler(this.buttonRequestAuthorizationDecision_Click);
+            this.buttonRequestAuthorizationDecision.Click += new System.EventHandler(this.ButtonRequestAuthorizationDecision_Click);
             // 
             // comboBoxConsumeMode
             // 

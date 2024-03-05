@@ -65,8 +65,13 @@ FQIDAQAB
 
             var authorizationDecision = await authzApi.CheckOrConsumeAsync("MyTestItem", false, ResponseType.JWT);
 
-            Assert.That(authorizationDecision["iss"], Is.Not.Null.And.Not.Empty);
-            Assert.That(authzApi.ComputerId, Is.EqualTo(computerId));
+            Assert.Multiple(
+                () =>
+                    {
+                        Assert.That(authorizationDecision["iss"], Is.Not.Null.And.Not.Empty);
+                        Assert.That(authzApi.ComputerId, Is.EqualTo(computerId));
+                    }
+                );
         }
     }
 }

@@ -18,8 +18,8 @@
                     <ComboBoxItem Content="check"/>
                     <ComboBoxItem Content="consume"/>
                 </ComboBox>
-                <Button x:Name="buttonRequestAuthorizationDecision" Content="Authorize" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Width="75" Click="buttonRequestAuthorizationDecision_Click"/>
-                <ListView x:Name="listViewAuthorizationDecisions" Margin="10,42,10,35" ItemsSource="{Binding AuthorizationDecisionItems}" SelectionMode="Single" SelectionChanged="listViewAuthorizationDecisions_SelectionChanged">
+                <Button x:Name="buttonRequestAuthorizationDecision" Content="Authorize" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Width="75" Click="ButtonRequestAuthorizationDecision_Click"/>
+                <ListView x:Name="listViewAuthorizationDecisions" Margin="10,42,10,35" ItemsSource="{Binding AuthorizationDecisionItems}" SelectionMode="Single" SelectionChanged="ListViewAuthorizationDecisions_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding AuthorizedItem}"/>
@@ -28,8 +28,8 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="buttonShowData" Content="Show data" HorizontalAlignment="Right" Margin="0,0,105,10" VerticalAlignment="Bottom" Width="74" Click="buttonShowData_Click" IsEnabled="False"/>
-                <Button x:Name="buttonReleaseLicense" Content="Release license" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Margin="0,0,10,10" Click="buttonReleaseLicense_Click" IsEnabled="False"/>
+                <Button x:Name="buttonShowData" Content="Show data" HorizontalAlignment="Right" Margin="0,0,105,10" VerticalAlignment="Bottom" Width="74" Click="ButtonShowData_Click" IsEnabled="False"/>
+                <Button x:Name="buttonReleaseLicense" Content="Release license" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Margin="0,0,10,10" Click="ButtonReleaseLicense_Click" IsEnabled="False"/>
             </Grid>
         </GroupBox>
 

@@ -11,12 +11,10 @@ namespace Tenduke.Client.WinForms.Authorization
     /// Base class for authorization implementations that use an embedded web browser
     /// for displaying user interface as necessary.
     /// </summary>
-    /// <typeparam name="T">Type of the implementing class.</typeparam>
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
     [Serializable]
-    public abstract class BrowserBasedAuthorization<T, O, A> : Authorization<T, O, A>
-            where T : BrowserBasedAuthorization<T, O, A>
+    public abstract class BrowserBasedAuthorization<O, A> : Authorization<O, A>
             where O : IBrowserBasedAuthorizationConfig
             where A : BrowserBasedAuthorizationArgs
     {
@@ -114,11 +112,7 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <param name="e">The <see cref="InitializeBrowserFormEventArgs"/>.</param>
         protected virtual void OnRaiseInitializeBrowserForm(InitializeBrowserFormEventArgs e)
         {
-            EventHandler<InitializeBrowserFormEventArgs> handler = RaiseInitializeBrowserForm;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            RaiseInitializeBrowserForm?.Invoke(this, e);
         }
 
         /// <summary>

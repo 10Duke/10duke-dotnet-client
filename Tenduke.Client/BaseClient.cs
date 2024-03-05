@@ -9,14 +9,14 @@ namespace Tenduke.Client
     /// <summary>
     /// Base class for clients for working against the 10Duke Entitlement service.
     /// </summary>
-    public class BaseClient<C, A> where A : IOAuthConfig where C : BaseClient<C, A>
+    public class BaseClient<A> where A : IOAuthConfig
     {
         #region Private fields
 
         /// <summary>
         /// The <see cref="HttpClient"/> for 10Duke API calls.
         /// </summary>
-        protected static readonly HttpClient HttpClient = new HttpClient();
+        protected static readonly HttpClient HttpClient = new();
 
         #endregion
 
@@ -46,19 +46,11 @@ namespace Tenduke.Client
         {
             get
             {
-                var authzApiConfig = AuthzApiConfig;
-                if (authzApiConfig == null)
-                {
-                    throw new InvalidOperationException("Configuration for AuthzApi missing, please specify either AuthzApiConfig or OAuthConfig");
-                }
-
+                var authzApiConfig = AuthzApiConfig ?? throw new InvalidOperationException("Configuration for AuthzApi missing, please specify either AuthzApiConfig or OAuthConfig");
                 var accessToken = AccessToken;
-                if (accessToken == null)
-                {
-                    throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi");
-                }
-
-                return new AuthzApi()
+                return accessToken == null
+                    ? throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi")
+                    : new AuthzApi()
                 {
                     HttpClient = HttpClient,
                     AuthzApiConfig = authzApiConfig,
@@ -76,19 +68,11 @@ namespace Tenduke.Client
         {
             get
             {
-                var oauthConfig = OAuthConfig;
-                if (oauthConfig == null)
-                {
-                    throw new InvalidOperationException("OAuthConfig must be specified");
-                }
-
+                var oauthConfig = OAuthConfig ?? throw new InvalidOperationException("OAuthConfig must be specified");
                 var accessToken = AccessToken;
-                if (accessToken == null)
-                {
-                    throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi");
-                }
-
-                return new UserInfoApi()
+                return accessToken == null
+                    ? throw new InvalidOperationException("AccessToken must be specified for using the AuthzApi")
+                    : new UserInfoApi()
                 {
                     HttpClient = HttpClient,
                     OAuthConfig = oauthConfig,
