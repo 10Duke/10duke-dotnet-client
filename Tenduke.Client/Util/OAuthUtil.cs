@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Net;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Web;
 using Tenduke.Client.Config;
 
@@ -11,8 +11,6 @@ namespace Tenduke.Client.Util
     /// </summary>
     public static class OAuthUtil
     {
-        #region Public constants
-
         /// <summary>
         /// OAuth 2.0 <c>response_type</c> value <c>code</c>, as used with the Authorization Code Grant flow.
         /// </summary>
@@ -27,10 +25,6 @@ namespace Tenduke.Client.Util
         /// OAuth 2.0 <c>grant_type</c> value <c>refresh_token</c>.
         /// </summary>
         public static readonly string GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Exchanges an authorization code received earlier during OAuth 2.0 Authorization Code Grant flow execution
@@ -48,51 +42,40 @@ namespace Tenduke.Client.Util
                 throw new InvalidOperationException("OAuthConfig.TokenUri must be specified");
             }
 
-            var tokenRequest = WebRequest.CreateHttp(oauthConfig.TokenUri);
-            if (oauthConfig.AllowInsecureCerts)
+            var handler = new HttpClientHandler
             {
-                tokenRequest.ServerCertificateValidationCallback =
-                    (sender, certificate, chain, sslPolicyErrors) => true;
-            }
-            tokenRequest.Method = "POST";
-            tokenRequest.AllowAutoRedirect = false;
-            tokenRequest.ContentType = "application/x-www-form-urlencoded";
-            using (var requestStreamWriter = new StreamWriter(tokenRequest.GetRequestStream()))
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback =
+                (httpRequestMessage, cert, cetChain, policyErrors) => true,
+                AllowAutoRedirect = false
+            };
+
+            var pairs = new List<KeyValuePair<string, string>>()
             {
-                requestStreamWriter.Write("grant_type=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(GRANT_TYPE_AUTHORIZATION_CODE));
-                requestStreamWriter.Write("&code=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(code));
-                requestStreamWriter.Write("&client_id=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientID));
+                new("grant_type", HttpUtility.UrlEncode(GRANT_TYPE_AUTHORIZATION_CODE)),
+                new("code", HttpUtility.UrlEncode(code)),
+                new("client_id", HttpUtility.UrlEncode(oauthConfig.ClientID)),
+            };
 
-                if (oauthConfig.RedirectUri != null)
-                {
-                    requestStreamWriter.Write("&redirect_uri=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.RedirectUri));
-                }
-
-                if (oauthConfig.ClientSecret != null && !oauthConfig.UsePkce)
-                {
-                    requestStreamWriter.Write("&client_secret=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
-                }
-
-                if (codeVerifier != null && oauthConfig.UsePkce)
-                {
-                    requestStreamWriter.Write("&code_verifier=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(codeVerifier));
-                }
+            if (oauthConfig.RedirectUri != null)
+            {
+                pairs.Add(new("redirect_uri", oauthConfig.RedirectUri));
             }
 
-            string jsonResponse;
-            using (var response = tokenRequest.GetResponse())
+            if (oauthConfig.ClientSecret != null && !oauthConfig.UsePkce)
             {
-                using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    jsonResponse = responseStreamReader.ReadToEnd();
-                }
+                pairs.Add(new("client_secret", oauthConfig.ClientSecret));
             }
+
+            if (codeVerifier != null && oauthConfig.UsePkce)
+            {
+                pairs.Add(new("code_verifier", codeVerifier));
+            }
+
+            using var httpClient = new HttpClient(handler);
+            using var res = httpClient.PostAsync(oauthConfig.TokenUri, new FormUrlEncodedContent(pairs));
+
+            string jsonResponse = res.Result.Content.ReadAsStringAsync().Result;
 
             return jsonResponse;
         }
@@ -113,66 +96,37 @@ namespace Tenduke.Client.Util
                 throw new InvalidOperationException("OAuthConfig.TokenUri must be specified");
             }
 
-            var tokenRequest = WebRequest.CreateHttp(oauthConfig.TokenUri);
-            tokenRequest.Method = "POST";
-            tokenRequest.AllowAutoRedirect = false;
-            tokenRequest.ContentType = "application/x-www-form-urlencoded";
-            using (var requestStreamWriter = new StreamWriter(tokenRequest.GetRequestStream()))
+            var handler = new HttpClientHandler
             {
-                requestStreamWriter.Write("grant_type=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(GRANT_TYPE_REFRESH_TOKEN));
-                requestStreamWriter.Write("&refresh_token=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(refreshToken));
-                requestStreamWriter.Write("&client_id=");
-                requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientID));
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback =
+                (httpRequestMessage, cert, cetChain, policyErrors) => true,
+                AllowAutoRedirect = false
+            };
 
-                if (!oauthConfig.UsePkce && !string.IsNullOrEmpty(oauthConfig.ClientSecret))
-                {
-                    requestStreamWriter.Write("&client_secret=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(oauthConfig.ClientSecret));
-                }
+            var pairs = new List<KeyValuePair<string, string>>()
+            {
+                new("grant_type", GRANT_TYPE_REFRESH_TOKEN),
+                new("refresh_token", refreshToken),
+                new("client_id", oauthConfig.ClientID),
+            };
 
-                if (scope != null)
-                {
-                    requestStreamWriter.Write("&scope=");
-                    requestStreamWriter.Write(HttpUtility.UrlEncode(scope));
-                }
+            if (!oauthConfig.UsePkce && !string.IsNullOrEmpty(oauthConfig.ClientSecret))
+            {
+                pairs.Add(new("client_secret", oauthConfig.ClientSecret));
             }
 
-            string jsonResponse;
-            var certValidationCallback = ServicePointManager.ServerCertificateValidationCallback;
-            try
+            if (scope != null)
             {
-                if (oauthConfig.AllowInsecureCerts)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                }
+                pairs.Add(new("scope", scope));
+            }
 
-                using (var response = tokenRequest.GetResponse())
-                using (var responseStreamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    jsonResponse = responseStreamReader.ReadToEnd();
-                }
-            }
-            catch (WebException ex)
-            {
-                using (var errorResponse = ex.Response.GetResponseStream())
-                using (var errorResponseStreamReader = new StreamReader(errorResponse))
-                {
-                    jsonResponse = errorResponseStreamReader.ReadToEnd();
-                }
-            }
-            finally
-            {
-                if (oauthConfig.AllowInsecureCerts)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback = certValidationCallback;
-                }
-            }
+            using var httpClient = new HttpClient(handler);
+            using var res = httpClient.PostAsync(oauthConfig.TokenUri, new FormUrlEncodedContent(pairs));
+
+            string jsonResponse = res.Result.Content.ReadAsStringAsync().Result;
 
             return jsonResponse;
         }
-
-        #endregion
     }
 }

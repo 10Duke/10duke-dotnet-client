@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -26,6 +27,16 @@ namespace Tenduke.Client.Util
         /// <returns>The random nonce string.</returns>
         public static string GenerateNonce(int length = 16, string charsToUse = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_")
         {
+#if NET5_0_OR_GREATER
+            int maxExclusive = charsToUse.Length;
+            var resultChars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                var index = RandomNumberGenerator.GetInt32(maxExclusive);
+                resultChars[i] = charsToUse[index];
+            }
+            return new string(resultChars);
+#else
             using (var crypto = new RNGCryptoServiceProvider())
             {
                 var data = new byte[length];
@@ -53,6 +64,7 @@ namespace Tenduke.Client.Util
 
                 return new string(resultChars);
             }
+#endif
         }
 
         /// <summary>
@@ -94,19 +106,17 @@ namespace Tenduke.Client.Util
                     NoCache = true,
                     NoStore = true
                 };
-                using (var response = await httpClient.SendAsync(request))
+                using var response = await httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                var jwksResponse = await response.Content.ReadFromJsonAsync<JsonWebKeySet>();
+                var retValue = new List<RSASigningKey>();
+                foreach (var jwk in jwksResponse.Keys)
                 {
-                    response.EnsureSuccessStatusCode();
-                    var jwksResponse = await response.Content.ReadAsAsync<JsonWebKeySet>();
-                    var retValue = new List<RSASigningKey>();
-                    foreach (var jwk in jwksResponse.Keys)
-                    {
-                        var rsaPubKey = JsonWebKeyPublicToRSA(jwk);
-                        retValue.Add(new RSASigningKey { KeyId = jwk.KeyId, RSAKey = rsaPubKey });
-                    }
-
-                    return retValue;
+                    var rsaPubKey = JsonWebKeyPublicToRSA(jwk);
+                    retValue.Add(new RSASigningKey { KeyId = jwk.KeyId, RSAKey = rsaPubKey });
                 }
+
+                return retValue;
 
             }
             catch (UriFormatException)
@@ -118,7 +128,7 @@ namespace Tenduke.Client.Util
                     .Replace("\n", "");
                 var rsaPubKey = ReadRsaPublicKey(Convert.FromBase64String(encodedKey));
                 var signingKey = new RSASigningKey { KeyId = null, RSAKey = rsaPubKey };
-                return new List<RSASigningKey> { signingKey };
+                return [signingKey];
             }
 
         }

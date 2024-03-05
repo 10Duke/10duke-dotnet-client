@@ -31,7 +31,7 @@ namespace Tenduke.Client.Util
                     ValidateIssuer = false,
                     ValidateLifetime = false,
                 };
-                var validationResult = new JsonWebTokenHandler().ValidateToken(encodedToken, validationParams);
+                var validationResult = new JsonWebTokenHandler().ValidateTokenAsync(encodedToken, validationParams).Result;
                 if (!validationResult.IsValid)
                 {
                     if (validationResult.Exception != null)

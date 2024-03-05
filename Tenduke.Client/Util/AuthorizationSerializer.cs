@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
+using System.Text.Json;
 using Tenduke.Client.Authorization;
 using Tenduke.Client.Config;
 
@@ -33,8 +31,7 @@ namespace Tenduke.Client.Util
         /// Caller of this method is responsible for closing the stream after calling this method.</param>
         public static void SerializeAuthorization(AuthorizationInfo authorization, Stream stream)
         {
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, authorization);
+            JsonSerializer.Serialize(stream, authorization);
         }
 
         /// <summary>
@@ -44,11 +41,9 @@ namespace Tenduke.Client.Util
         /// <returns>Byte array representing the serialized authorization object.</returns>
         public static byte[] SerializeAuthorization(AuthorizationInfo authorization)
         {
-            using (var stream = new MemoryStream())
-            {
-                SerializeAuthorization(authorization, stream);
-                return stream.ToArray();
-            }
+            using var stream = new MemoryStream();
+            SerializeAuthorization(authorization, stream);
+            return stream.ToArray();
         }
 
         /// <summary>
@@ -70,14 +65,10 @@ namespace Tenduke.Client.Util
         /// <returns>The deserialized <see cref="AuthorizationInfo"/>.</returns>
         public static AuthorizationInfo DeserializeAuthorization(Stream stream)
         {
-            var formatter = new BinaryFormatter();
-            var deserialized = formatter.Deserialize(stream);
-            if (!(deserialized is AuthorizationInfo))
-            {
-                throw new InvalidOperationException("The serialized object does not represent a valid AuthorizationInfo");
-            }
-
-            return deserialized as AuthorizationInfo;
+            var deserialized = JsonSerializer.Deserialize<AuthorizationInfo>(stream);
+            return deserialized is null
+                ? throw new InvalidOperationException("The serialized object does not represent a valid AuthorizationInfo")
+                : deserialized;
         }
 
         /// <summary>
@@ -87,10 +78,8 @@ namespace Tenduke.Client.Util
         /// <returns>The deserialized <see cref="AuthorizationInfo"/>.</returns>
         public static AuthorizationInfo DeserializeAuthorization(byte[] serialized)
         {
-            using (var stream = new MemoryStream(serialized))
-            {
-                return DeserializeAuthorization(stream);
-            }
+            using var stream = new MemoryStream(serialized);
+            return DeserializeAuthorization(stream);
         }
 
         /// <summary>
