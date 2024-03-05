@@ -337,17 +337,13 @@ namespace Tenduke.Client.Desktop.Util
             byte[] hash;
             if (hashAlg == HashAlg.SHA1)
             {
-                using (var sha1 = new SHA1Managed())
-                {
-                    hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(baseString));
-                }
+                using var hashAlgorithm = SHA1.Create();
+                hash = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(baseString));
             }
             else if (hashAlg == HashAlg.SHA256)
             {
-                using (var sha256 = SHA256.Create())
-                {
-                    hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(baseString));
-                }
+                using var sha256 = SHA256.Create();
+                hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(baseString));
             }
             else
             {
@@ -357,7 +353,6 @@ namespace Tenduke.Client.Desktop.Util
 
             return Base64Url.Encode(hash);
         }
-
         #endregion
     }
 }

@@ -84,11 +84,7 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         public async Task<string> Authorize(AuthorizationCodeGrantArgs args, CancellationToken? cancellationToken)
         {
             OnStarted();
-
-            HttpListener httpListener;
-            int port;
-            string redirectUri;
-            var result = TryBindListenerOnFreePort(out httpListener, out port, out redirectUri);
+            var result = TryBindListenerOnFreePort(out HttpListener httpListener, out _, out string redirectUri);
             if (!result)
             {
                 throw new InvalidOperationException(
@@ -162,27 +158,21 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
             NameValueCollection responseParameters,
             HttpListenerContext httpContext)
         {
-            using (var responseReader =
+            using var responseReader =
                 AuthorizationCompletedResponseResolver?.GetAuthorizationCompletedHtml(args, authzUri, responseParameters)
-                ?? GetDefaultAuthorizationCompletedHtmlReader())
+                ?? GetDefaultAuthorizationCompletedHtmlReader();
+            using var response = httpContext.Response;
+            response.ContentType = "text/html";
+            response.ContentEncoding = Encoding.UTF8;
+            using var responseOutput = new StreamWriter(response.OutputStream);
+            while (true)
             {
-                using (var response = httpContext.Response)
+                string line = responseReader.ReadLine();
+                if (line == null)
                 {
-                    response.ContentType = "text/html";
-                    response.ContentEncoding = Encoding.UTF8;
-                    using (var responseOutput = new StreamWriter(response.OutputStream))
-                    {
-                        while (true)
-                        {
-                            string line = responseReader.ReadLine();
-                            if (line == null)
-                            {
-                                break;
-                            }
-                            responseOutput.WriteLine(line);
-                        }
-                    }
+                    break;
                 }
+                responseOutput.WriteLine(line);
             }
         }
 

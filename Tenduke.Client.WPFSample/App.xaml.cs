@@ -13,10 +13,9 @@ namespace Tenduke.Client.WPFSample
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var resolverArgs = CefSharpUtil.AddAssemblyResolverForCefSharp();
             var cefSettings = WPF.EntClient.BuildDefaultCefSettings();
             cefSettings.IgnoreCertificateErrors = true;
-            WPF.EntClient.Initialize(cefSettings, resolverArgs);
+            WPF.EntClient.Initialize(cefSettings);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

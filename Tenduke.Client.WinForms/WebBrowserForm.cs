@@ -27,11 +27,6 @@ namespace Tenduke.Client.WinForms
         /// </summary>
         private bool initialPageLoadStarted;
 
-        /// <summary>
-        /// Indicates if the window is in closed state.
-        /// </summary>
-        private bool closed;
-
         #endregion
 
         #region Properties
@@ -109,8 +104,6 @@ namespace Tenduke.Client.WinForms
 
         private void WebBrowserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            closed = true;
-
             if (loaderPath != null)
             {
                 File.Delete(loaderPath);

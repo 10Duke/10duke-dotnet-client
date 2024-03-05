@@ -24,14 +24,13 @@ namespace Tenduke.Client.WinFormsSample
         /// <para><see cref="EntApiClient.Initialize"/> is called here for initializing <see cref="EntApiClient"/>.
         /// This method must be called once before using <see cref="EntApiClient"/> in the application.</para>
         /// </summary>
-        /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
-        internal WinFormsSampleApplicationContext(CefSharpResolverArgs resolverArgs)
+        internal WinFormsSampleApplicationContext()
         {
             Application.ApplicationExit += Application_ApplicationExit;
 
             // Application-wide static initialization of EntClient
-            WinForms.EntClient.Initialize(resolverArgs);
+            WinForms.EntClient.Initialize();
 
             mainForm = new MainForm();
             mainForm.FormClosed += MainForm_FormClosed;

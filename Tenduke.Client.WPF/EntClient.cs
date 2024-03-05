@@ -42,10 +42,10 @@ namespace Tenduke.Client.WPF
         /// </summary>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
-        public static void Initialize(CefSharpResolverArgs resolverArgs = null)
+        public static void Initialize()
         {
             var cefSettings = BuildDefaultCefSettings();
-            Initialize(cefSettings, resolverArgs);
+            Initialize(cefSettings);
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Tenduke.Client.WPF
         /// pass an empty instance. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
-        public static void Initialize(CefSettings cefSettings, CefSharpResolverArgs resolverArgs = null)
+        public static void Initialize(CefSettings cefSettings)
         {
-            BaseDesktopClient<EntClient>.Initialize(cefSettings, resolverArgs);
+            BaseDesktopClient.Initialize(cefSettings);
         }
 
         /// <summary>

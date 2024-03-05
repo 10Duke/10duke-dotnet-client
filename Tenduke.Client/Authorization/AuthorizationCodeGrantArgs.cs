@@ -41,11 +41,14 @@ namespace Tenduke.Client.Authorization
                 throw new InvalidOperationException("CodeVerifier must be set");
             }
 
-            using (var sha256 = SHA256.Create())
-            {
-                var challengeBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(CodeVerifier));
-                return Base64Url.Encode(challengeBytes);
-            }
+#if NET5_0_OR_GREATER
+            var challengeBytes = SHA256.HashData(Encoding.UTF8.GetBytes(CodeVerifier));
+            return Base64Url.Encode(challengeBytes);
+#else
+            using var sha256 = SHA256.Create();
+            var challengeBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(CodeVerifier));
+            return Base64Url.Encode(challengeBytes);
+#endif
         }
 
         /// <summary>
