@@ -11,6 +11,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <Version>4.0.0</Version>
+    <PackageReadMeFile>README.md</PackageReadMeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageId>Tenduke.Client.WinForms</PackageId>
+    <Authors>10Duke Software</Authors>
+    <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
+    <Copyright>Copyright © 2019- 10Duke Software</Copyright>
+    <PackageTags>Entitlement Licensing Identity 10Duke Desktop WinForms</PackageTags>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -37,14 +45,18 @@
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj" />
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="121.3.13" />
     <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="121.3.13" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
+    <None Include="README.md" Pack="true" PackagePath="\" Visible="true" />
   </ItemGroup>
 </Project>

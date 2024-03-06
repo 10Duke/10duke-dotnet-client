@@ -11,11 +11,12 @@
     <Copyright>Copyright © 2018- 10Duke Software</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
     <PackageIcon>10duke-192x192.png</PackageIcon>
+    <PackageReadMeFile>README.md</PackageReadMeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <PackageTags>Entitlement Licensing Identity 10Duke</PackageTags>
     <PackageReleaseNotes>Dependency updates</PackageReleaseNotes>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <SignAssembly>True</SignAssembly>
@@ -35,7 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
+    <None Include="README.md" Pack="true" PackagePath="\" Visible="true" />
+  </ItemGroup>
 </Project>

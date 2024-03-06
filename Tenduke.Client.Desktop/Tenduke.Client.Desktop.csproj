@@ -9,6 +9,15 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageId>Tenduke.Client.Desktop</PackageId>
+    <Authors>10Duke Software</Authors>
+    <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/10Duke/10duke-dotnet-client/master/10duke.ico</PackageIconUrl>
+    <PackageIcon>10duke-192x192.png</PackageIcon>
+    <Copyright>Copyright © 2019- 10Duke Software</Copyright>
+    <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
+    <PackageReadMeFile>README.md</PackageReadMeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -26,6 +35,7 @@
     <Company>10Duke Software</Company>
     <Product>Tenduke.Client.Desktop</Product>
     <Copyright>Copyright © 2021- 10Duke Software</Copyright>
+    <Version>4.0.0</Version>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <FileVersion>4.0.0.0</FileVersion>
   </PropertyGroup>
@@ -35,10 +45,6 @@
   <ItemGroup>
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="images\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
-  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <PackageReference Include="CefSharp.Common" Version="121.3.130" />
   </ItemGroup>
@@ -46,7 +52,15 @@
     <PackageReference Include="CefSharp.Common.NetCore" Version="121.3.130" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
     <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="121.3.13" />
+    <PackageReference Include="chromiumembeddedframework.runtime.win-arm64" Version="121.3.13" />
     <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="121.3.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
+    <None Include="README.md" Pack="true" PackagePath="\" Visible="true" />
   </ItemGroup>
 </Project>
