@@ -1,13 +1,13 @@
-# Client libraries for 10Duke Identity and Entitlement {#_client_libraries_for_10duke_identity_and_entitlement}
+# Client libraries for 10Duke Identity and Entitlement
 
 Client libraries for .NET applications, for using services of the 10Duke
 Identity and Entitlement. Main features are:
 
--   Querying user info
--   Checking and consuming licenses
--   Releasing consumed licenses
--   Checking end-user permissions
--   Authentication and authorization with OAuth 2.0 and OpenID Connect
+- Authentication and authorization with OAuth 2.0 and OpenID Connect
+- Querying user info
+- Checking and consuming licenses
+- Checking end-user permissions
+- Releasing consumed licenses
 
 | Package | Application type | .NET target framework(s) |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ All the client libraries are based on the generic
 base library, which can be used as a basis for building a client for any
 .NET Standard 2.0 compatible platform.
 
-## Installation {#_installation}
+## Installation
 
 All the client libraries are distributed via NuGet and can be installed via dotnet cli, Nuget command line,
 or the nuget package manager user interface in Visual Studio.

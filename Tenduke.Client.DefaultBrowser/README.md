@@ -9,8 +9,8 @@ Main features are:
 - Authentication and authorization with OAuth 2.0 and OpenID Connect
 - Querying user info
 - Checking and consuming licenses
-- Releasing consumed licenses
 - Checking end-user permissions
+- Releasing consumed licenses
 
 ## Installation
 
@@ -28,7 +28,7 @@ dotnet add package Tenduke.Client.DefaultBrowser
 ### Installation with NuGet PackageManager
 
 ```powershell
-    Install-Package Tenduke.Client.DefaultBrowser
+Install-Package Tenduke.Client.DefaultBrowser
 ```
 
 ## Basic usage
@@ -85,7 +85,7 @@ port range described above must be allowed as login callback URLs.
 An instance of EntClient can be created like this:
 
 ```csharp
-    var entClient = new EntClient() { OAuthConfig = myOAuthConfig };
+var entClient = new EntClient() { OAuthConfig = myOAuthConfig };
 ```
 
 Here, `myOAuthConfig` is an instance of
@@ -93,21 +93,21 @@ Here, `myOAuthConfig` is an instance of
 instance:
 
 ```csharp
-    var myOAuthConfig = new DefaultBrowserAuthorizationCodeGrantConfig()
-    {
-        AuthzUri = "https://my-test-idp.10duke.net/user/oauth20/authz",
-        TokenUri = "https://my-test-idp.10duke.net/user/oauth20/token",
-        UserInfoUri = "https://my-test-idp.10duke.net/user/info",
-        ClientID = "my-client-id",
-        ClientSecret = null,
-        RedirectUri = null,
-        Scope = "openid profile email",
-        SignerKey = [Public key of 10Duke Entitlement service],
-        ShowRememberMe = true,
-        UsePkce = true,
-        AllowInsecureCerts = false,
-        ResponseTimeout = 120
-    };
+var myOAuthConfig = new DefaultBrowserAuthorizationCodeGrantConfig()
+{
+    AuthzUri = "https://my-test-idp.10duke.net/user/oauth20/authz",
+    TokenUri = "https://my-test-idp.10duke.net/user/oauth20/token",
+    UserInfoUri = "https://my-test-idp.10duke.net/user/info",
+    ClientID = "my-client-id",
+    ClientSecret = null,
+    RedirectUri = null,
+    Scope = "openid profile email",
+    SignerKey = [Public key of 10Duke Entitlement service],
+    ShowRememberMe = true,
+    UsePkce = true,
+    AllowInsecureCerts = false,
+    ResponseTimeout = 120
+};
 ```
 
 Here, the Uris must point to an actual 10Duke Entitlement service
@@ -125,7 +125,7 @@ can be either an RSA public key in PEM format or URL of server JWKS
 endpoint:
 
 ```csharp
-    var publicKey = await Tenduke.Client.Util.CryptoUtil.ReadFirstRsaPublicKey(publicKeyOrJwksUrl, new HttpClient());
+var publicKey = await Tenduke.Client.Util.CryptoUtil.ReadFirstRsaPublicKey(publicKeyOrJwksUrl, new HttpClient());
 ```
 
 Please note that `RedirectUri` is ignored by this OS default browser
@@ -140,7 +140,7 @@ authentication, license requests etc.
 User authentication is started with this call:
 
 ```csharp
-    entClient.AuthorizeSync();
+entClient.AuthorizeSync();
 ```
 
 This starts the OAuth 2.0 / OpenID Connect flow in the OS default
@@ -153,14 +153,14 @@ When login is completed, user may close the browser window, and the
 the login has been completed successfully:
 
 ```csharp
-    var success = entClient.IsAuthorized();
+var success = entClient.IsAuthorized();
 ```
 
 Full OAuth authorization data included OpenID Connect ID Token is stored
 in the `Authorization` property:
 
 ```csharp
-    var authorizationInfo = entClient.Authorization;
+var authorizationInfo = entClient.Authorization;
 ```
 
 ### Using the client to make 10Duke API calls
@@ -170,7 +170,7 @@ Example user info and license requests are given below:
 #### User info request
 
 ```csharp
-    var userInfo = await entClient.UserInfoApi.GetUserInfoAsync();
+var userInfo = await entClient.UserInfoApi.GetUserInfoAsync();
 ```
 
 This call returns an object with OpenID Connect user info.
@@ -178,7 +178,7 @@ This call returns an object with OpenID Connect user info.
 #### Consume license
 
 ```csharp
-    var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync("MyLicense", true, ResponseType.JWT);
+var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync("MyLicense", true, ResponseType.JWT);
 ```
 
 The call above returns a
@@ -191,12 +191,12 @@ Expiration of the object is the same as expiration of the returned JWT
 token and expiration of the license lease.
 
 ```csharp
-    var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync(
-        "MyLicense",
-        true,
-        ResponseType.JWT,
-        ConsumptionMode.Cache,
-        new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("licenseId", licenseId) });
+var tokenResponse = await entClient.AuthzApi.CheckOrConsumeAsync(
+    "MyLicense",
+    true,
+    ResponseType.JWT,
+    ConsumptionMode.Cache,
+    new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("licenseId", licenseId) });
 ```
 
 This example specifies some more parameters to the consumption request.
@@ -214,14 +214,19 @@ the following configuration makes computer id computation use
 FIPS-compliant SHA256 hash algorithm:
 
 ```csharp
-    entClient.ComputerIdentityConfig = new ComputerIdentityConfig() { HashAlg = Desktop.Util.ComputerIdentity.HashAlg.SHA256 };
+entClient.ComputerIdentityConfig = new ComputerIdentityConfig() { HashAlg = Desktop.Util.ComputerIdentity.HashAlg.SHA256 };
 ```
 
 #### Release license
 
 ```csharp
-    var tokenResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse["jti"], ResponseType.JWT);
+var tokenResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse["jti"], ResponseType.JWT);
 ```
 
 This call is used for returning a consumed lease (license seat) back to
 the license pool.
+
+# Links
+
+- [10Duke Enterprise Documentation](https://docs.enterprise.10duke.com)
+- [Release Notes](https://github.com/10Duke/10duke-dotnet-client/releases)
