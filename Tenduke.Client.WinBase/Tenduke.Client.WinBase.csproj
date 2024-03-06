@@ -15,7 +15,8 @@
     <PackageReleaseNotes>Dependency updates</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadMeFile>README.md</PackageReadMeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <SignAssembly>True</SignAssembly>
@@ -25,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
+    <None Include="README.md" Pack="true" PackagePath="\" Visible="true" />
   </ItemGroup>
-
 </Project>
