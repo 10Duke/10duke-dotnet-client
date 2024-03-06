@@ -1,6 +1,7 @@
 # Client library for 10Duke Identity and Entitlement
 
-This is the base client library, other platform specific client libraries are built on this one. See https://github.com/10Duke/10duke-dotnet-client for client library listing.
+This is the base client library, other platform specific client libraries are built on this one.
+See the repository [README](https://github.com/10Duke/10duke-dotnet-client/blob/master/README.md) for client library listing.
 
 This base client library can also be used directly, instead of the more specific client libraries derived from this one. The main cases for using this base client library are:
 
@@ -11,12 +12,12 @@ Main features of this base client library are:
 
 - Querying user info
 - Checking and consuming licenses
-- Releasing consumed licenses
 - Checking end-user permissions
+- Releasing consumed licenses
 
 ## Installation
 
-The client library is available as a https://www.nuget.org/packages/Tenduke.Client/[NuGet package]. An example for installing the client library using NuGet Package Manager:
+The client library is available as a [NuGet package](https://www.nuget.org/packages/Tenduke.Client/). An example for installing the client library using NuGet Package Manager:
 
 ### Installation with dotnet cli
 
@@ -108,3 +109,8 @@ var releaseResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse
 ```
 
 This call is used for returning a consumed lease (license seat) back to the license pool.
+
+# Links
+
+- [10Duke Enterprise Documentation](https://docs.enterprise.10duke.com)
+- [Release Notes](https://github.com/10Duke/10duke-dotnet-client/releases)

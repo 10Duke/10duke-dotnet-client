@@ -21,6 +21,7 @@
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop WPF</PackageTags>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>https://github.com/10Duke/10duke-dotnet-client/releases</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />

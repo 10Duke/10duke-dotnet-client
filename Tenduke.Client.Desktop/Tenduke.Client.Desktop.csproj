@@ -16,6 +16,7 @@
     <PackageIcon>10duke-192x192.png</PackageIcon>
     <Copyright>Copyright © 2019- 10Duke Software</Copyright>
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop</PackageTags>
+    <PackageReleaseNotes>https://github.com/10Duke/10duke-dotnet-client/releases</PackageReleaseNotes>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>

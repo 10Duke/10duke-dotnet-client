@@ -19,6 +19,7 @@
     <RepositoryUrl>https://github.com/10Duke/10duke-dotnet-client.git</RepositoryUrl>
     <Copyright>Copyright © 2019- 10Duke Software</Copyright>
     <PackageTags>Entitlement Licensing Identity 10Duke Desktop WinForms</PackageTags>
+    <PackageReleaseNotes>https://github.com/10Duke/10duke-dotnet-client/releases</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

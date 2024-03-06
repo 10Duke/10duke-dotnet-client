@@ -3,11 +3,11 @@
 Client library for .NET Windows Forms (WinForms) applications, for using
 services of the 10Duke Identity and Entitlement. Main features are:
 
--   Authentication and authorization with OAuth 2.0 and OpenID Connect
--   Querying user info
--   Checking and consuming licenses
--   Releasing consumed licenses
--   Checking end-user permissions
+- Authentication and authorization with OAuth 2.0 and OpenID Connect
+- Querying user info
+- Checking and consuming licenses
+- Checking end-user permissions
+- Releasing consumed licenses
 
 ## Installation
 
@@ -250,3 +250,8 @@ var tokenResponse = await entClient.AuthzApi.ReleaseLicenseAsync(tokenResponse["
 
 This call is used for returning a consumed lease (license seat) back to
 the license pool.
+
+# Links
+
+- [10Duke Enterprise Documentation](https://docs.enterprise.10duke.com)
+- [Release Notes](https://github.com/10Duke/10duke-dotnet-client/releases)
