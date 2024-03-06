@@ -45,6 +45,9 @@ namespace Tenduke.Client.WinForms
         /// or <c>null</c> for default behavior.</param>
         public static void Initialize()
         {
+#if !NET5_0_OR_GREATER
+            CefSharpUtil.InitializeAssemblyResolver();
+#endif
             var cefSettings = BuildDefaultCefSettings();
             Initialize(cefSettings);
         }
@@ -64,6 +67,11 @@ namespace Tenduke.Client.WinForms
         /// pass an empty instance. Must not be <c>null</c>.</param>
         /// <param name="resolverArgs">Arguments for customizing how CefSharp / cef resources are searched,
         /// or <c>null</c> for default behavior.</param>
+        /// <remarks>
+        /// To call this method, the application needs to have created the CefSettings object, which means that
+        /// CefSharp.Core.Runtime assembly will already have been resolved.
+        /// For .NET Framework, this will require the application to have already called CefSharp
+        /// </remarks>
         public static void Initialize(CefSettings cefSettings)
         {
             BaseDesktopClient.Initialize(cefSettings);

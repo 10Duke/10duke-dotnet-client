@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Security.Cryptography;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Tenduke.Client.Util
@@ -16,6 +16,7 @@ namespace Tenduke.Client.Util
     /// </summary>
     public static class CryptoUtil
     {
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         #region Methods
 
         /// <summary>
@@ -37,33 +38,28 @@ namespace Tenduke.Client.Util
             }
             return new string(resultChars);
 #else
-            using (var crypto = new RNGCryptoServiceProvider())
+            using var crypto = new RNGCryptoServiceProvider();
+            var data = new byte[length];
+            int maxAllowedRandom = byte.MaxValue - ((byte.MaxValue + 1) % charsToUse.Length);
+            byte[] tmpBuffer = null;
+            crypto.GetBytes(data);
+            var resultChars = new char[length];
+            for (int i = 0; i < length; i++)
             {
-                var data = new byte[length];
-                int maxAllowedRandom = byte.MaxValue - ((byte.MaxValue + 1) % charsToUse.Length);
-                byte[] tmpBuffer = null;
-                crypto.GetBytes(data);
-                var resultChars = new char[length];
-                for (int i = 0; i < length; i++)
+                byte randomByte = data[i];
+
+                // Ensure random distribution
+                while (randomByte > maxAllowedRandom)
                 {
-                    byte randomByte = data[i];
-
-                    // Ensure random distribution
-                    while (randomByte > maxAllowedRandom)
-                    {
-                        if (tmpBuffer == null)
-                        {
-                            tmpBuffer = new byte[1];
-                        }
-                        crypto.GetBytes(tmpBuffer);
-                        randomByte = tmpBuffer[0];
-                    }
-
-                    resultChars[i] = charsToUse[randomByte % charsToUse.Length];
+                    tmpBuffer ??= new byte[1];
+                    crypto.GetBytes(tmpBuffer);
+                    randomByte = tmpBuffer[0];
                 }
 
-                return new string(resultChars);
+                resultChars[i] = charsToUse[randomByte % charsToUse.Length];
             }
+
+            return new string(resultChars);
 #endif
         }
 
@@ -108,9 +104,10 @@ namespace Tenduke.Client.Util
                 };
                 using var response = await httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();
-                var jwksResponse = await response.Content.ReadFromJsonAsync<JsonWebKeySet>();
+                var jwksResponseAsString = await response.Content.ReadAsStringAsync();
+                var jwks = JsonSerializer.Deserialize<Jwks>(jwksResponseAsString, _jsonSerializerOptions);
                 var retValue = new List<RSASigningKey>();
-                foreach (var jwk in jwksResponse.Keys)
+                foreach (var jwk in jwks.Keys)
                 {
                     var rsaPubKey = JsonWebKeyPublicToRSA(jwk);
                     retValue.Add(new RSASigningKey { KeyId = jwk.KeyId, RSAKey = rsaPubKey });
