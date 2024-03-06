@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 
 namespace Tenduke.Client.Desktop.Util
@@ -8,6 +9,14 @@ namespace Tenduke.Client.Desktop.Util
     /// </summary>
     public static class CefSharpUtil
     {
+#if !NET5_0_OR_GREATER
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void InitializeAssemblyResolver()
+        {
+            CefSharp.CefRuntime.SubscribeAnyCpuAssemblyResolver();
+        }
+#endif
+
         /// <summary>
         /// Initializes the CefSharp component, loading embedded browser resources for the
         /// correct architecture. This method must be called before using the embedded browser
@@ -18,9 +27,6 @@ namespace Tenduke.Client.Desktop.Util
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void InitializeCefSharp(CefSettingsBase cefSettings)
         {
-#if !NET5_0_OR_GREATER
-            CefSharp.CefRuntime.SubscribeAnyCpuAssemblyResolver();
-#endif
             Cef.Initialize(cefSettings, performDependencyCheck: false, browserProcessHandler: null);
         }
 

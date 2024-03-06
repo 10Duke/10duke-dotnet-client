@@ -19,8 +19,6 @@
     <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common.NETCore" Version="121.3.130" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="121.3.130" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Microsoft.IdentityModel.Abstractions" Version="7.4.0" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.4.0" />
