@@ -18,9 +18,15 @@ Main features of this base client library are:
 
 The client library is available as a https://www.nuget.org/packages/Tenduke.Client/[NuGet package]. An example for installing the client library using NuGet Package Manager:
 
+### Installation with dotnet cli
+
+```sh
+dotnet add package Tenduke.Client
+```
+
 ### Installation with NuGet PackageManager
 
-```
+```powershell
 Install-Package Tenduke.Client
 ```
 
