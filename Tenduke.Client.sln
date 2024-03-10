@@ -4,8 +4,6 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client", "Tenduke.Client\Tenduke.Client.csproj", "{B5112486-55F1-4FB7-9239-BD32A8BBFAB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Test", "Tenduke.Client.Test\Tenduke.Client.Test.csproj", "{72A68A54-B61D-4539-B1E4-45D677C7949A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.WinBase", "Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj", "{320D3508-4132-4206-9C79-112E4A3620D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.DefaultBrowser", "Tenduke.Client.DefaultBrowser\Tenduke.Client.DefaultBrowser.csproj", "{840EBF21-957A-443C-BE7F-0495898AF4DF}"
@@ -24,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.WPFSample", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.WinFormsSample.NetFramework", "Tenduke.Client.WinFormsSample.NetFramework\Tenduke.Client.WinFormsSample.NetFramework.csproj", "{03506B38-40B1-496F-B7FF-6C48FDCDB9E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenduke.Client.WPFSample.NetFramework", "Tenduke.Client.WPFSample.NetFramework\Tenduke.Client.WPFSample.NetFramework.csproj", "{E21BCB7F-8996-45F1-BA03-D313ED396959}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.WPFSample.NetFramework", "Tenduke.Client.WPFSample.NetFramework\Tenduke.Client.WPFSample.NetFramework.csproj", "{E21BCB7F-8996-45F1-BA03-D313ED396959}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tenduke.Client.Tests", "Tenduke.Client.Tests\Tenduke.Client.Tests.csproj", "{E753070A-5074-494C-A95D-FB717F45578F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,14 +42,6 @@ Global
 		{B5112486-55F1-4FB7-9239-BD32A8BBFAB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5112486-55F1-4FB7-9239-BD32A8BBFAB7}.Release|x64.ActiveCfg = Release|Any CPU
 		{B5112486-55F1-4FB7-9239-BD32A8BBFAB7}.Release|x64.Build.0 = Release|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Debug|x64.Build.0 = Debug|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Release|x64.ActiveCfg = Release|Any CPU
-		{72A68A54-B61D-4539-B1E4-45D677C7949A}.Release|x64.Build.0 = Release|Any CPU
 		{320D3508-4132-4206-9C79-112E4A3620D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{320D3508-4132-4206-9C79-112E4A3620D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{320D3508-4132-4206-9C79-112E4A3620D6}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -130,6 +122,14 @@ Global
 		{E21BCB7F-8996-45F1-BA03-D313ED396959}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E21BCB7F-8996-45F1-BA03-D313ED396959}.Release|x64.ActiveCfg = Release|Any CPU
 		{E21BCB7F-8996-45F1-BA03-D313ED396959}.Release|x64.Build.0 = Release|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Debug|x64.Build.0 = Debug|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Release|x64.ActiveCfg = Release|Any CPU
+		{E753070A-5074-494C-A95D-FB717F45578F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
