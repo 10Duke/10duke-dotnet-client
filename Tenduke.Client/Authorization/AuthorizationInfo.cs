@@ -5,9 +5,10 @@ namespace Tenduke.Client.Authorization
     /// <summary>
     /// Base class for authorization implementations, containing the authorization result data.
     /// </summary>
-    [Serializable]
-    public abstract class AuthorizationInfo
+    public class AuthorizationInfo
     {
+        public AuthorizationInfo() { }
+
         /// <summary>
         /// OAuth 2.0 Access Token response received from the 10Duke Identity and Entitlement service,
         /// or <c>null</c> if no access token currently obtained.
