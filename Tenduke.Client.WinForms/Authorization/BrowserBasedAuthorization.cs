@@ -13,7 +13,6 @@ namespace Tenduke.Client.WinForms.Authorization
     /// </summary>
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
-    [Serializable]
     public abstract class BrowserBasedAuthorization<O, A> : Authorization<O, A>
             where O : IBrowserBasedAuthorizationConfig
             where A : BrowserBasedAuthorizationArgs
@@ -24,7 +23,6 @@ namespace Tenduke.Client.WinForms.Authorization
         /// Raised when initializing the web browser form. Subscribers of the event may
         /// set properties of the form.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<InitializeBrowserFormEventArgs> RaiseInitializeBrowserForm;
 
         #endregion
@@ -34,13 +32,11 @@ namespace Tenduke.Client.WinForms.Authorization
         /// <summary>
         /// Form used for displaying the embedded web browser.
         /// </summary>
-        [field: NonSerialized]
         protected WebBrowserForm WebBrowserForm { get; set; }
 
         /// <summary>
         /// Indicates if CEF console logging is enabled.
         /// </summary>
-        [field: NonSerialized]
         public bool EnableCefConsoleLogging { get; set; }
 
         #endregion

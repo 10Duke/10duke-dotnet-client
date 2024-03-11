@@ -11,7 +11,6 @@ namespace Tenduke.Client.Authorization
     /// </summary>
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
-    [Serializable]
     public abstract class Authorization<O, A> : AuthorizationInfo
             where O : IOAuthConfig
             where A : AuthorizationArgs
@@ -21,7 +20,6 @@ namespace Tenduke.Client.Authorization
         /// <summary>
         /// Occurs when authorization process has been triggered.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<AuthorizationStartedEventArgs<O>> Started;
 
         /// <summary>
@@ -29,7 +27,6 @@ namespace Tenduke.Client.Authorization
         /// This event is triggered with OAuth 2.0 flows that call the authorization endpoint,
         /// i.e. with the Authorization Code Grant flow and the Implicit Grant flow.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<BeforeAuthorizationEventArgs> BeforeAuthorization;
 
         /// <summary>
@@ -40,27 +37,23 @@ namespace Tenduke.Client.Authorization
         /// <para>This event is triggered with OAuth 2.0 flows that call the authorization endpoint,
         /// i.e. with the Authorization Code Grant flow and the Implicit Grant flow.</para>
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<AfterAuthorizationEventArgs> AfterAuthorization;
 
         /// <summary>
         /// Occurs when authorization process has been interrupted by the end user.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<AuthorizationCancelledEventArgs> Cancelled;
 
         /// <summary>
         /// Occurs when authorization process has completed successfully and an access token response has been
         /// received from the 10Duke Entitlement service.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<AuthorizationCompletedEventArgs> Completed;
 
         /// <summary>
         /// Occurs when authorization process has failed and an error response has been
         /// received from the 10Duke Entitlement service.
         /// </summary>
-        [field: NonSerialized]
         public event EventHandler<AuthorizationFailedEventArgs> Failed;
 
         #endregion

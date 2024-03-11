@@ -11,7 +11,6 @@ namespace Tenduke.Client.WPF.Authorization
     /// Authorizes with the OAuth 2.0 Authorization Code Grant flow, using an embedded browser
     /// for displaying user interface.
     /// </summary>
-    [Serializable]
     public class AuthorizationCodeGrant
         : BrowserBasedAuthorization<IAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
