@@ -1,6 +1,6 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Tenduke.Client.Authorization;
 
@@ -17,7 +17,6 @@ public class AccessTokenResponse
     /// <summary>
     /// OpenID Connect ID token parsed from the access token response.
     /// </summary>
-    [NonSerialized]
     private IDToken parsedIdToken;
 
     /// <summary>
@@ -59,6 +58,7 @@ public class AccessTokenResponse
     /// <summary>
     /// RSA public key to use for verifying ID token signature.
     /// </summary>
+    [JsonIgnore]
     public RSA SignerKey { get; set; }
 
     public string Error { get; set; }
@@ -71,6 +71,7 @@ public class AccessTokenResponse
     /// Gets <see cref="IDToken"/> object for accessing values of the ID token received from the server.
     /// If signer key is specified, signature of the ID token is verified.
     /// </summary>
+    [JsonIgnore]
     public IDToken IDTokenObject
     {
         get

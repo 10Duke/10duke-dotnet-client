@@ -10,7 +10,6 @@ namespace Tenduke.Client.WPF.Authorization
     /// Base class for authorization implementations that use an embedded web browser
     /// for displaying user interface as necessary.
     /// </summary>
-    /// <typeparam name="T">Type of the implementing class.</typeparam>
     /// <typeparam name="O">OAuth 2.0 configuration object type.</typeparam>
     /// <typeparam name="A">Authorization process argument type.</typeparam>
     [Serializable]

@@ -93,7 +93,7 @@ namespace Tenduke.Client.WPF.Authorization
         protected void RequestAndHandleAccessToken(AuthorizationCodeGrantArgs args)
         {
             string jsonResponse = RequestAccessToken(args);
-            ReadAccessTokenResponse(jsonResponse);
+            ReadAccessTokenResponse(jsonResponse, OAuthConfig.SignerKey);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Tenduke.Client.WPF.Authorization
             }
 
             string jsonResponse = OAuthUtil.RefreshAccessToken(AccessTokenResponse.RefreshToken, OAuthConfig);
-            ReadAccessTokenResponse(jsonResponse);
+            ReadAccessTokenResponse(jsonResponse, OAuthConfig.SignerKey);
         }
 
         /// <summary>
@@ -123,31 +123,6 @@ namespace Tenduke.Client.WPF.Authorization
         protected string RequestAccessToken(AuthorizationCodeGrantArgs args)
         {
             return OAuthUtil.RequestAccessToken(AuthorizationCode, OAuthConfig, args.CodeVerifier);
-        }
-
-        /// <summary>
-        /// Parses response from the server to an access token request, and populates fields of this object.
-        /// </summary>
-        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
-        protected override void ReadAccessTokenResponse(dynamic accessTokenResponse)
-        {
-            ReadAccessTokenResponseCommon(accessTokenResponse);
-            if (accessTokenResponse["access_token"] == null)
-            {
-                AccessTokenResponse = null;
-                Error = accessTokenResponse["error"];
-                ErrorDescription = accessTokenResponse["error_description"];
-                ErrorUri = accessTokenResponse["error_uri"];
-            }
-            else
-            {
-                AccessTokenResponse = Client.Authorization.AccessTokenResponse.FromResponseObject(
-                    accessTokenResponse,
-                    OAuthConfig.SignerKey);
-                Error = null;
-                ErrorDescription = null;
-                ErrorUri = null;
-            }
         }
 
         /// <summary>
