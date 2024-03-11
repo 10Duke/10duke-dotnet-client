@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tenduke.Client.Config
+﻿namespace Tenduke.Client.Config
 {
     /// <summary>
     /// Interface for OAuth configuration that is common for all supported OAuth flows.

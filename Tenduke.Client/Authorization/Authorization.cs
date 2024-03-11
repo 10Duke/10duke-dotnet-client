@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
+using System.Security.Cryptography;
 using Tenduke.Client.Config;
 
 namespace Tenduke.Client.Authorization
@@ -103,27 +104,13 @@ namespace Tenduke.Client.Authorization
         /// Parses response from the server to an access token request, and populates fields of this object.
         /// </summary>
         /// <param name="accessTokenResponse">JSON string response received from the server.</param>
-        protected void ReadAccessTokenResponse(string accessTokenResponse)
+        protected void ReadAccessTokenResponse(string accessTokenResponse, RSA verifyWithKey)
         {
-            dynamic json = JsonConvert.DeserializeObject(accessTokenResponse);
-            ReadAccessTokenResponse(json);
-        }
-
-        /// <summary>
-        /// Parses response from the server to an access token request, and populates fields of this object.
-        /// </summary>
-        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
-        protected abstract void ReadAccessTokenResponse(dynamic accessTokenResponse);
-
-        /// <summary>
-        /// Parses response from the server to an access token request, and populates fields of this object.
-        /// </summary>
-        /// <param name="accessTokenResponse">Dynamic object representing the JSON response received from the server.</param>
-        protected void ReadAccessTokenResponseCommon(dynamic accessTokenResponse)
-        {
-            Error = accessTokenResponse["error"];
-            ErrorDescription = accessTokenResponse["error_description"];
-            ErrorUri = accessTokenResponse["error_uri"];
+            var accessToken = AccessTokenResponse.FromJsonStringResponse(accessTokenResponse, verifyWithKey);
+            AccessTokenResponse = accessToken;
+            Error = accessToken.Error;
+            ErrorDescription = accessToken.ErrorDescription;
+            ErrorUri = accessToken.ErrorUri;
             Received = DateTime.UtcNow;
         }
 

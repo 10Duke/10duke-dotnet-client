@@ -157,11 +157,11 @@ namespace Tenduke.Client.WPFSample
         /// </summary>
         private void ShowWelcomeMessage()
         {
-            var name = (string)EntClient.Authorization.AccessTokenResponse.IDToken["name"];
+            var name = EntClient.Authorization.AccessTokenResponse.IDTokenObject.Name;
             if (string.IsNullOrEmpty(name))
             {
-                var givenName = (string)EntClient.Authorization.AccessTokenResponse.IDToken["given_name"];
-                var familyName = (string)EntClient.Authorization.AccessTokenResponse.IDToken["family_name"];
+                var givenName = EntClient.Authorization.AccessTokenResponse.IDTokenObject.GivenName;
+                var familyName = EntClient.Authorization.AccessTokenResponse.IDTokenObject.FamilyName;
 
                 var builder = new StringBuilder();
                 if (!string.IsNullOrEmpty(givenName))

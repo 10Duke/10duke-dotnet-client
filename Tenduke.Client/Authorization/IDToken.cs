@@ -1,7 +1,7 @@
-﻿using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Tenduke.Client.Util;
 
 namespace Tenduke.Client.Authorization
@@ -11,17 +11,29 @@ namespace Tenduke.Client.Authorization
     /// </summary>
     public class IDToken
     {
-        /// <summary>
-        /// The ID token payload as a dynamic object.
-        /// </summary>
-        public dynamic ResponsePayload { get; set; }
+        [JsonPropertyName("iss")]
+        public string Issuer { get; set; }
+        [JsonPropertyName("sub")]
+        public string Subject { get; set; }
+        [JsonPropertyName("aud")]
+        public string Audience { get; set; }
+        [JsonPropertyName("exp")]
+        public long Expiry { get; set; }
+        [JsonPropertyName("iat")]
+        public long IssuedAt { get; set; }
+        [JsonPropertyName("auth_time")]
+        public long AuthenticationTime { get; set; }
+        [JsonPropertyName("nonce")]
+        public string Nonce { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+        [JsonPropertyName("given_name")]
+        public string GivenName { get; set; }
+        [JsonPropertyName("family_name")]
+        public string FamilyName { get; set; }
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
 
-        /// <summary>
-        /// Access fields of the ID token.
-        /// </summary>
-        /// <param name="name">The ID token field name.</param>
-        /// <returns>Value of the response field, or <c>null</c> if no such field found or if response object not populated.</returns>
-        public object this[string name] => ResponsePayload?[name]?.Value;
 
         /// <summary>
         /// Parses the OpenID Connect ID token received from the 10Duke Entitlement Service and returns
@@ -35,8 +47,7 @@ namespace Tenduke.Client.Authorization
         public static IDToken Parse(string encodedToken, RSA verifyWithKey)
         {
             var decoded = JwtUtil.ReadPayload(encodedToken, verifyWithKey);
-            dynamic json = JsonConvert.DeserializeObject(decoded);
-            return new IDToken() { ResponsePayload = json };
+            return JsonSerializer.Deserialize<IDToken>(decoded);
         }
     }
 }
