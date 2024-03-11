@@ -19,7 +19,6 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
     /// <summary>
     /// Authorization Code Grant flow using OS default browser.
     /// </summary>
-    [Serializable]
     public class AuthorizationCodeGrant : Authorization<IDefaultBrowserAuthorizationCodeGrantConfig, AuthorizationCodeGrantArgs>
     {
         #region Public constants
@@ -37,7 +36,6 @@ namespace Tenduke.Client.DefaultBrowser.Authorization
         /// Resolver for HTML response to send after OIDC authentication / authorization
         /// process has been completed. If not specified, default HTML response is returned.
         /// </summary>
-        [field: NonSerialized]
         public IAuthorizationCompletedResponseResolver AuthorizationCompletedResponseResolver { get; set; }
 
         /// <summary>
