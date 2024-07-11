@@ -313,6 +313,10 @@ namespace Tenduke.Client.WPF
             {
             }
 
+            public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status, int errorCode, string errorMessage)
+            {
+            }
+
             public void OnRenderViewReady(IWebBrowser browserControl, IBrowser browser)
             {
             }

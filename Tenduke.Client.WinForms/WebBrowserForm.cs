@@ -268,6 +268,10 @@ namespace Tenduke.Client.WinForms
             {
                 return false;
             }
+
+            public void OnRenderProcessTerminated(IWebBrowser chromiumWebBrowser, IBrowser browser, CefTerminationStatus status, int errorCode, string errorMessage)
+            {
+            }
         }
 
         #endregion
