@@ -15,13 +15,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.WPF" Version="4.0.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.WPF" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="10duke.ico" />
