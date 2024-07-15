@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client.DefaultBrowser" Version="4.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="10duke.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -33,6 +29,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tenduke.Client.DefaultBrowser" Version="4.0.1" />
   </ItemGroup>
 
 </Project>
