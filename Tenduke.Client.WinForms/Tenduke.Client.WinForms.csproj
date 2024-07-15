@@ -10,7 +10,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <Version>4.0.0</Version>
+    <Version>4.0.1</Version>
     <PackageReadMeFile>README.md</PackageReadMeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>Tenduke.Client.WinForms</PackageId>
@@ -41,14 +41,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="126.2.7" />
