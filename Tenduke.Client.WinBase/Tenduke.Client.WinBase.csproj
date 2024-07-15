@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>net8.0-windows;netstandard2.0</TargetFrameworks>
-    <Version>4.0.0</Version>
+    <Version>4.0.1</Version>
     <Description>Base library for Windows based 10Duke Identity and Entitlement client libraries</Description>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
@@ -26,7 +26,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
