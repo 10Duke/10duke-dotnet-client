@@ -10,12 +10,6 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.0" />
-    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -36,5 +30,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="chromiumembeddedframework.runtime.win-x86" Version="126.2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.1" />
   </ItemGroup>
 </Project>
