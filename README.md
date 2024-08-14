@@ -1,3 +1,16 @@
+# THIS REPOSITORY IS UNDER LIMITED MAINTENANCE
+
+We've introduced a new generation of libraries for .NET, the [10Duke Enterprise SDK for .NET](https://gitlab.com/10Duke/enterprise/dotnet/dotnet-enterprise-sdk),
+to facilitate building applications that are licensed using [10Duke Enterprise](https://docs.enterprise.10duke.com/).
+We recommend new customers or new applications being integrated with [10Duke Enterprise](https://docs.enterprise.10duke.com/)
+use this latest generation of libraries.
+
+This library and the associated Nuget packages will receive security updates and limited maintenance
+until further notice.
+
+New feature development will be limited to the
+[10Duke Enterprise SDK for .NET](https://gitlab.com/10Duke/enterprise/dotnet/dotnet-enterprise-sdk).
+
 # Client libraries for 10Duke Identity and Entitlement
 
 Client libraries for .NET applications, for using services of the 10Duke
