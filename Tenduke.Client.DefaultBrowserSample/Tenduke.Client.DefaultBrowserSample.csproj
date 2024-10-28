@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client.DefaultBrowser" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client.DefaultBrowser" Version="4.0.2" />
   </ItemGroup>
 
 </Project>
