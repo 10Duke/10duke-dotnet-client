@@ -11,7 +11,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <Version>4.0.1</Version>
+    <Version>4.0.2</Version>
     <PackageId>Tenduke.Client.WPF</PackageId>
     <Authors>10Duke Software</Authors>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
@@ -53,9 +53,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.1" />
-    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
