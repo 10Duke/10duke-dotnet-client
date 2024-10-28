@@ -16,10 +16,10 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.1" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.1" />
-    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.1" />
-    <PackageReference Include="Tenduke.Client.WPF" Version="4.0.1" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.WPF" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="10duke.ico" />
