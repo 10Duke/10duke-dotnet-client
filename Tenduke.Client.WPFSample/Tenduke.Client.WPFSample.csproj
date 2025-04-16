@@ -13,7 +13,6 @@
     <Resource Include="10duke.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="chromiumembeddedframework.runtime.win-arm64" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Abstractions" Version="8.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.1.2" />
@@ -50,14 +49,5 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="129.0.11" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="126.2.7" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-x86" Version="126.2.7" />
   </ItemGroup>
 </Project>
