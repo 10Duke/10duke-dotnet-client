@@ -31,12 +31,12 @@
     <PackageIcon>10duke-192x192.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-    <PackageReference Include="CefSharp.Common" Version="129.0.110" />
-    <PackageReference Include="CefSharp.WinForms" Version="129.0.110" />
+    <PackageReference Include="CefSharp.Common" Version="135.0.170" />
+    <PackageReference Include="CefSharp.WinForms" Version="135.0.170" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
-    <PackageReference Include="CefSharp.Common.NetCore" Version="129.0.110" />
-    <PackageReference Include="CefSharp.WinForms.NetCore" Version="129.0.110" />
+    <PackageReference Include="CefSharp.Common.NetCore" Version="135.0.170" />
+    <PackageReference Include="CefSharp.WinForms.NetCore" Version="135.0.170" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
@@ -49,8 +49,9 @@
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="129.0.11" />
-    <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="129.0.11" />
+    <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="135.0.17" />
+    <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="135.0.17" />
+    <PackageReference Include="chromiumembeddedframework.runtime.win-arm64" Version="135.0.17" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
   </ItemGroup>
