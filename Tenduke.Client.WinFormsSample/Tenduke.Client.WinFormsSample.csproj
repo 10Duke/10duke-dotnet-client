@@ -26,6 +26,6 @@
     <PackageReference Include="Tenduke.Client" Version="4.0.2" />
     <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.2" />
     <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.3" />
   </ItemGroup>
 </Project>
