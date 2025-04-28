@@ -11,7 +11,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <Version>4.0.2</Version>
+    <Version>4.0.3</Version>
     <PackageId>Tenduke.Client.WPF</PackageId>
     <Authors>10Duke Software</Authors>
     <PackageProjectUrl>https://github.com/10Duke/10duke-dotnet-client</PackageProjectUrl>
