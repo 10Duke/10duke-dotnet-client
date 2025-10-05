@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <TargetFrameworks>net8.0-windows;netstandard2.0</TargetFrameworks>
-    <Version>4.0.2</Version>
+    <Version>4.0.4</Version>
     <Description>Base library for Windows based 10Duke Identity and Entitlement client libraries</Description>
     <Authors>10Duke Software</Authors>
     <Company>10Duke Software</Company>
