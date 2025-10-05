@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.4" />
   </ItemGroup>
 
 </Project>
