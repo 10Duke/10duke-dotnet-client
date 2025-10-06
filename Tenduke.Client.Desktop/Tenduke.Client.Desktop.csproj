@@ -36,7 +36,7 @@
     <Company>10Duke Software</Company>
     <Product>Tenduke.Client.Desktop</Product>
     <Copyright>Copyright © 2021- 10Duke Software</Copyright>
-    <Version>4.0.4</Version>
+    <Version>4.0.5</Version>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\loader.html" />
