@@ -10,12 +10,15 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="140.1.14" />
+    <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="140.1.14" />
+    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="140.1.14" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.2" />
+    <PackageReference Include="Tenduke.Client" Version="4.0.5" />
+    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.5" />
+    <PackageReference Include="Tenduke.Client.WinBase" Version="4.0.5" />
+    <PackageReference Include="Tenduke.Client.WinForms" Version="4.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
