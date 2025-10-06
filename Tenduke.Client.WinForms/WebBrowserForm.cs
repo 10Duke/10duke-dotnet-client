@@ -3,6 +3,7 @@ using CefSharp.Enums;
 using CefSharp.Structs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -34,6 +35,7 @@ namespace Tenduke.Client.WinForms
         /// <summary>
         /// The initial address for the browser.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Address { get; set; }
 
         /// <summary>
@@ -41,21 +43,29 @@ namespace Tenduke.Client.WinForms
         /// starting with this Uri are intercepted by this component and interpreted
         /// as server responses.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// 
         public string RedirectUri { get; set; }
 
         /// <summary>
         /// Full response Uri of the request received from the server, used by the server for sending the response.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// 
         public string ResponseUri { get; set; }
 
         /// <summary>
         /// Indicates if insecure certificates are accepted.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// 
         public bool AllowInsecureCerts { get; set; }
 
         /// <summary>
         /// Indicates if CEF console logging is enabled.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// 
         public bool EnableCefConsoleLogging { get; set; }
 
         #endregion
