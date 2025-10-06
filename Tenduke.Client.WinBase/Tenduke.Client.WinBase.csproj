@@ -26,7 +26,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="9.0.9" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,5 +35,9 @@
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
     <None Include="README.md" Pack="true" PackagePath="\" Visible="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
   </ItemGroup>
 </Project>
