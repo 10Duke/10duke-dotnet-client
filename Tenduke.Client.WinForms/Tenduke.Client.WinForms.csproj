@@ -39,11 +39,11 @@
     <PackageReference Include="CefSharp.WinForms.NetCore" Version="140.1.140" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
-    <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
-    <PackageReference Include="Tenduke.Client" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.Desktop" Version="4.0.2" />
-    <PackageReference Include="Tenduke.Client.Winbase" Version="4.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="9.0.9" />
+    <ProjectReference Include="..\Tenduke.Client\Tenduke.Client.csproj" />
+    <ProjectReference Include="..\Tenduke.Client.Desktop\Tenduke.Client.Desktop.csproj" />
+    <ProjectReference Include="..\Tenduke.Client.WinBase\Tenduke.Client.WinBase.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\10duke-192x192.png" Pack="true" Visible="false" PackagePath="\" />
@@ -53,7 +53,7 @@
     <PackageReference Include="chromiumembeddedframework.runtime.win-x86" Version="140.1.14" />
     <PackageReference Include="chromiumembeddedframework.runtime.win-arm64" Version="140.1.14" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="../LICENSE" Pack="true" PackagePath="\" Visible="true" />
